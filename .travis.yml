@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: cLVmR371METxI7tO1TtNLFcKWs3kld8BCoj0Sjob41P+l7dkLW2u1iiLEybmu1Cy95SBwRQM+H/2x1JPp2/RQqxu9YFOUJclbPY06Mb7oKmnVZPbwREs7ujvd38olEAzz4ryYb/5d1CuWriffac2PaJIK/rleXtHbZO3PlNU2xd7ku65hVP/wmb1qyf9gbtC+0mn4k9K/TBGH9fEHLaAmZVOMRWBszZRnx3VWapMWMc/x5ieaRumCXjJ7s7+NSJeu4xcZxzE77kL76AOkcBcr3/Gp4Wz0UE/a+FowjE7RPJzU4deAYli7h2XIZzKdufxOt460czMp9itc3uQP0i1x+KNIPATiI0QZNCd7PHivFpxs0OZWYzVyY9W9Ie63lPKo/cJ10ANHszxsoSrSg0FUQC2e2tOF0ynm52qjbkiKL2yzU26h7dFP91hRGdy/yoM3t9iDP6t1hCe6aUtz4WQoOZKViad0D6FEy/8gbQat+LmQSc3r4vwt2xsYR4i4gzxgzV9nraGUqehc+sIrHfQ1jgLTx1oiGU4knUnomQFiIien81pYPlTFVOL9FNzSLfvfI9rstFQyekCpaEE/YoQrxwFvzjLXeGcYggYCnf9Aooel+NWMj+TrZj+yWTQuOH1cR7uZTINVP73Bp5HAultVgZWVgUPNpXvS8IZVqooaM8=
+  app: devcupid
+  on:
+    repo: thinkful-c11/devcupid
