@@ -1,11 +1,12 @@
 {
   "name": "devcupid",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./server/server.js",
-    "dev": "concurrently \"npm run start\" \"npm run watch\"",
+    "start": "node ./server/server.js",
+    "dev:start": "nodemon ./server/server.js",
+    "dev": "concurrently \"npm run dev:start\" \"npm run watch\"",
     "webpack": "webpack --config ./config/webpack.config.js",
     "watch": "webpack --watch --config ./config/webpack.config.js"
   },
