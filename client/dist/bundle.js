@@ -22316,12 +22316,16 @@ var App = exports.App = function (_React$Component) {
     }
 
     _createClass(App, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return _react2.default.createElement(
-                'div',
-                null,
-                'Hello World'
+                "div",
+                { className: "temporary-button" },
+                _react2.default.createElement(
+                    "a",
+                    { href: "/auth/github/callback" },
+                    "CLICK ME TO SIGN IN FOR NOW"
+                )
             );
         }
     }]);
