@@ -86,7 +86,7 @@ app.get('/auth/github/callback',
   }
 );
 
-function deepUpdate(profile, update) {
+function deepUpdate(update) {
    const setObject = {};
    Object.keys(update).forEach((key) => {
     if (typeof update[key] === 'object') {
@@ -102,13 +102,12 @@ function deepUpdate(profile, update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/update-user/:userId', (req, res) => {
-    Users.findOne({ 'gitHub.id': req.params.userId })
+    Users.findOneAndUpdate(
+      { 'gitHub.id': req.params.userId }, 
+      { $set: deepUpdate(req.body) }, 
+      { new: true }).exec()
     .then(profile => {
-        const obj = deepUpdate(profile, req.body);
-        Users.update({'gitHub.id': req.params.userId }, {$set: obj})
-        .then(profile => {
-          console.log(profile);
-        });
+      res.json(profile);
     })
     .catch(err => {
       console.log(err);
