@@ -1,0 +1,20 @@
+$Varela:'Varela Round', sans-serif;
+$Noto:'Noto Serif', serif;
+
+.Varela{
+  font-family: 'Varela Round', sans-serif;
+}
+
+.Noto{
+  font-family: 'Noto Serif', serif;
+}
+
+.Noto-Italic{
+  @extend .Noto;
+  font-style:italic;
+}
+
+.Noto-Bold{
+  @extend .Noto;
+  font-weight:700;
+}
