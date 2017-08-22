@@ -1,5 +1,17 @@
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
 .test {
-  color: red;
+  color: #A34170;
   font-size: 40px; }
 
 /*# sourceMappingURL=style.css.map*/
