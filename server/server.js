@@ -17,6 +17,7 @@ const secret = {
 };
 
 const app = express();
+app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -43,7 +44,7 @@ passport.use(new GitHubStrategy({
             // githubId: ,
             // accessToken: accessToken
         // };
-        console.log(user)
+        // console.log(user)
         return cb(null, user);
     }
 ));
@@ -56,13 +57,9 @@ app.get('/auth/github/callback',
   function(req, res) {
     const githubUser = req.user._json;
     // githubUser.id might be a number
-    console.log('1')
-    console.log(Users)
     Users.findOne({ 'gitHub.id': githubUser.id }).exec()
     .then(user => {
-      console.log('2')
       if (!user) {
-        console.log('3')
         Users.create({
           onboarded: false,
           gitHub: {
@@ -78,9 +75,8 @@ app.get('/auth/github/callback',
             hireable: githubUser.hireable,
             bio: githubUser.bio
           }
-        }).then(newUser => {console.log('4'); return res.json(newUser)});
+        }).then(newUser => res.json(newUser));
       } else {
-        console.log('5')
         res.json(user);
       }
     })
@@ -90,8 +86,40 @@ app.get('/auth/github/callback',
   }
 );
 
-app.get('/login-success', (req, res) => {
-  
+function deepUpdate(profile, update) {
+   const setObject = {};
+   Object.keys(update).forEach((key) => {
+    if (typeof update[key] === 'object') {
+      Object.keys(update[key]).forEach((subkey) => {
+        setObject[`${key}.${subkey}`] = update[key][subkey];
+      });
+    } else {
+      setObject[key] = update[key];
+    }
+  });
+  return setObject;
+}
+
+// passport.authenticate('github', { failureRedirect: '/' }
+app.put('/update-user/:userId', (req, res) => {
+    Users.findOne({ 'gitHub.id': req.params.userId })
+    .then(profile => {
+        const obj = deepUpdate(profile, req.body);
+        Users.update({'gitHub.id': req.params.userId }, {$set: obj})
+        .then(profile => {
+          console.log(profile);
+        });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+});
+
+app.get('/profile', (req, res) => {
+  // our database should be 'in sync' with githubs,
+  // github object on Users model should update when 
+  // github updates.
+  // To do that, we will update our database every time a profile is viewed.
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
