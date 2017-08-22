@@ -29221,7 +29221,31 @@ var Question = exports.Question = function (_React$Component) {
       var whichQuestion = void 0;
       switch (currentQuestion.type) {
         case 'signup':
-          whichQuestion = 'SIGNUP';
+          var choicesList = currentQuestion.choices.map(function (q, index) {
+            return _react2.default.createElement(
+              'div',
+              { key: index + q.key },
+              _react2.default.createElement(
+                'label',
+                { id: q.key },
+                q.label
+              ),
+              _react2.default.createElement('input', {
+                htmlFor: q.key,
+                type: 'text'
+              })
+            );
+          });
+          whichQuestion = _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              currentQuestion.text
+            ),
+            choicesList
+          );
           break;
         case 'textInput':
           whichQuestion = 'TEXT INPUT';

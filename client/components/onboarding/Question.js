@@ -13,7 +13,23 @@ export class Question extends React.Component {
     let whichQuestion;
     switch (currentQuestion.type) {
     case 'signup':
-      whichQuestion = 'SIGNUP';
+      const choicesList = currentQuestion.choices.map((q, index)=> {
+        return (
+          <div key={index + q.key}>
+            <label id={q.key}>{q.label}</label>
+            <input
+              htmlFor={q.key}
+              type='text'
+            />
+          </div>
+        );
+      });
+      whichQuestion = (
+        <div>
+          <h1>{currentQuestion.text}</h1>
+          {choicesList}
+        </div>
+      );
       break;
     case 'textInput':
       whichQuestion = 'TEXT INPUT';
