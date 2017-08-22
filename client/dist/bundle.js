@@ -29182,6 +29182,8 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(209);
 
+var _reactRouterDom = __webpack_require__(104);
+
 var _actions = __webpack_require__(240);
 
 var actions = _interopRequireWildcard(_actions);
@@ -29213,16 +29215,67 @@ var Question = exports.Question = function (_React$Component) {
           onboardingQuestions = _props.onboardingQuestions;
 
       var currentQuestion = onboardingQuestions[questionId];
-      console.log(currentQuestion);
     }
   }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        'TESTING'
-      );
+      var _props2 = this.props,
+          questionId = _props2.questionId,
+          onboardingQuestions = _props2.onboardingQuestions;
+
+      var currentQuestion = onboardingQuestions[questionId];
+      console.log(currentQuestion);
+      var nextQuestion = ++questionId;
+      switch (currentQuestion.type) {
+        case 'signup':
+          return _react2.default.createElement(
+            'div',
+            null,
+            'SIGNUP',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                to: '/onboarding/' + nextQuestion },
+              _react2.default.createElement(
+                'button',
+                null,
+                'NEXT'
+              )
+            )
+          );
+        case 'textInput':
+          return _react2.default.createElement(
+            'div',
+            null,
+            'TEXT INPUT',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                to: '/onboarding/' + nextQuestion },
+              _react2.default.createElement(
+                'button',
+                null,
+                'NEXT'
+              )
+            )
+          );
+        case 'checkbox':
+          return _react2.default.createElement(
+            'div',
+            null,
+            'CHECKBOX',
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              {
+                to: '/onboarding/' + nextQuestion },
+              _react2.default.createElement(
+                'button',
+                null,
+                'NEXT'
+              )
+            )
+          );
+      }
     }
   }]);
 
