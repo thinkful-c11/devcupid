@@ -5,10 +5,11 @@ import Question from '../components/onboarding/Question';
 
 export default class OnboardingScreen extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <div className='onboarding-container'>
         <form className='question-form'>
-          <Question questionId={this.props.params.questionId} />
+          <Question questionId={this.props.match.params.questionId} />
         </form>
         <SubmitButton />
       </div>
