@@ -112,7 +112,7 @@ const initialState = {
     },
     {
       text: 'What (if any) languages and libraries are you competent with?',
-      type: 'checkbox',
+      type: 'checkbox-nested',
       choices: [
         {
           language: 'JavaScript',

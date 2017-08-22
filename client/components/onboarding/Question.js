@@ -59,7 +59,37 @@ export class Question extends React.Component {
         </div>
       );
       break;
+    case 'checkbox-nested':
+      const nestedList = currentQuestion.choices.map((q, index) => {
+        return (
+          <div key={index}>
+            <label htmlFor={index}>{q.language}</label>
+            <input id={index} type='checkbox' value={q.language} />
+            {
+                q.libraries.map((l, index) => {
+                  return (
+                    <div key={`language${index}`}>
+                      <label htmlFor={`language${index}`}>{l}</label>
+                      <input
+                        id={`language${index}`}
+                        type='checkbox'
+                        value={l} />
+                    </div>
+                  );
+                })
+              }
+          </div>
+        );
+      });
+      whichQuestion = (
+        <div>
+          <h1>{currentQuestion.text}</h1>
+          {nestedList}
+        </div>
+      );
+      break;
     }
+    
     return (
       <div>
         {whichQuestion}

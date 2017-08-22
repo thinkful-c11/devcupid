@@ -26224,7 +26224,7 @@ var initialState = {
     choices: ['Front-End Web Developer', 'Back-End Web Developer', 'Full-Stack Web Developer', 'Web Designer', 'UI Engineer', 'UX Engineer', 'Database Architect', 'Founder', 'Investor', 'DevOps', 'Developer', 'Designer']
   }, {
     text: 'What (if any) languages and libraries are you competent with?',
-    type: 'checkbox',
+    type: 'checkbox-nested',
     choices: [{
       language: 'JavaScript',
       libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node.js']
@@ -29290,7 +29290,47 @@ var Question = exports.Question = function (_React$Component) {
             checkboxList
           );
           break;
+        case 'checkbox-nested':
+          var nestedList = currentQuestion.choices.map(function (q, index) {
+            return _react2.default.createElement(
+              'div',
+              { key: index },
+              _react2.default.createElement(
+                'label',
+                { htmlFor: index },
+                q.language
+              ),
+              _react2.default.createElement('input', { id: index, type: 'checkbox', value: q.language }),
+              q.libraries.map(function (l, index) {
+                return _react2.default.createElement(
+                  'div',
+                  { key: 'language' + index },
+                  _react2.default.createElement(
+                    'label',
+                    { htmlFor: 'language' + index },
+                    l
+                  ),
+                  _react2.default.createElement('input', {
+                    id: 'language' + index,
+                    type: 'checkbox',
+                    value: l })
+                );
+              })
+            );
+          });
+          whichQuestion = _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              currentQuestion.text
+            ),
+            nestedList
+          );
+          break;
       }
+
       return _react2.default.createElement(
         'div',
         null,
