@@ -26369,7 +26369,10 @@ var App = function (_React$Component) {
           'main',
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _LoginScreen2.default }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/onboarding/:questionId', component: _OnboardingScreen2.default })
+          _react2.default.createElement(_reactRouterDom.Route, {
+            path: '/onboarding/:questionId'
+            // path='/onboarding' re Issue #2
+            , component: _OnboardingScreen2.default })
         )
       );
     }
@@ -29052,7 +29055,10 @@ var LoginScreen = function (_React$Component) {
         { className: 'login-container' },
         _react2.default.createElement(
           _reactRouterDom.Link,
-          { to: '/onboarding/' + questionId },
+          {
+            to: '/onboarding/' + questionId
+            // to='/onboarding' re: Issue #2
+          },
           'Sign Up With GitHub'
         )
       );
@@ -29109,7 +29115,6 @@ var OnboardingScreen = function (_React$Component) {
   _createClass(OnboardingScreen, [{
     key: 'render',
     value: function render() {
-      console.log(this.props);
       return _react2.default.createElement(
         'div',
         { className: 'onboarding-container' },
@@ -29194,6 +29199,7 @@ var Question = function (_React$Component) {
   _createClass(Question, [{
     key: 'render',
     value: function render() {
+      // console.log('ID?', this.props.questionId);
       return _react2.default.createElement(
         'div',
         null,

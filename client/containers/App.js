@@ -10,7 +10,10 @@ export default class App extends React.Component {
       <Router>
         <main>
           <Route exact path='/' component={LoginScreen} />
-          <Route path='/onboarding/:questionId' component={OnboardingScreen} />
+          <Route
+            path='/onboarding/:questionId'
+            // path='/onboarding' re Issue #2
+            component={OnboardingScreen} />
         </main>
       </Router>
     );
