@@ -29085,12 +29085,22 @@ var LoginScreen = function (_React$Component) {
         'div',
         { className: 'login-container' },
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          {
-            to: '/onboarding/' + questionId
-            // to='/onboarding' re: Issue #2
-          },
-          'Sign Up With GitHub'
+          'div',
+          null,
+          _react2.default.createElement(
+            'a',
+            { href: '/auth/github' },
+            ' Sign In With GitHub '
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/onboarding/' + questionId },
+            ' Start Onboarding '
+          )
         )
       );
     }
@@ -29100,6 +29110,17 @@ var LoginScreen = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = LoginScreen;
+
+
+_react2.default.createElement(
+  'div',
+  { className: 'temporary-button' },
+  _react2.default.createElement(
+    'a',
+    { href: '/auth/github/callback' },
+    'CLICK ME TO SIGN IN FOR NOW'
+  )
+);
 
 /***/ }),
 /* 270 */

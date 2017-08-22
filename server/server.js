@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
+app.get(/^(?!\/auth(\/|$))/, (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
 });
