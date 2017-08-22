@@ -29227,11 +29227,11 @@ var Question = exports.Question = function (_React$Component) {
               { key: index + q.key },
               _react2.default.createElement(
                 'label',
-                { id: q.key },
+                { htmlFor: q.key },
                 q.label
               ),
               _react2.default.createElement('input', {
-                htmlFor: q.key,
+                id: q.key,
                 type: 'text'
               })
             );
@@ -29248,7 +29248,26 @@ var Question = exports.Question = function (_React$Component) {
           );
           break;
         case 'textInput':
-          whichQuestion = 'TEXT INPUT';
+          whichQuestion = _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              currentQuestion.text
+            ),
+            _react2.default.createElement(
+              'label',
+              {
+                htmlFor: currentQuestion.choices[0].key
+              },
+              currentQuestion.choices[0].label
+            ),
+            _react2.default.createElement('input', {
+              id: currentQuestion.choices[0].key,
+              type: 'text'
+            })
+          );
           break;
         case 'checkbox':
           whichQuestion = 'CHECKBOX';

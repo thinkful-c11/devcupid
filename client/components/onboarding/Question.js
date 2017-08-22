@@ -16,9 +16,9 @@ export class Question extends React.Component {
       const choicesList = currentQuestion.choices.map((q, index)=> {
         return (
           <div key={index + q.key}>
-            <label id={q.key}>{q.label}</label>
+            <label htmlFor={q.key}>{q.label}</label>
             <input
-              htmlFor={q.key}
+              id={q.key}
               type='text'
             />
           </div>
@@ -32,7 +32,19 @@ export class Question extends React.Component {
       );
       break;
     case 'textInput':
-      whichQuestion = 'TEXT INPUT';
+      whichQuestion = (
+        <div>
+          <h1>{currentQuestion.text}</h1>
+          <label
+            htmlFor={currentQuestion.choices[0].key}
+            >{currentQuestion.choices[0].label}
+          </label>
+          <input
+            id={currentQuestion.choices[0].key}
+            type='text'
+          />
+        </div>
+      );
       break;
     case 'checkbox':
       whichQuestion = 'CHECKBOX';
