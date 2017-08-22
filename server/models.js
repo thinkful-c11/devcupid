@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const UserModel = mongoose.Schema({
+    onboarded: {type: Boolean},
     gitHub: {
         id: {type: String},
         login: {type: String},

@@ -43,6 +43,7 @@ passport.use(new GitHubStrategy({
             // githubId: ,
             // accessToken: accessToken
         // };
+        console.log(user)
         return cb(null, user);
     }
 ));
@@ -56,24 +57,27 @@ app.get('/auth/github/callback',
     const githubUser = req.user._json;
     // githubUser.id might be a number
     console.log('1')
-    console.log('githubUser', githubUser)
+    console.log(Users)
     Users.findOne({ 'gitHub.id': githubUser.id }).exec()
     .then(user => {
       console.log('2')
       if (!user) {
         console.log('3')
         Users.create({
-          id: githubUser.id,
-          login: githubUser.login,
-          avatar_url: githubUser.avatar_url,
-          html_url: githubUser.html_url,
-          name: githubUser.name,
-          company: githubUser.company,
-          blog: githubUser.blog,
-          location: githubUser.location,
-          email: githubUser.email,
-          hireable: githubUser.hireable,
-          bio: githubUser.bio
+          onboarded: false,
+          gitHub: {
+            id: githubUser.id,
+            login: githubUser.login,
+            avatar_url: githubUser.avatar_url,
+            html_url: githubUser.html_url,
+            name: githubUser.name,
+            company: githubUser.company,
+            blog: githubUser.blog,
+            location: githubUser.location,
+            email: githubUser.email,
+            hireable: githubUser.hireable,
+            bio: githubUser.bio
+          }
         }).then(newUser => {console.log('4'); return res.json(newUser)});
       } else {
         console.log('5')
@@ -90,6 +94,20 @@ app.get('/login-success', (req, res) => {
   
 });
 
-app.listen(process.env.PORT, function() {
-    console.log('App running on port', process.env.PORT);
-});
+(function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
+  return new Promise((resolve, reject) => {
+    mongoose.connect(dbUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+      app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve();
+      })
+      .on('error', err => {
+        mongoose.disconnect();
+        reject(err);
+      });
+    });
+  });
+})();
