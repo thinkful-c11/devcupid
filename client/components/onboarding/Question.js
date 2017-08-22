@@ -4,49 +4,33 @@ import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
 
 export class Question extends React.Component {
-  componentDidMount() {
-    const { questionId, onboardingQuestions } = this.props;
-    const currentQuestion = onboardingQuestions[questionId];
-  }
   render() {
     let { questionId, onboardingQuestions } = this.props;
     const currentQuestion = onboardingQuestions[questionId];
     console.log(currentQuestion);
     const nextQuestion = ++questionId;
+
+    let whichQuestion;
     switch (currentQuestion.type) {
     case 'signup':
-      return (
-        <div>
-          SIGNUP
-          <Link
-            to={`/onboarding/${nextQuestion}`}>
-            <button>NEXT</button>
-          </Link>
-        </div>
-
-      );
+      whichQuestion = 'SIGNUP';
+      break;
     case 'textInput':
-      return (
-        <div>
-          TEXT INPUT
-          <Link
-            to={`/onboarding/${nextQuestion}`}>
-            <button>NEXT</button>
-          </Link>
-        </div>
-
-      );
+      whichQuestion = 'TEXT INPUT';
+      break;
     case 'checkbox':
-      return (
-        <div>
-          CHECKBOX
-          <Link
-            to={`/onboarding/${nextQuestion}`}>
-            <button>NEXT</button>
-          </Link>
-        </div>
-      );
+      whichQuestion = 'CHECKBOX';
+      break;
     }
+    return (
+      <div>
+        {whichQuestion}
+        <Link
+          to={`/onboarding/${nextQuestion}`}>
+          <button>NEXT</button>
+        </Link>
+      </div>
+    );
   }
 }
 

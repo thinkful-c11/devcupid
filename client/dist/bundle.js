@@ -29208,74 +29208,43 @@ var Question = exports.Question = function (_React$Component) {
   }
 
   _createClass(Question, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
+    key: 'render',
+    value: function render() {
       var _props = this.props,
           questionId = _props.questionId,
           onboardingQuestions = _props.onboardingQuestions;
 
       var currentQuestion = onboardingQuestions[questionId];
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props2 = this.props,
-          questionId = _props2.questionId,
-          onboardingQuestions = _props2.onboardingQuestions;
-
-      var currentQuestion = onboardingQuestions[questionId];
       console.log(currentQuestion);
       var nextQuestion = ++questionId;
+
+      var whichQuestion = void 0;
       switch (currentQuestion.type) {
         case 'signup':
-          return _react2.default.createElement(
-            'div',
-            null,
-            'SIGNUP',
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              {
-                to: '/onboarding/' + nextQuestion },
-              _react2.default.createElement(
-                'button',
-                null,
-                'NEXT'
-              )
-            )
-          );
+          whichQuestion = 'SIGNUP';
+          break;
         case 'textInput':
-          return _react2.default.createElement(
-            'div',
-            null,
-            'TEXT INPUT',
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              {
-                to: '/onboarding/' + nextQuestion },
-              _react2.default.createElement(
-                'button',
-                null,
-                'NEXT'
-              )
-            )
-          );
+          whichQuestion = 'TEXT INPUT';
+          break;
         case 'checkbox':
-          return _react2.default.createElement(
-            'div',
-            null,
-            'CHECKBOX',
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              {
-                to: '/onboarding/' + nextQuestion },
-              _react2.default.createElement(
-                'button',
-                null,
-                'NEXT'
-              )
-            )
-          );
+          whichQuestion = 'CHECKBOX';
+          break;
       }
+      return _react2.default.createElement(
+        'div',
+        null,
+        whichQuestion,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          {
+            to: '/onboarding/' + nextQuestion },
+          _react2.default.createElement(
+            'button',
+            null,
+            'NEXT'
+          )
+        )
+      );
     }
   }]);
 
