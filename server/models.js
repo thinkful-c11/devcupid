@@ -1,7 +1,5 @@
-// 'use strict';
-const express = require("express");
 const mongoose = require("mongoose");
-const userModel = mongoose.Schema({
+const UserModel = mongoose.Schema({
     gitHub: {
         id: {type: String},
         login: {type: String},
@@ -15,7 +13,10 @@ const userModel = mongoose.Schema({
         hireable: {type: Boolean},
         bio: {type: String}
     },
-    userInput: {
+    profile: {
+        personalTitle: {type: String},
+        passions: {type: Array},
+        remoteOk: {type: Boolean},
         avatar_url: {type: String},
         name: {type: String},
         company: {type: String},
@@ -28,19 +29,24 @@ const userModel = mongoose.Schema({
             twitter: {type: String},
             blog: {type: String}
         }
+    },
+    skills: {
+        roles: {type: Array},
+        languages: {type: Array},
+        libraries: {type: Array},
+        speciality: {type: Array},
+        softwareTools: {type: Array}
+    },
+    personality: {
+        
     }
 });
-const techQuestions = mongoose.Schema({
 
-});
-const personality = mongoose.Schema({
-
-});
-userModel.methods.apiRepr = function() {
+UserModel.methods.apiRepr = function() {
     return {
         id: this._id,
 
     };
 };
-const fillerHere = mongoose.model("UserModel", userModel);
-module.exports = { DevCupid };
+const Users = mongoose.model("Users", UserModel);
+module.exports = { Users };
