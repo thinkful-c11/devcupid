@@ -42,11 +42,11 @@ const UserModel = mongoose.Schema({
     }
 });
 
-UserModel.methods.apiRepr = function() {
-    return {
-        id: this._id,
+// UserModel.methods.apiRepr = function() {
+//     return {
+//         firstName: this.name.split(' ')[0],
+//         lastName: this.name.split(' ')[1],
+//     };
+// };
 
-    };
-};
-const Users = mongoose.model("Users", UserModel);
-module.exports = { Users };
+module.exports = mongoose.model("Users", UserModel);
