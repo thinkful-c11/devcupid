@@ -11,9 +11,17 @@ import CheckboxNested from '../components/onboarding/checkboxNested';
 export class OnboardingScreen extends React.Component {
   render() {
     const {onboardingQuestions} = this.props;
-    let currentIndex = this.props.match.params.questionId;
+    let currentIndex = parseInt(this.props.match.params.questionId);
     const currentQuestion = onboardingQuestions[currentIndex];
     let question;
+    let button;
+
+    if((currentIndex + 1) === onboardingQuestions.length){
+      button = <SubmitButton />
+    }
+    else{
+      button = <NextButton nextQuestion={++currentIndex}/>
+    }
 
     switch(currentQuestion.type){
       case 'signup':
@@ -32,8 +40,7 @@ export class OnboardingScreen extends React.Component {
     return (
         <form className='onboarding-container'>
           {question}
-          <NextButton nextQuestion={++currentIndex}/>
-          <SubmitButton />
+          {button}
         </form>
     );
   }
