@@ -29172,12 +29172,21 @@ exports.default = function (props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Question = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(6);
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(209);
+
+var _actions = __webpack_require__(240);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29187,7 +29196,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Question = function (_React$Component) {
+var Question = exports.Question = function (_React$Component) {
   _inherits(Question, _React$Component);
 
   function Question() {
@@ -29197,9 +29206,18 @@ var Question = function (_React$Component) {
   }
 
   _createClass(Question, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props = this.props,
+          questionId = _props.questionId,
+          onboardingQuestions = _props.onboardingQuestions;
+
+      var currentQuestion = onboardingQuestions[questionId];
+      console.log(currentQuestion);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      // console.log('ID?', this.props.questionId);
       return _react2.default.createElement(
         'div',
         null,
@@ -29211,7 +29229,13 @@ var Question = function (_React$Component) {
   return Question;
 }(_react2.default.Component);
 
-exports.default = Question;
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    onboardingQuestions: state.onboardingQuestions
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Question);
 
 /***/ }),
 /* 272 */

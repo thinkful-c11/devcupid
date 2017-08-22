@@ -1,8 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
 
-export default class Question extends React.Component {
+export class Question extends React.Component {
+  componentDidMount() {
+    const { questionId, onboardingQuestions } = this.props;
+    const currentQuestion = onboardingQuestions[questionId];
+    console.log(currentQuestion);
+  }
   render() {
-    // console.log('ID?', this.props.questionId);
     return (
       <div>
         TESTING
@@ -10,3 +16,9 @@ export default class Question extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  onboardingQuestions: state.onboardingQuestions
+});
+
+export default connect(mapStateToProps)(Question);
