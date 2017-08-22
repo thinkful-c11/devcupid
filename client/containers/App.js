@@ -1,10 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LoginScreen from './LoginScreen';
 import '../SCSS/App.scss';
 
-export class App extends React.Component {
+export default class App extends React.Component {
   render() {
     return (
-      <div className='test'>Hello World</div>
+      <Router>
+        <Route exact path='/' component={LoginScreen} />
+      </Router>
     );
   }
 }
