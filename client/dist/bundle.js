@@ -29230,10 +29230,7 @@ var Question = exports.Question = function (_React$Component) {
                 { htmlFor: q.key },
                 q.label
               ),
-              _react2.default.createElement('input', {
-                id: q.key,
-                type: 'text'
-              })
+              _react2.default.createElement('input', { id: q.key, type: 'text' })
             );
           });
           whichQuestion = _react2.default.createElement(
@@ -29270,7 +29267,28 @@ var Question = exports.Question = function (_React$Component) {
           );
           break;
         case 'checkbox':
-          whichQuestion = 'CHECKBOX';
+          var checkboxList = currentQuestion.choices.map(function (q, index) {
+            return _react2.default.createElement(
+              'div',
+              { key: index },
+              _react2.default.createElement(
+                'label',
+                { htmlFor: index },
+                q
+              ),
+              _react2.default.createElement('input', { id: index, type: 'checkbox', value: q })
+            );
+          });
+          whichQuestion = _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(
+              'h1',
+              null,
+              currentQuestion.text
+            ),
+            checkboxList
+          );
           break;
       }
       return _react2.default.createElement(

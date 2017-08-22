@@ -13,14 +13,11 @@ export class Question extends React.Component {
     let whichQuestion;
     switch (currentQuestion.type) {
     case 'signup':
-      const choicesList = currentQuestion.choices.map((q, index)=> {
+      const choicesList = currentQuestion.choices.map((q, index) => {
         return (
           <div key={index + q.key}>
             <label htmlFor={q.key}>{q.label}</label>
-            <input
-              id={q.key}
-              type='text'
-            />
+            <input id={q.key} type='text' />
           </div>
         );
       });
@@ -47,7 +44,20 @@ export class Question extends React.Component {
       );
       break;
     case 'checkbox':
-      whichQuestion = 'CHECKBOX';
+      const checkboxList = currentQuestion.choices.map((q, index) => {
+        return (
+          <div key={index}>
+            <label htmlFor={index}>{q}</label>
+            <input id={index} type='checkbox' value={q} />
+          </div>
+        );
+      });
+      whichQuestion = (
+        <div>
+          <h1>{currentQuestion.text}</h1>
+          {checkboxList}
+        </div>
+      );
       break;
     }
     return (
