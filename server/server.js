@@ -29,14 +29,10 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-<<<<<<< HEAD
-app.get('/api/', (req, res) => {
-    res.sendFile(path.resolve('/api/index.html'));
-=======
 // // Serve the built client
 // app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
@@ -45,7 +41,6 @@ app.get('/', (req, res) => {
 app.get(/^(?!\/auth(\/|$))/, (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
->>>>>>> origin/frontend-setup
 });
 
 // Configuring the GitHub strategy
