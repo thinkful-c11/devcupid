@@ -28,6 +28,7 @@ export const update_error = (error) => ({
   type: ref.UPDATE_ERROR,
   error
 });
+
 export const update_profile = (githubId, updateBody) => dispatch => {
   disptach(update_request());
   //TODO: verify body formatting matches what DB expects
@@ -39,8 +40,8 @@ export const update_profile = (githubId, updateBody) => dispatch => {
     body: JSON.stringify(updateObj)
   };
 
-  fetch(`/api/update-user/${githubId}`, (req, res) => {
-    if (!res.ok) {
+  fetch(`/api/update-user/${githubId}`, data).then(res => {
+    if(!res.ok) {
       return Promise.reject(res.statusText);
     }
     return res.json();
