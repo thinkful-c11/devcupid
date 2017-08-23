@@ -1,8 +1,6 @@
 import * as ref from './refs';
 
-export const login_request = () => ({
-  type: ref.LOGIN_REQUEST
-});
+
 
 export const signup_handler = (key, value) => ({
   type: ref.SIGNUP_HANDLER,
@@ -39,7 +37,6 @@ export const update_profile = (githubId, updateBody) => dispatch => {
     method: 'PUT',
     body: JSON.stringify(updateObj)
   };
-
   fetch(`/api/update-user/${githubId}`, data).then(res => {
     if(!res.ok) {
       return Promise.reject(res.statusText);
@@ -52,3 +49,29 @@ export const update_profile = (githubId, updateBody) => dispatch => {
     dispatch(update_error(error));
   });
 };
+
+// Actions for Auth/Login requests.
+export const login_request = () => ({
+  type: ref.LOGIN_REQUEST
+});
+export const login_success = user => ({
+  type: ref.UPDATE_SUCCESS,
+  user
+});
+export const login_error = error => ({
+  type: ref.UPDATE_ERROR,
+  error
+});
+// export const authGithub = () => dispatch => {
+//   dispatch(login_request());
+//   fetch('/api/auth/github').then(user => {
+//     if (!user) {
+//       return Promise.reject(user.statusText);
+//     }
+//     else {
+//       console.log(user);
+//     }
+//   }).catch(error => {
+//     dispatch(login_error(error));
+//   });
+// };
