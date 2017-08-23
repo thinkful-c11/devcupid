@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+const LanguageSchema = mongoose.Schema({
+    name: {type: String},
+    libraries: {type: Array}
+});
 const UserModel = mongoose.Schema({
     onboarded: {type: String},
     gitHub: {
@@ -19,8 +23,7 @@ const UserModel = mongoose.Schema({
         passions: {type: Array},
         skills: {
             roles: {type: Array},
-            languages: {type: Array},
-            libraries: {type: Array},
+            languages: [LanguageSchema],
             speciality: {type: Array},
             softwareTools: {type: Array}
         },
@@ -49,4 +52,7 @@ const UserModel = mongoose.Schema({
 //     };
 // };
 
-module.exports = mongoose.model("Users", UserModel);
+module.exports = {
+    Users: mongoose.model("Users", UserModel),
+    Languages: mongoose.model("Languages", LanguageSchema)
+}
