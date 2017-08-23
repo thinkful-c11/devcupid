@@ -124,12 +124,23 @@ app.put('/api/update-user/:userId', (req, res) => {
     });
 });
 
-app.get('/api/profile', (req, res) => {
-  // our database should be 'in sync' with githubs,
-  // github object on Users model should update when 
-  // github updates.
-  // To do that, we will update our database every time a profile is viewed.
-});
+// app.get('/api/profile',
+//     passport.authenticate('github', {failureRedirect:'/'}),
+//     function (req, res){
+//     // our database should be 'in sync' with githubs,
+//     // github object on Users model should update when 
+//     // github updates.
+//     // To do that, we will update our database every time a profile is viewed.
+//     console.log("This is req.params: ",req.params);
+//     console.log("What is user._json?",req.user)
+//     Users.findOne({'gitHub.id': req.params.id})
+//     .then(user=>{
+//         return res.json(user);
+//     })
+//     .catch(err=>{
+//         res.status(500).json({error: 'Something went wrong oops'});
+//     });
+// });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
