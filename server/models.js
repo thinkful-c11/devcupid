@@ -38,8 +38,7 @@ const UserModel = mongoose.Schema({
             blog: {type: String}
         }
     },
-    personality: {
-        
+    personality: {  
     }
 });
 
