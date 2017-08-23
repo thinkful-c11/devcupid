@@ -155,8 +155,9 @@ app.get('/profile/:id',
       fetch(`https://api.github.com/users/${user.gitHub.login}`)
       .then(res => res.json())
       .then(ghUser => {
+        // Currently hard coded in local host, replace later with HTTP or something else
         fetch(
-          `http://kyle-kylerogers334.c9users.io:8080/api/update-user/${ghUser.id}`, 
+          `http://localhost:8080/api/update-user/${ghUser.id}` 
           { // options
             method: 'PUT', 
             body: updateProfile(ghUser), 
