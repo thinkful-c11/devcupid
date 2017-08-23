@@ -114,7 +114,6 @@ function deepUpdate(update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-  console.log('req.body', req.body);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId }, 
     { $set: deepUpdate(req.body) }, 
@@ -129,6 +128,7 @@ app.put('/api/update-user/:userId', (req, res) => {
 
 function updateProfile(ghUser) {
   return JSON.stringify({
+    gitHub: {
       login: ghUser.login,
       avatar_url: ghUser.avatar_url,
       html_url: ghUser.html_url,
@@ -139,7 +139,8 @@ function updateProfile(ghUser) {
       email: ghUser.email,
       hireable: ghUser.hireable,
       bio: ghUser.bio
-  }) 
+    }
+  });
 }
 
 app.get('/profile/:id',
@@ -154,26 +155,25 @@ app.get('/profile/:id',
       fetch(`https://api.github.com/users/${user.gitHub.login}`)
       .then(res => res.json())
       .then(ghUser => {
-        // res.send({ghUser:ghUser, user: user.gitHub});
-        // const currentGithubProfile = updateProfile(ghUser);
-        console.log(updateProfile(ghUser))
         fetch(
           `http://kyle-kylerogers334.c9users.io:8080/api/update-user/${ghUser.id}`, 
-          {method: 'PUT', body: updateProfile(ghUser)}
+          { // options
+            method: 'PUT', 
+            body: updateProfile(ghUser), 
+            headers: {'Content-Type': 'application/json'}
+          }
         )
-        .then(res => {
-          return res.json()
-        })
+        .then(res => res.json())
         .then(updatedUser => {
-          res.json(updatedUser)
+          res.json(updatedUser);
         })
         .catch(err => console.log(err));
       })
       .catch(err => {
-        console.log(err)
+        console.log(err);
         res.status(500).json({error: 'Something went wrong oops'});
       });
-    })
+    });
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
