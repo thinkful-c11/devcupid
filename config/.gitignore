@@ -1,3 +1,7 @@
 node_modules
 .env
-design_assets
+/config/.env
+.DS_store
+/design_assets/
+/client/dist/bundle.js
+/client/dist/bundle.js.map
