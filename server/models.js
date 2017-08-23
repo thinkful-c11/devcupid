@@ -17,6 +17,13 @@ const UserModel = mongoose.Schema({
     profile: {
         personalTitle: {type: String},
         passions: {type: Array},
+        skills: {
+            roles: {type: Array},
+            languages: {type: Array},
+            libraries: {type: Array},
+            speciality: {type: Array},
+            softwareTools: {type: Array}
+        },
         remoteOk: {type: Boolean},
         avatar_url: {type: String},
         name: {type: String},
@@ -30,13 +37,6 @@ const UserModel = mongoose.Schema({
             twitter: {type: String},
             blog: {type: String}
         }
-    },
-    skills: {
-        roles: {type: Array},
-        languages: {type: Array},
-        libraries: {type: Array},
-        speciality: {type: Array},
-        softwareTools: {type: Array}
     },
     personality: {
         
