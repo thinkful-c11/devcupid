@@ -7,3 +7,8 @@ export const SIGNUP_HANDLER = 'SIGNUP_HANDLER';
 export const TEXTINPUT_HANDLER = 'TEXTINPUT_HANDLER';
 
 export const CHECKBOX_HANDLER = 'CHECKBOX_HANDLER';
+
+// Update Profile Constants
+export const UPDATE_REQUEST = 'UPDATE_REQUEST';
+export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
+export const UPDATE_ERROR = 'UPDATE_ERROR';
