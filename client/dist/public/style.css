@@ -12,6 +12,7 @@
 
 .test {
   color: #A34170;
-  font-size: 40px; }
+  font-size: 40px;
+  transition: .2s; }
 
 /*# sourceMappingURL=style.css.map*/

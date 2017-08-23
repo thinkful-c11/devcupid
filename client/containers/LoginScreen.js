@@ -6,7 +6,7 @@ export default class LoginScreen extends React.Component {
     let questionId = (this.props.questionId) ? this.props.questionId : 0;
     return(
       <div className='login-container'>
-        <div><a href='/auth/github'> Sign In With GitHub </a></div>
+        <div><a href='/api/auth/github'> Sign In With GitHub </a></div>
         <div><Link to={`/onboarding/${questionId}`}> Start Onboarding </Link></div>
       </div>
     );

@@ -29089,7 +29089,7 @@ var LoginScreen = function (_React$Component) {
           null,
           _react2.default.createElement(
             'a',
-            { href: '/auth/github' },
+            { href: '/api/auth/github' },
             ' Sign In With GitHub '
           )
         ),
