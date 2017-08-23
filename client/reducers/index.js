@@ -6,15 +6,15 @@ const initialState = {
   error: null,
   gitHub: {},
   profile: {
-    personalTitle: null,
-    remoteOk: null,
-    avatar_url: null,
-    name: null,
-    company: null,
-    personal_website: null,
-    location: null,
-    email: null,
-    bio: null,
+    personalTitle: '',
+    remoteOk: '',
+    avatar_url: '',
+    name: '',
+    company: '',
+    personal_website: '',
+    location: '',
+    email: '',
+    bio: '',
     social: {
       linked_in: null,
       twitter: null,
@@ -211,12 +211,23 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+  console.log(state);
   switch (action.type) {
 
   case ref.SIGNUP_HANDLER:
-    return Object.assign( {} , state , {
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
         [action.key]: action.value
+      })
+    });
+    
+  case ref.TEXTINPUT_HANDLER:
+      return Object.assign( {}, state, {
+        profile: Object.assign( {}, state.profile, {
+          [action.key]: action.value
+        })
       });
+    
   default:
     return state;
   }

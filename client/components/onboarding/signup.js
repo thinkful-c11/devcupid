@@ -23,7 +23,7 @@ export default class SignUp extends React.Component{
             return (
               <div key={index + q.key}>
                 <label htmlFor={q.key}>{q.label}</label>
-                <input id={q.key} type='text' onChange={ e=> this.onChange(e) }/>
+                <input id={q.key} type='text' onChange={ e=> this.onChange(e) } value={ this.props.profile[q.key] } />
               </div>
             );
           })

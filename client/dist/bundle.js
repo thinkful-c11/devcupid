@@ -26149,15 +26149,15 @@ var initialState = {
   error: null,
   gitHub: {},
   profile: {
-    personalTitle: null,
-    remoteOk: null,
-    avatar_url: null,
-    name: null,
-    company: null,
-    personal_website: null,
-    location: null,
-    email: null,
-    bio: null,
+    personalTitle: '',
+    remoteOk: '',
+    avatar_url: '',
+    name: '',
+    company: '',
+    personal_website: '',
+    location: '',
+    email: '',
+    bio: '',
     social: {
       linked_in: null,
       twitter: null,
@@ -26304,10 +26304,19 @@ var reducer = function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
+  console.log(state);
   switch (action.type) {
 
     case ref.SIGNUP_HANDLER:
-      return Object.assign({}, state, _defineProperty({}, action.key, action.value));
+      return Object.assign({}, state, {
+        profile: Object.assign({}, state.profile, _defineProperty({}, action.key, action.value))
+      });
+
+    case ref.TEXTINPUT_HANDLER:
+      return Object.assign({}, state, {
+        profile: Object.assign({}, state.profile, _defineProperty({}, action.key, action.value))
+      });
+
     default:
       return state;
   }
@@ -26325,7 +26334,7 @@ exports.default = reducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signup_handler = exports.login_request = undefined;
+exports.textInput_handler = exports.signup_handler = exports.login_request = undefined;
 
 var _refs = __webpack_require__(241);
 
@@ -26347,6 +26356,14 @@ var signup_handler = exports.signup_handler = function signup_handler(key, value
   };
 };
 
+var textInput_handler = exports.textInput_handler = function textInput_handler(key, value) {
+  return {
+    type: ref.TEXTINPUT_HANDLER,
+    key: key,
+    value: value
+  };
+};
+
 /***/ }),
 /* 241 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -26362,6 +26379,10 @@ var LOGIN_SUCCESS = exports.LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 var LOGIN_ERROR = exports.LOGIN_ERROR = 'LOGIN_ERROR';
 
 var SIGNUP_HANDLER = exports.SIGNUP_HANDLER = 'SIGNUP_HANDLER';
+
+var TEXTINPUT_HANDLER = exports.TEXTINPUT_HANDLER = 'TEXTINPUT_HANDLER';
+
+var CHECKBOX_HANDLER = exports.CHECKBOX_HANDLER = 'CHECKBOX_HANDLER';
 
 /***/ }),
 /* 242 */
@@ -29220,16 +29241,16 @@ var OnboardingScreen = exports.OnboardingScreen = function (_React$Component) {
 
       switch (currentQuestion.type) {
         case 'signup':
-          question = _react2.default.createElement(_signup2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
+          question = _react2.default.createElement(_signup2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch, profile: this.props.profile });
           break;
         case 'textInput':
-          question = _react2.default.createElement(_textInput2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
+          question = _react2.default.createElement(_textInput2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch, profile: this.props.profile });
           break;
         case 'checkbox':
-          question = _react2.default.createElement(_checkbox2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
+          question = _react2.default.createElement(_checkbox2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch, profile: this.props.profile });
           break;
         case 'checkbox-nested':
-          question = _react2.default.createElement(_checkboxNested2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
+          question = _react2.default.createElement(_checkboxNested2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch, profile: this.props.profile });
       }
 
       return _react2.default.createElement(
@@ -29246,7 +29267,8 @@ var OnboardingScreen = exports.OnboardingScreen = function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    onboardingQuestions: state.onboardingQuestions
+    onboardingQuestions: state.onboardingQuestions,
+    profile: state.profile
   };
 };
 
@@ -29416,7 +29438,7 @@ var SignUp = function (_React$Component) {
             ),
             _react2.default.createElement('input', { id: q.key, type: 'text', onChange: function onChange(e) {
                 return _this2.onChange(e);
-              } })
+              }, value: _this2.props.profile[q.key] })
           );
         })
       );
@@ -29445,6 +29467,12 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _actions = __webpack_require__(240);
+
+var actions = _interopRequireWildcard(_actions);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29463,8 +29491,17 @@ var TextInput = function (_React$Component) {
   }
 
   _createClass(TextInput, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var key = e.target.id;
+      var value = e.target.value;
+      this.props.dispatch(actions.textInput_handler(key, value));
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var currentQuestion = this.props.currentQuestion;
 
       return _react2.default.createElement(
@@ -29480,7 +29517,9 @@ var TextInput = function (_React$Component) {
           { htmlFor: currentQuestion.choices[0].key },
           currentQuestion.choices[0].label
         ),
-        _react2.default.createElement('input', { id: currentQuestion.choices[0].key, type: 'text' })
+        _react2.default.createElement('input', { id: currentQuestion.choices[0].key, type: 'text', onChange: function onChange(e) {
+            return _this2.onChange(e);
+          }, value: this.props.profile[currentQuestion.choices[0].key] })
       );
     }
   }]);
@@ -29509,6 +29548,8 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -29521,12 +29562,33 @@ var Checkbox = function (_React$Component) {
   function Checkbox(props) {
     _classCallCheck(this, Checkbox);
 
-    return _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).call(this, props));
+
+    _this.state = {
+      hold: false
+    };
+    return _this;
   }
 
   _createClass(Checkbox, [{
+    key: 'onClick',
+    value: function onClick(e) {
+      var key = e.target.value;
+      var value = e.target.checked;
+      this.setState(_defineProperty({}, key, value));
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var passions = [];
+      for (var k in this.state) {
+        if (this.state[k] === true) {
+          passions.push(k);
+        }
+      }
+      console.log('Passions:', passions);
       var currentQuestion = this.props.currentQuestion;
 
       return _react2.default.createElement(
@@ -29546,7 +29608,9 @@ var Checkbox = function (_React$Component) {
               { htmlFor: index },
               q
             ),
-            _react2.default.createElement('input', { id: index, type: 'checkbox', value: q })
+            _react2.default.createElement('input', { id: index, type: 'checkbox', value: q, onClick: function onClick(e) {
+                return _this2.onClick(e);
+              } })
           );
         })
       );

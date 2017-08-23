@@ -9,3 +9,9 @@ export const signup_handler = (key, value) => ({
   key,
   value
 });
+
+export const textInput_handler = (key, value) => ({
+  type: ref.TEXTINPUT_HANDLER,
+  key,
+  value
+});
