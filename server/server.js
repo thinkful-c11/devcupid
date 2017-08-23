@@ -1,4 +1,6 @@
 const path = require('path');
+const fetch = require('node-fetch');
+const FormData = require('form-data');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
@@ -30,7 +32,7 @@ passport.deserializeUser(function(user, done) {
 });
 
 // // Serve the built client
-// app.use(express.static(path.resolve(__dirname, '../client/dist')));
+app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
 app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
@@ -38,10 +40,10 @@ app.get('/api/', (req, res) => {
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
-  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-  res.sendFile(index);
-});
+// app.get(/^(?!\/api(\/|$))/, (req, res) => {
+//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+//   res.sendFile(index);
+// });
 
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
@@ -112,35 +114,67 @@ function deepUpdate(update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-    Users.findOneAndUpdate(
-      { 'gitHub.id': req.params.userId }, 
-      { $set: deepUpdate(req.body) }, 
-      { new: true }).exec()
-    .then(profile => {
-      res.json(profile);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  console.log('req.body', req.body);
+  Users.findOneAndUpdate(
+    { 'gitHub.id': req.params.userId }, 
+    { $set: deepUpdate(req.body) }, 
+    { new: true }).exec()
+  .then(profile => {
+    return res.json(profile);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 });
 
-// app.get('/api/profile',
-//     passport.authenticate('github', {failureRedirect:'/'}),
-//     function (req, res){
-//     // our database should be 'in sync' with githubs,
-//     // github object on Users model should update when 
-//     // github updates.
-//     // To do that, we will update our database every time a profile is viewed.
-//     console.log("This is req.params: ",req.params);
-//     console.log("What is user._json?",req.user)
-//     Users.findOne({'gitHub.id': req.params.id})
-//     .then(user=>{
-//         return res.json(user);
-//     })
-//     .catch(err=>{
-//         res.status(500).json({error: 'Something went wrong oops'});
-//     });
-// });
+function updateProfile(ghUser) {
+  return JSON.stringify({
+      login: ghUser.login,
+      avatar_url: ghUser.avatar_url,
+      html_url: ghUser.html_url,
+      name: ghUser.name,
+      company: ghUser.company,
+      blog: ghUser.blog,
+      location: ghUser.location,
+      email: ghUser.email,
+      hireable: ghUser.hireable,
+      bio: ghUser.bio
+  }) 
+}
+
+app.get('/profile/:id',
+    // passport.authenticate('github', {failureRedirect:'/'}),
+    (req, res) => {
+    // our database should be 'in sync' with githubs,
+    // github object on Users model should update when 
+    // github updates.
+    // To do that, we will update our database every time a profile is viewed.
+    Users.findOne({'gitHub.id': req.params.id})
+    .then(user => {
+      fetch(`https://api.github.com/users/${user.gitHub.login}`)
+      .then(res => res.json())
+      .then(ghUser => {
+        // res.send({ghUser:ghUser, user: user.gitHub});
+        // const currentGithubProfile = updateProfile(ghUser);
+        console.log(updateProfile(ghUser))
+        fetch(
+          `http://kyle-kylerogers334.c9users.io:8080/api/update-user/${ghUser.id}`, 
+          {method: 'PUT', body: updateProfile(ghUser)}
+        )
+        .then(res => {
+          return res.json()
+        })
+        .then(updatedUser => {
+          res.json(updatedUser)
+        })
+        .catch(err => console.log(err));
+      })
+      .catch(err => {
+        console.log(err)
+        res.status(500).json({error: 'Something went wrong oops'});
+      });
+    })
+});
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
