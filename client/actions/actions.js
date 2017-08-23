@@ -15,3 +15,9 @@ export const textInput_handler = (key, value) => ({
   key,
   value
 });
+
+export const checkbox_handler = (key, array) => ({
+  type: ref.CHECKBOX_HANDLER,
+  key,
+  array
+});

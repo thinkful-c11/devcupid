@@ -31,17 +31,17 @@ export class OnboardingScreen extends React.Component {
         question = <TextInput currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
         break;
       case 'checkbox':
-        question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
+        question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} key={currentQuestion.text}/>
         break;
       case 'checkbox-nested':
         question = <CheckboxNested currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
     }
 
     return (
-        <form className='onboarding-container'>
+        <div className='onboarding-container'>
           {question}
           {button}
-        </form>
+        </div>
     );
   }
 }

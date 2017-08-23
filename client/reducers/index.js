@@ -20,13 +20,13 @@ const initialState = {
       twitter: null,
       blog: null
     },
-    passions: [],
     skills: {
-      roles: null,
-      languages: null,
-      libraries: null,
-      speciality: null,
-      softwareTools: null
+      passions: [],
+      roles: [],
+      languages: [],
+      libraries: [],
+      speciality: [],
+      softwareTools: []
     },
   },
   onboardingQuestions: [
@@ -99,6 +99,7 @@ const initialState = {
     {
       text: 'Select some of the things you are passionate about.',
       type: 'checkbox',
+      key: 'passions',
       choices: [
         'Ed Tech', 'Machine Learning', 'Design', 'UI', 'UX', 'Fin Tech', 'Social Media', 'Big Data', 'Data Science', 'B2B', 'Internet of Things', 'Linux'
       ]
@@ -106,6 +107,7 @@ const initialState = {
     {
       text: 'Select some of the roles you can perform.',
       type: 'checkbox',
+      key: 'roles',
       choices: [
         'Front-End Web Developer', 'Back-End Web Developer', 'Full-Stack Web Developer', 'Web Designer', 'UI Engineer',
         'UX Engineer', 'Database Architect', 'Founder', 'Investor', 'DevOps', 'Developer', 'Designer'
@@ -114,6 +116,7 @@ const initialState = {
     {
       text: 'What (if any) languages and libraries are you competent with?',
       type: 'checkbox-nested',
+      key: 'languages',
       choices: [
         {
           language: 'JavaScript',
@@ -196,6 +199,7 @@ const initialState = {
     {
       text: 'What are some of your design specialties?',
       type: 'checkbox',
+      key: 'speciality',
       choices: [
         'Mobile', 'CRM', 'Blog', 'Web', 'UI', 'UX'
       ]
@@ -203,6 +207,7 @@ const initialState = {
     {
       text: 'What software tools do you have experience with?',
       type: 'checkbox',
+      key: 'softwareTools',
       choices: [
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
@@ -228,6 +233,15 @@ const reducer = (state = initialState, action) => {
         })
       });
     
+  case ref.CHECKBOX_HANDLER:
+      return Object.assign( {}, state, {
+        profile: Object.assign( {}, state.profile, {
+          skills: Object.assign( {}, state.profile.skills, {
+            [action.key]: action.array
+          })
+        })
+      });
+
   default:
     return state;
   }
