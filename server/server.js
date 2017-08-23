@@ -38,13 +38,6 @@ app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-// app.get(/^(?!\/api(\/|$))/, (req, res) => {
-//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-//   res.sendFile(index);
-// });
-
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
@@ -143,7 +136,7 @@ function updateProfile(ghUser) {
   });
 }
 
-app.get('/profile/:id',
+app.get('/api/profile/:id',
     // passport.authenticate('github', {failureRedirect:'/'}),
     (req, res) => {
     // our database should be 'in sync' with githubs,
@@ -157,7 +150,7 @@ app.get('/profile/:id',
       .then(ghUser => {
         // Currently hard coded in local host, replace later with HTTP or something else
         fetch(
-          `http://localhost:8080/api/update-user/${ghUser.id}` 
+          `http://localhost:8080/api/update-user/${ghUser.id}`,
           { // options
             method: 'PUT', 
             body: updateProfile(ghUser), 
@@ -175,6 +168,13 @@ app.get('/profile/:id',
         res.status(500).json({error: 'Something went wrong oops'});
       });
     });
+});
+
+// Unhandled requests which aren't for the API should serve index.html so
+// client-side routing using browserHistory can function
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+  res.sendFile(index);
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
