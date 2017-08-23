@@ -29,15 +29,15 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-app.get('/', (req, res) => {
-    res.sendFile(path.resolve('/index.html'));
+app.get('/api/', (req, res) => {
+    res.sendFile(path.resolve('/api/index.html'));
 });
 
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: '/auth/github/callback'
+    callbackURL: '/api/auth/github/callback'
   },
   (accessToken, refreshToken, user, cb) => {
         // const githubId = profile.id
@@ -49,10 +49,10 @@ passport.use(new GitHubStrategy({
     }
 ));
 
-app.get('/auth/github',
+app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
-app.get('/auth/github/callback', 
+app.get('/api/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
     const githubUser = req.user._json;
@@ -101,7 +101,7 @@ function deepUpdate(update) {
 }
 
 // passport.authenticate('github', { failureRedirect: '/' }
-app.put('/update-user/:userId', (req, res) => {
+app.put('/api/update-user/:userId', (req, res) => {
     Users.findOneAndUpdate(
       { 'gitHub.id': req.params.userId }, 
       { $set: deepUpdate(req.body) }, 
@@ -114,7 +114,7 @@ app.put('/update-user/:userId', (req, res) => {
     });
 });
 
-app.get('/profile', (req, res) => {
+app.get('/api/profile', (req, res) => {
   // our database should be 'in sync' with githubs,
   // github object on Users model should update when 
   // github updates.
