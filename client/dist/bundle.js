@@ -26136,7 +26136,13 @@ var _actions = __webpack_require__(240);
 
 var actions = _interopRequireWildcard(_actions);
 
+var _refs = __webpack_require__(241);
+
+var ref = _interopRequireWildcard(_refs);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var initialState = {
   loading: false,
@@ -26144,7 +26150,6 @@ var initialState = {
   gitHub: {},
   profile: {
     personalTitle: null,
-    passions: null,
     remoteOk: null,
     avatar_url: null,
     name: null,
@@ -26157,14 +26162,15 @@ var initialState = {
       linked_in: null,
       twitter: null,
       blog: null
+    },
+    passions: [],
+    skills: {
+      roles: null,
+      languages: null,
+      libraries: null,
+      speciality: null,
+      softwareTools: null
     }
-  },
-  skills: {
-    roles: null,
-    languages: null,
-    libraries: null,
-    speciality: null,
-    softwareTools: null
   },
   onboardingQuestions: [{
     text: 'We pulled some info from GitHub. If you\'d like to, go ahead and update it:',
@@ -26299,6 +26305,9 @@ var reducer = function reducer() {
   var action = arguments[1];
 
   switch (action.type) {
+
+    case ref.SIGNUP_HANDLER:
+      return Object.assign({}, state, _defineProperty({}, action.key, action.value));
     default:
       return state;
   }
@@ -26316,7 +26325,7 @@ exports.default = reducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login_request = undefined;
+exports.signup_handler = exports.login_request = undefined;
 
 var _refs = __webpack_require__(241);
 
@@ -26327,6 +26336,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 var login_request = exports.login_request = function login_request() {
   return {
     type: ref.LOGIN_REQUEST
+  };
+};
+
+var signup_handler = exports.signup_handler = function signup_handler(key, value) {
+  return {
+    type: ref.SIGNUP_HANDLER,
+    key: key,
+    value: value
   };
 };
 
@@ -26343,6 +26360,8 @@ Object.defineProperty(exports, "__esModule", {
 var LOGIN_REQUEST = exports.LOGIN_REQUEST = 'LOGIN_REQUEST';
 var LOGIN_SUCCESS = exports.LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 var LOGIN_ERROR = exports.LOGIN_ERROR = 'LOGIN_ERROR';
+
+var SIGNUP_HANDLER = exports.SIGNUP_HANDLER = 'SIGNUP_HANDLER';
 
 /***/ }),
 /* 242 */
@@ -29201,16 +29220,16 @@ var OnboardingScreen = exports.OnboardingScreen = function (_React$Component) {
 
       switch (currentQuestion.type) {
         case 'signup':
-          question = _react2.default.createElement(_signup2.default, { currentQuestion: currentQuestion });
+          question = _react2.default.createElement(_signup2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
           break;
         case 'textInput':
-          question = _react2.default.createElement(_textInput2.default, { currentQuestion: currentQuestion });
+          question = _react2.default.createElement(_textInput2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
           break;
         case 'checkbox':
-          question = _react2.default.createElement(_checkbox2.default, { currentQuestion: currentQuestion });
+          question = _react2.default.createElement(_checkbox2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
           break;
         case 'checkbox-nested':
-          question = _react2.default.createElement(_checkboxNested2.default, { currentQuestion: currentQuestion });
+          question = _react2.default.createElement(_checkboxNested2.default, { currentQuestion: currentQuestion, dispatch: this.props.dispatch });
       }
 
       return _react2.default.createElement(
@@ -29337,6 +29356,16 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _actions = __webpack_require__(240);
+
+var actions = _interopRequireWildcard(_actions);
+
+var _refs = __webpack_require__(241);
+
+var ref = _interopRequireWildcard(_refs);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29355,8 +29384,17 @@ var SignUp = function (_React$Component) {
   }
 
   _createClass(SignUp, [{
+    key: 'onChange',
+    value: function onChange(e) {
+      var key = e.target.id;
+      var value = e.target.value;
+      this.props.dispatch(actions.signup_handler(key, value));
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var currentQuestion = this.props.currentQuestion;
 
       return _react2.default.createElement(
@@ -29376,7 +29414,9 @@ var SignUp = function (_React$Component) {
               { htmlFor: q.key },
               q.label
             ),
-            _react2.default.createElement('input', { id: q.key, type: 'text' })
+            _react2.default.createElement('input', { id: q.key, type: 'text', onChange: function onChange(e) {
+                return _this2.onChange(e);
+              } })
           );
         })
       );

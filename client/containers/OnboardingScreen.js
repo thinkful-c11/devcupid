@@ -25,16 +25,16 @@ export class OnboardingScreen extends React.Component {
 
     switch(currentQuestion.type){
       case 'signup':
-        question = <SignUp currentQuestion={currentQuestion}/>
+        question = <SignUp currentQuestion={currentQuestion} dispatch={this.props.dispatch} />
         break;
       case 'textInput':
-        question = <TextInput currentQuestion={currentQuestion}/>
+        question = <TextInput currentQuestion={currentQuestion} dispatch={this.props.dispatch} />
         break;
       case 'checkbox':
-        question = <Checkbox currentQuestion={currentQuestion}/>
+        question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} />
         break;
       case 'checkbox-nested':
-        question = <CheckboxNested currentQuestion={currentQuestion}/>
+        question = <CheckboxNested currentQuestion={currentQuestion} dispatch={this.props.dispatch} />
     }
 
     return (

@@ -1,4 +1,5 @@
 import * as actions from '../actions/actions';
+import * as ref from '../actions/refs';
 
 const initialState = {
   loading: false,
@@ -6,7 +7,6 @@ const initialState = {
   gitHub: {},
   profile: {
     personalTitle: null,
-    passions: null,
     remoteOk: null,
     avatar_url: null,
     name: null,
@@ -19,14 +19,15 @@ const initialState = {
       linked_in: null,
       twitter: null,
       blog: null
-    }
-  },
-  skills: {
-    roles: null,
-    languages: null,
-    libraries: null,
-    speciality: null,
-    softwareTools: null
+    },
+    passions: [],
+    skills: {
+      roles: null,
+      languages: null,
+      libraries: null,
+      speciality: null,
+      softwareTools: null
+    },
   },
   onboardingQuestions: [
     {
@@ -211,6 +212,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+  case ref.SIGNUP_HANDLER:
+    return Object.assign( {} , state , {
+        [action.key]: action.value
+      });
   default:
     return state;
   }

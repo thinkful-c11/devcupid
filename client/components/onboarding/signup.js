@@ -1,9 +1,18 @@
 import React from 'react';
+import * as actions from '../../actions/actions';
+import * as ref from '../../actions/refs';
 
 export default class SignUp extends React.Component{
   constructor(props){
     super(props);
   }
+
+  onChange(e){
+    let key = e.target.id;
+    let value = e.target.value;
+    this.props.dispatch(actions.signup_handler(key, value));
+  }
+
 
   render(){
     const {currentQuestion} = this.props;
@@ -14,7 +23,7 @@ export default class SignUp extends React.Component{
             return (
               <div key={index + q.key}>
                 <label htmlFor={q.key}>{q.label}</label>
-                <input id={q.key} type='text' />
+                <input id={q.key} type='text' onChange={ e=> this.onChange(e) }/>
               </div>
             );
           })
