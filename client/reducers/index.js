@@ -15,15 +15,13 @@ const initialState = {
     location: '',
     email: '',
     bio: '',
-    social: {
-      linked_in: null,
-      twitter: null,
-      blog: null
-    },
+    linked_in: '',
+    twitter: '',
+    blog: '',
     skills: {
       passions: [],
       roles: [],
-      languages: [],
+      languages: {},
       libraries: [],
       speciality: [],
       softwareTools: []
@@ -63,15 +61,15 @@ const initialState = {
           label: 'What\'s your email?'
         },
         {
-          key: 'social.linked_in',
+          key: 'linked_in',
           label: 'Do you have a LinkedIn account?'
         },
         {
-          key: 'social.twitter',
+          key: 'twitter',
           label: 'Do you have a Twitter?'
         },
         {
-          key: 'social.blog',
+          key: 'blog',
           label: 'Do you have a personal blog?'
         },
       ]
@@ -241,7 +239,14 @@ const reducer = (state = initialState, action) => {
           })
         })
       });
-
+  case ref.CHECKBOXNESTED_HANDLER:
+      return Object.assign( {}, state, {
+        profile: Object.assign( {}, state.profile, {
+          skills: Object.assign( {}, state.profile.skills, {
+            languages: action.body
+          })
+        })
+      });
   default:
     return state;
   }

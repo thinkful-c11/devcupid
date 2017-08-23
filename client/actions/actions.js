@@ -21,3 +21,8 @@ export const checkbox_handler = (key, array) => ({
   key,
   array
 });
+
+export const checkboxNested_handler = (body) => ({
+  type: ref.CHECKBOXNESTED_HANDLER,
+  body
+});
