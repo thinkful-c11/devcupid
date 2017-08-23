@@ -220,14 +220,32 @@ const reducer = (state = initialState, action) => {
         [action.key]: action.value
       })
     });
-    
+
   case ref.TEXTINPUT_HANDLER:
-      return Object.assign( {}, state, {
-        profile: Object.assign( {}, state.profile, {
-          [action.key]: action.value
-        })
-      });
-    
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        [action.key]: action.value
+      })
+    });
+
+  //Update Profile Reducers
+  case ref.UPDATE_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+
+  case ref.UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      profile: action.profile
+    });
+
+  case ref.UPDATE_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error
+    });
+
   default:
     return state;
   }
