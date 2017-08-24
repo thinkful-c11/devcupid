@@ -155,7 +155,7 @@ function updateProfile(ghUser) {
 }
 
 app.get('/api/profile/:id',
-    // passport.authenticate('github', {failureRedirect:'/'}),
+    // passport.authenticate('bearer', {session: false}),
     (req, res) => {
     // our database should be 'in sync' with githubs,
     // github object on Users model should update when
@@ -187,6 +187,13 @@ app.get('/api/profile/:id',
       });
     });
     });
+
+  // Alternate Profile Endpoint
+app.get('/api/profile/me',
+    passport.authenticate('bearer', {session: false}),
+    (req, res) => res.json({
+      githubId: req.user.gitHub.id
+    }));
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
