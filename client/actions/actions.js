@@ -68,7 +68,7 @@ export const login_success = gitHub => ({
   gitHub
 });
 export const login_error = error => ({
-  type: ref.UPDATE_ERROR,
+  type: ref.LOGIN_ERROR,
   error
 });
 export const fetchUser = accessToken => dispatch => {
