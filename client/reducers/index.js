@@ -4,20 +4,25 @@ import * as ref from '../actions/refs';
 const initialState = {
   loading: false,
   error: null,
+  user: false,
   gitHub: {},
   profile: {
-    personalTitle: '',
-    remoteOk: '',
-    avatar_url: '',
-    name: '',
-    company: '',
-    personal_website: '',
-    location: '',
-    email: '',
-    bio: '',
-    linked_in: '',
-    twitter: '',
-    blog: '',
+    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
+    name: 'William',
+    personalTitle: 'cool dude',
+    location: 'ATL',
+    remoteOk: 'yes',
+    company: 'Myself',
+
+    email: 'me@butt.co',
+
+    bio: 'I was born then i went vegan',
+
+    personal_website: 'profile.com',
+    blog: 'blog.profile.com',
+    linked_in: 'linkedin.com/profile',
+    twitter: 'twitter.com/profile',
+
     skills: {
       passions: [],
       roles: [],
@@ -214,7 +219,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(state);
   switch (action.type) {
 
   case ref.SIGNUP_HANDLER:
@@ -223,30 +227,66 @@ const reducer = (state = initialState, action) => {
         [action.key]: action.value
       })
     });
-    
+
   case ref.TEXTINPUT_HANDLER:
-      return Object.assign( {}, state, {
-        profile: Object.assign( {}, state.profile, {
-          [action.key]: action.value
-        })
-      });
-    
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        [action.key]: action.value
+      })
+    });
+
+  //Login User Reducers
+  case ref.LOGIN_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+  case ref.LOGIN_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      user: true,
+      gitHub: action.gitHub
+    });
+  case ref.LOGIN_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+
+  //Update Profile Reducers
+  case ref.UPDATE_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+
+  case ref.UPDATE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      profile: action.profile
+    });
+
+  case ref.UPDATE_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+
   case ref.CHECKBOX_HANDLER:
-      return Object.assign( {}, state, {
-        profile: Object.assign( {}, state.profile, {
-          skills: Object.assign( {}, state.profile.skills, {
-            [action.key]: action.array
-          })
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        skills: Object.assign( {}, state.profile.skills, {
+          [action.key]: action.array
         })
-      });
+      })
+    });
   case ref.CHECKBOXNESTED_HANDLER:
-      return Object.assign( {}, state, {
-        profile: Object.assign( {}, state.profile, {
-          skills: Object.assign( {}, state.profile.skills, {
-            languages: action.body
-          })
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        skills: Object.assign( {}, state.profile.skills, {
+          languages: action.body
         })
-      });
+      })
+    });
+
   default:
     return state;
   }
