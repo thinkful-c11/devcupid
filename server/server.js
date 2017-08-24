@@ -3,9 +3,14 @@ const fetch = require('node-fetch');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
-// const BearerStrategy = require('passport-http-bearer').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
+const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
+
 mongoose.Promise = global.Promise;
+
+require ('dotenv').config();
+const {TEST_DATABASE_URL,PORT} = process.env;
 const {Users,Languages} = require('./models');
 
 const secret = {
@@ -35,33 +40,43 @@ app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-// app.get(/^(?!\/api(\/|$))/, (req, res) => {
-//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-//   res.sendFile(index);
-// });
-
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: '/api/auth/github/callback'
-  },
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: '/api/auth/github/callback'
+},
   (accessToken, refreshToken, user, cb) => {
         // const githubId = profile.id
             // githubId: ,
             // accessToken: accessToken
         // };
         // console.log(user)
-        return cb(null, user);
-    }
+    return cb(null, user);
+  }
 ));
+
+// Bearer strategy
+passport.use (
+  new BearerStrategy (
+    (token, done) => {
+      User.findOne({ accessToken: token }, (err, user) => {
+        if (err) { 
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false);
+        }
+        return done(null, user, { scope: 'all'} );
+      });
+    }
+  )
+);
 
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
-app.get('/api/auth/github/callback', 
+app.get('/api/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
     const githubUser = req.user._json;
@@ -84,9 +99,15 @@ app.get('/api/auth/github/callback',
             hireable: githubUser.hireable,
             bio: githubUser.bio
           }
-        }).then(newUser => res.json(newUser));
+        }).then(newUser => {
+          // res.json(newUser);
+          res.cookie('accessToken', req.user.accessToken, {expires: 0});
+          res.redirect('/');
+        });
       } else {
-        res.json(user);
+        // res.json(user);
+        res.cookie('accessToken', req.user.accessToken, {expires: 0});
+        res.redirect('/');
       }
     })
     .catch(err => {
@@ -95,9 +116,17 @@ app.get('/api/auth/github/callback',
   }
 );
 
+// Log user out of GitHub
+app.get('/api/auth/github/logout', (req, res) => {
+    req.logout();
+    res.clearCookie('accessToken');
+    res.redirect('/');
+});
+
+
 function deepUpdate(update) {
-   const setObject = {};
-   Object.keys(update).forEach((key) => {
+  const setObject = {};
+  Object.keys(update).forEach((key) => {
     if (typeof update[key] === 'object') {
       Object.keys(update[key]).forEach((subkey) => {
         setObject[`${key}.${subkey}`] = update[key][subkey];
@@ -112,8 +141,8 @@ function deepUpdate(update) {
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
   Users.findOneAndUpdate(
-    { 'gitHub.id': req.params.userId }, 
-    { $set: deepUpdate(req.body) }, 
+    { 'gitHub.id': req.params.userId },
+    { $set: deepUpdate(req.body) },
     { new: true }).exec()
   .then(profile => {
     return res.json(profile);
@@ -141,14 +170,14 @@ function updateProfile(ghUser) {
   };
 }
 
-app.get('/profile/:id',
-    // passport.authenticate('github', {failureRedirect:'/'}),
+app.get('/api/profile/:id',
+    // passport.authenticate('bearer', {session: false}),
     (req, res) => {
     // our database should be 'in sync' with githubs,
-    // github object on Users model should update when 
+    // github object on Users model should update when
     // github updates.
     // To do that, we will update our database every time a profile is viewed.
-    Users.findOne({'gitHub.id': req.params.id})
+      Users.findOne({'gitHub.id': req.params.id})
     .then(user => {
       fetch(`https://api.github.com/users/${user.gitHub.login}`)
       .then(res => res.json())
@@ -174,6 +203,20 @@ app.get('/profile/:id',
       console.log(err);
       res.status(404).send({error: `User with id ${req.param.id} does not exist.`});
     });
+    });
+
+  // Alternate Profile Endpoint
+app.get('/api/profile/me',
+    passport.authenticate('bearer', {session: false}),
+    (req, res) => res.json({
+      githubId: req.user.gitHub.id
+    }));
+
+// Unhandled requests which aren't for the API should serve index.html so
+// client-side routing using browserHistory can function
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+  res.sendFile(index);
 });
 
 function queryFilter(qry) {
