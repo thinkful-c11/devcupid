@@ -37,32 +37,30 @@ app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
-// Configuring the GitHub strategy
-// passport.use(new GitHubStrategy({
-//   clientID: process.env.GITHUB_CLIENT_ID,
-//   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//   callbackURL: '/api/auth/github/callback'
-// },
-//   (accessToken, refreshToken, user, cb) => {
-//         // const githubId = profile.id
-//             // githubId: ,
-//             // accessToken: accessToken
-//         // };
-//         // console.log(user)
-//     return cb(null, user);
-//   }
-// ));
-
-// Trying to set and update user in the strategy
+// GitHub Auth (automatically updates user in DB on login)
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: '/api/auth/github/callback'
 },
   (accessToken, refreshToken, user, cb) => {
+    user = user._json;
     Users
       .findOneAndUpdate({ 'gitHub.id': user.id },
-      {$set: { 'gitHub.id': user.id, 'gitHub.accessToken': accessToken }
+      {$set: {
+        onboarded: false,
+        'gitHub.accessToken': accessToken,
+        'gitHub.id': user.id,
+        'gitHub.login': user.login,
+        'gitHub.avatar_url': user.avatar_url,
+        'gitHub.html_url': user.html_url,
+        'gitHub.name': user.name,
+        'gitHub.company': user.company,
+        'gitHub.blog': user.blog,
+        'gitHub.location': user.location,
+        'gitHub.email': user.email,
+        'gitHub.hireable': user.hireable,
+        'gitHub.bio': user.bio}
       },
         {new: true, upsert: true}, (error, user) => {
           return cb(error, user);
@@ -84,46 +82,6 @@ passport.use (
 
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
-
-// app.get('/api/auth/github/callback',
-//   passport.authenticate('github', { failureRedirect: '/' }),
-//   function(req, res) {
-//     const githubUser = req.user._json;
-//     // githubUser.id might be a number
-//     Users.findOne({ 'gitHub.id': githubUser.id }).exec()
-//     .then(user => {
-//       if (!user) {
-//         Users.create({
-//           onboarded: false,
-//           gitHub: {
-//             id: githubUser.id,
-//             login: githubUser.login,
-//             avatar_url: githubUser.avatar_url,
-//             html_url: githubUser.html_url,
-//             name: githubUser.name,
-//             company: githubUser.company,
-//             blog: githubUser.blog,
-//             location: githubUser.location,
-//             email: githubUser.email,
-//             hireable: githubUser.hireable,
-//             bio: githubUser.bio
-//           }
-//         }).then(newUser => {
-//           // res.json(newUser);
-//           res.cookie('accessToken', req.user.accessToken, {expires: 0});
-//           res.redirect('/');
-//         });
-//       } else {
-//         // res.json(user);
-//         res.cookie('accessToken', req.user.accessToken, {expires: 0});
-//         res.redirect('/');
-//       }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//     });
-//   }
-// );
 
 app.get('/api/auth/github/callback',
   passport.authenticate('github', {
