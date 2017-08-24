@@ -231,21 +231,17 @@ app.get('/api/profile/me',
 //     });
 //     });
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
-  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-  res.sendFile(index);
-});
-
 function queryFilter(qry) {
   const validQueries = {
     'gitHub.login': qry.login,
     'profile.skills.languages': qry.languages,
     'profile.skills.roles': qry.roles,
     'gitHub.name': qry.name,
-    'profile.social.linked_in': qry.linked_in,
-    'profile.social.twitter': qry.twitter,
+    'profile.linked_in': qry.linked_in,
+    'profile.twitter': qry.twitter,
+    'profile.email': qry.email,
+    'profile.location': qry.location,
+    'profile.company': qry.company
   };
 
   const result = {};
@@ -266,6 +262,13 @@ app.get('/api/search', (req, res) => {
   .then(user => {
     res.json(user);
   });
+});
+
+// Unhandled requests which aren't for the API should serve index.html so
+// client-side routing using browserHistory can function
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+  res.sendFile(index);
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
