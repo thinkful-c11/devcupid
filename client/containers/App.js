@@ -1,10 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import * as Cookies from 'js-cookie';
 import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
 import '../SCSS/App.scss';
 
-export default class App extends React.Component {
+export class App extends React.Component {
+  componentDidMount() {
+    const accessToken = Cookies.get('accessToken');
+
+    if (accessToken) {
+      this.props.dispatch(actions.fetUser(accessToken));
+    }
+  }
   render() {
     return (
       <Router>
@@ -19,3 +27,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default connect()(App);
