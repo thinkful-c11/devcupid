@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise;
 
 require ('dotenv').config();
 const {TEST_DATABASE_URL,PORT} = process.env;
-const Users = require('./models');
+const {Users,Languages} = require('./models');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,

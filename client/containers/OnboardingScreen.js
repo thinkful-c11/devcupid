@@ -25,29 +25,30 @@ export class OnboardingScreen extends React.Component {
 
     switch(currentQuestion.type){
       case 'signup':
-        question = <SignUp currentQuestion={currentQuestion}/>
+        question = <SignUp currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
         break;
       case 'textInput':
-        question = <TextInput currentQuestion={currentQuestion}/>
+        question = <TextInput currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
         break;
       case 'checkbox':
-        question = <Checkbox currentQuestion={currentQuestion}/>
+        question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} key={currentQuestion.text}/>
         break;
       case 'checkbox-nested':
-        question = <CheckboxNested currentQuestion={currentQuestion}/>
+        question = <CheckboxNested currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
     }
 
     return (
-        <form className='onboarding-container'>
+        <div className='onboarding-container'>
           {question}
           {button}
-        </form>
+        </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  onboardingQuestions: state.onboardingQuestions
+  onboardingQuestions: state.onboardingQuestions,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps)(OnboardingScreen);
