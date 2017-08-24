@@ -80,9 +80,15 @@ app.get('/api/auth/github/callback',
             hireable: githubUser.hireable,
             bio: githubUser.bio
           }
-        }).then(newUser => res.json(newUser));
+        }).then(newUser => {
+          // res.json(newUser);
+          res.cookie('accessToken', req.user.accessToken, {expires: 0});
+          res.redirect('/');
+        });
       } else {
-        res.json(user);
+        // res.json(user);
+        res.cookie('accessToken', req.user.accessToken, {expires: 0});
+        res.redirect('/');
       }
     })
     .catch(err => {
