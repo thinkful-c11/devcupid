@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import ProfileHeader from '../components/profile/profileHeader';
+import ProfileBody from '../components/profile/profileBody';
 
 export class ProfileScreen extends React.Component{
   render(){
@@ -9,6 +10,7 @@ export class ProfileScreen extends React.Component{
     return(
       <div>
        <ProfileHeader user={user}/>
+       <ProfileBody user={user}/>
       </div>
     );
   }

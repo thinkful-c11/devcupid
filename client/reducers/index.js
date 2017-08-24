@@ -6,18 +6,22 @@ const initialState = {
   error: null,
   gitHub: {},
   profile: {
-    personalTitle: 'cool dude',
-    remoteOk: 'yes',
     avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
     name: 'William',
-    company: 'Myself',
-    personal_website: 'profile.com',
+    personalTitle: 'cool dude',
     location: 'ATL',
+    remoteOk: 'yes',
+    company: 'Myself',
+
     email: 'me@butt.co',
+    
     bio: 'I was born then i went vegan',
+    
+    personal_website: 'profile.com',
+    blog: 'blog.profile.com',
     linked_in: 'linkedin.com/profile',
     twitter: 'twitter.com/profile',
-    blog: 'blog.profile.com',
+
     skills: {
       passions: [],
       roles: [],
