@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
 const LanguageSchema = mongoose.Schema({
-    ".NET": {type:Boolean},
-    C: {type:Boolean},
-    "C#": {type:Boolean},
-    "C++": {type:Boolean},
+    javascript: {
+        React: {type:Boolean},
+        Redux: {type:Boolean},
+        Angular: {type:Boolean},
+        "Angular 2/4": {type:Boolean},
+        Mongoose: {type:Boolean},
+        JQuery: {type:Boolean},
+        Vue: {type:Boolean},
+        "Node.js": {type:Boolean},
+    },
+    HTML5:{
+        Pug: {type:Boolean}
+    },
     CSS3:{
         SASS: {type:Boolean},
         LESS: {type:Boolean},
@@ -14,33 +23,14 @@ const LanguageSchema = mongoose.Schema({
         "Responsive Design": {type:Boolean},
         "Mobile First": {type:Boolean}
     },
-    Clojure: {
-        Leiningen: {type:Boolean},
-        Ring: {type:Boolean},
-        Om: {type:Boolean}
-    },
-    Elm: {type:Boolean},
-    "F#": {type:Boolean},
-    Go: {type:Boolean},
-    HTML5:{
-        Pug: {type:Boolean}
-    },
+    C: {type:Boolean},
+    "C++": {type:Boolean},
+    "C#": {type:Boolean},
     Java:{
         Swing: {type:Boolean},
         "Spring Boot": {type:Boolean},
         Guava: {type:Boolean}
     },
-    javascript: {
-        Angular: {type:Boolean},
-        "Angular 2/4": {type:Boolean},
-        jQuery: {type:Boolean},
-        Mongoose: {type:Boolean},
-        NodeJS: {type:Boolean},
-        React: {type:Boolean},
-        Redux: {type:Boolean},
-        Vue: {type:Boolean}
-    },
-    Perl: {type:Boolean},
     PHP: {
         Laravel: {type:Boolean},
         Dispatch: {type:Boolean}
@@ -49,13 +39,23 @@ const LanguageSchema = mongoose.Schema({
         Django: {type:Boolean},
         Flask: {type:Boolean}
     },
+    Perl: {type:Boolean},
     Ruby: {
         Rails: {type:Boolean},
         Sinatra: {type:Boolean}
     },
+    ".NET": {type:Boolean},
+    Go: {type:Boolean},
     Rust: {type:Boolean},
     Scala: {type:Boolean},
-    "Swift/Objective-C": {type:Boolean}
+    Clojure: {
+        Leiningen: {type:Boolean},
+        Ring: {type:Boolean},
+        Om: {type:Boolean}
+    },
+    "Swift/Objective-C": {type:Boolean},
+    Elm: {type:Boolean},
+    "F#": {type:Boolean}
 });
 const UserModel = mongoose.Schema({
     onboarded: {type: String},
@@ -74,13 +74,6 @@ const UserModel = mongoose.Schema({
     },
     profile: {
         personalTitle: {type: String},
-        passions: {type: Array},
-        skills: {
-            roles: {type: Array},
-            languages: [LanguageSchema],
-            speciality: {type: Array},
-            softwareTools: {type: Array}
-        },
         remoteOk: {type: Boolean},
         avatar_url: {type: String},
         name: {type: String},
@@ -89,10 +82,15 @@ const UserModel = mongoose.Schema({
         location: {type: String},
         email: {type: String},
         bio: {type: String},
-        social: {
-            linked_in: {type: String},
-            twitter: {type: String},
-            blog: {type: String}
+        linked_in: {type: String},
+        twitter: {type: String},
+        blog: {type: String},
+        skills: {
+            passions: {type: Array},
+            roles: {type: Array},
+            languages: [LanguageSchema],
+            speciality: {type: Array},
+            softwareTools: {type: Array}
         }
     },
     personality: {  
