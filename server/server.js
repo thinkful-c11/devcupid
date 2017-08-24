@@ -1,12 +1,9 @@
 const path = require('path');
 const fetch = require('node-fetch');
-const FormData = require('form-data');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 // const BearerStrategy = require('passport-http-bearer').Strategy;
-// const mongoose = require('mongoose');
-// const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const Users = require('./models');
@@ -127,8 +124,9 @@ app.put('/api/update-user/:userId', (req, res) => {
 });
 
 function updateProfile(ghUser) {
-  return JSON.stringify({
+  return {
     gitHub: {
+      id: ghUser.id,
       login: ghUser.login,
       avatar_url: ghUser.avatar_url,
       html_url: ghUser.html_url,
@@ -140,7 +138,7 @@ function updateProfile(ghUser) {
       hireable: ghUser.hireable,
       bio: ghUser.bio
     }
-  });
+  };
 }
 
 app.get('/profile/:id',
@@ -155,26 +153,26 @@ app.get('/profile/:id',
       fetch(`https://api.github.com/users/${user.gitHub.login}`)
       .then(res => res.json())
       .then(ghUser => {
-        // Currently hard coded in local host, replace later with HTTP or something else
-        https://www.npmjs.com/package/request-promise
-        fetch(
-          `http://localhost:8080/api/update-user/${ghUser.id}`, 
-          { // options
-            method: 'PUT', 
-            body: updateProfile(ghUser), 
-            headers: {'Content-Type': 'application/json'}
-          }
-        )
-        .then(res => res.json())
-        .then(updatedUser => {
-          res.json(updatedUser);
+        Users.findOneAndUpdate(
+          { 'gitHub.id': ghUser.id }, 
+          { $set: updateProfile(ghUser) }, 
+          { new: true }).exec()
+        .then(profile => {
+          res.json(profile);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          res.status(404).send({error: `Could not find and update ${ghUser.id}.`});
+        });
       })
       .catch(err => {
         console.log(err);
-        res.status(500).json({error: 'Something went wrong oops'});
+        res.status(404).send({error: `Could not find user ${user.gitHub.login} on github.`});
       });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(404).send({error: `User with id ${req.param.id} does not exist.`});
     });
 });
 
