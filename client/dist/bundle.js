@@ -26226,18 +26226,18 @@ var initialState = {
   error: null,
   gitHub: {},
   profile: {
-    personalTitle: '',
-    remoteOk: '',
-    avatar_url: '',
-    name: '',
-    company: '',
-    personal_website: '',
-    location: '',
-    email: '',
-    bio: '',
-    linked_in: '',
-    twitter: '',
-    blog: '',
+    personalTitle: 'cool dude',
+    remoteOk: 'yes',
+    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
+    name: 'William',
+    company: 'Myself',
+    personal_website: 'profile.com',
+    location: 'ATL',
+    email: 'me@butt.co',
+    bio: 'I was born then i went vegan',
+    linked_in: 'linkedin.com/profile',
+    twitter: 'twitter.com/profile',
+    blog: 'blog.profile.com',
     skills: {
       passions: [],
       roles: [],
@@ -26445,6 +26445,10 @@ var _OnboardingScreen = __webpack_require__(270);
 
 var _OnboardingScreen2 = _interopRequireDefault(_OnboardingScreen);
 
+var _ProfileScreen = __webpack_require__(280);
+
+var _ProfileScreen2 = _interopRequireDefault(_ProfileScreen);
+
 __webpack_require__(277);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -26477,7 +26481,8 @@ var App = function (_React$Component) {
           _react2.default.createElement(_reactRouterDom.Route, {
             path: '/onboarding/:questionId'
             // path='/onboarding' re Issue #2
-            , component: _OnboardingScreen2.default })
+            , component: _OnboardingScreen2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/me', component: _ProfileScreen2.default })
         )
       );
     }
@@ -29330,14 +29335,16 @@ var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(61);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (props) {
   return _react2.default.createElement(
-    'button',
+    _reactRouterDom.Link,
     {
-      href: '#',
-      className: 'submit-button',
+      to: '/me',
+      className: 'submit-Link',
       type: 'submit'
     },
     'Submit'
@@ -29901,6 +29908,161 @@ var OnboardingIntro = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = OnboardingIntro;
+
+/***/ }),
+/* 280 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ProfileScreen = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(98);
+
+var _profileHeader = __webpack_require__(281);
+
+var _profileHeader2 = _interopRequireDefault(_profileHeader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProfileScreen = exports.ProfileScreen = function (_React$Component) {
+  _inherits(ProfileScreen, _React$Component);
+
+  function ProfileScreen() {
+    _classCallCheck(this, ProfileScreen);
+
+    return _possibleConstructorReturn(this, (ProfileScreen.__proto__ || Object.getPrototypeOf(ProfileScreen)).apply(this, arguments));
+  }
+
+  _createClass(ProfileScreen, [{
+    key: 'render',
+    value: function render() {
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_profileHeader2.default, { user: user })
+      );
+    }
+  }]);
+
+  return ProfileScreen;
+}(_react2.default.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    user: state.profile
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProfileScreen);
+
+/***/ }),
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ProfileHeader = function (_React$Component) {
+  _inherits(ProfileHeader, _React$Component);
+
+  function ProfileHeader(props) {
+    _classCallCheck(this, ProfileHeader);
+
+    return _possibleConstructorReturn(this, (ProfileHeader.__proto__ || Object.getPrototypeOf(ProfileHeader)).call(this, props));
+  }
+
+  _createClass(ProfileHeader, [{
+    key: 'render',
+    value: function render() {
+      var user = this.props.user;
+
+      return _react2.default.createElement(
+        'header',
+        null,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('img', { src: user.avatar_url })
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h2',
+            null,
+            user.name
+          ),
+          _react2.default.createElement(
+            'ul',
+            null,
+            _react2.default.createElement(
+              'li',
+              null,
+              user.location,
+              ' | Remote Ok: ',
+              user.remoteOk
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              user.personalTitle
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'a',
+            { href: 'mailto:' + user.email },
+            'Email Me'
+          )
+        )
+      );
+    }
+  }]);
+
+  return ProfileHeader;
+}(_react2.default.Component);
+
+exports.default = ProfileHeader;
 
 /***/ })
 /******/ ]);
