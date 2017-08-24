@@ -1,4 +1,14 @@
 import * as ref from './refs';
+import * as Cookies from 'js-cookie';
+
+// Access Token Actions
+export const setAccessToken = accessToken => ({
+  type: ref.SET_ACCESS_TOKEN,
+  accessToken
+});
+export const removeAccessToken = () => ({
+  type: ref.REMOVE_ACCESS_TOKEN
+});
 
 export const signup_handler = (key, value) => ({
   type: ref.SIGNUP_HANDLER,
@@ -60,19 +70,31 @@ export const login_error = error => ({
   type: ref.UPDATE_ERROR,
   error
 });
-// export const authGithub = () => dispatch => {
-//   dispatch(login_request());
-//   fetch('/api/auth/github').then(user => {
-//     if (!user) {
-//       return Promise.reject(user.statusText);
-//     }
-//     else {
-//       console.log(user);
-//     }
-//   }).catch(error => {
-//     dispatch(login_error(error));
-//   });
-// };
+export const fetchUser = accessToken => dispatch => {
+  dispatch(login_request());
+  dispatch(setAccessToken(accessToken));
+  fetch('/api/profile/me', {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }).then(res => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        Cookies.remove('accessToken');
+        dispatch(removeAccessToken());
+        return;
+      }
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  }).then(currentUser => {
+    dispatch(login_success(currentUser));
+  }).catch(error => {
+    dispatch(login_error(error));
+  });
+};
+
+
 export const checkbox_handler = (key, array) => ({
   type: ref.CHECKBOX_HANDLER,
   key,

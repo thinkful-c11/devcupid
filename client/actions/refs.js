@@ -1,3 +1,7 @@
+// Access Token Constants
+export const SET_ACCESS_TOKEN = 'SET_ACCESS_TOKEN';
+export const REMOVE_ACCESS_TOKEN = 'REMOVE_ACCESS_TOKEN';
+
 // Auth/Login Constants
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
