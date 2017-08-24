@@ -1,9 +1,53 @@
 import React from 'react';
+import * as actions from '../../actions/actions';
 
 export default class Checkbox extends React.Component{
   constructor(props){
     super(props);
+    this.state = {
+      hold: false
+    };
   }
+
+  componentDidMount(){
+    const emptyState = {};
+    this.setState({
+      emptyState
+    });
+    this.props.currentQuestion.choices.forEach(choice => {
+      this.setState({
+        [choice]: false
+      }, () => {
+        for(let k in this.state){
+          if(this.state[k] === true){
+            this.state[k] = false
+          }
+        }
+      })
+    })
+  }
+
+  onClick(e){
+    let key = e.target.id;
+    let pos = e.target.value;
+    let value = e.target.checked;
+    this.setState({
+      [pos]: value
+    }, 
+      () => {
+        let arr = [];
+        for(let k in this.state){
+          if(this.state[k] === true){
+            arr.push(k)
+          }
+        }
+        this.props.dispatch(actions.checkbox_handler(key, arr));
+      }
+    );
+  }
+
+  
+  
 
   render(){
     const {currentQuestion} = this.props;
@@ -13,9 +57,9 @@ export default class Checkbox extends React.Component{
         {
           currentQuestion.choices.map((q, index) => {
             return (
-              <div key={index}>
+              <div key={`${q}${index}`}>
                 <label htmlFor={index}>{q}</label>
-                <input id={index} type='checkbox' value={q} />
+                <input className='input' type='checkbox' value={q} id={currentQuestion.key} onClick={e => this.onClick(e)} checked={this.state[q]} />
               </div>
             );
           })

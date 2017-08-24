@@ -6,7 +6,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 // const BearerStrategy = require('passport-http-bearer').Strategy;
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const Users = require('./models');
+const {Users,Languages} = require('./models');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
