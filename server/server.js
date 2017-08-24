@@ -39,20 +39,37 @@ app.get('/api/', (req, res) => {
 });
 
 // Configuring the GitHub strategy
+// passport.use(new GitHubStrategy({
+//   clientID: process.env.GITHUB_CLIENT_ID,
+//   clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//   callbackURL: '/api/auth/github/callback'
+// },
+//   (accessToken, refreshToken, user, cb) => {
+//         // const githubId = profile.id
+//             // githubId: ,
+//             // accessToken: accessToken
+//         // };
+//         // console.log(user)
+//     return cb(null, user);
+//   }
+// ));
+
+// Trying to set and update user in the strategy
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: '/api/auth/github/callback'
 },
   (accessToken, refreshToken, user, cb) => {
-        // const githubId = profile.id
-            // githubId: ,
-            // accessToken: accessToken
-        // };
-        // console.log(user)
-    return cb(null, user);
-  }
-));
+    User
+      .findOneAndUpdate({ githubId: user.id},
+        {$set: { githubId: user.id, accessToken: accessToken } },
+        {new: true, upsert: true}, (error, user) => {
+          console.log('SERVER.JS USER:', user);
+          return cb(err, user);
+        }
+      );
+  }));
 
 passport.use (
   new BearerStrategy (

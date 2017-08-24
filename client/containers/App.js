@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
-import * as actions from '../actions';
+import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
 import '../SCSS/App.scss';
