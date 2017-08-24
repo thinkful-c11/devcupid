@@ -10,7 +10,7 @@ export class App extends React.Component {
     const accessToken = Cookies.get('accessToken');
 
     if (accessToken) {
-      this.props.dispatch(actions.fetUser(accessToken));
+      this.props.dispatch(actions.fetchUser(accessToken));
     }
   }
   render() {
