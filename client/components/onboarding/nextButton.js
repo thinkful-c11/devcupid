@@ -10,7 +10,7 @@ export default class NextButton extends React.Component{
     const {nextQuestion} = this.props;
     return(
       <Link to={`/onboarding/${nextQuestion}`}>
-        <button>NEXT</button>
+        <button onClick={() => this.prop.onClick()}>NEXT</button>
       </Link>
     );
   }

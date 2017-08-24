@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../../actions/actions';
 
 import SubmitButton from '../components/onboarding/SubmitButton';
 import NextButton from '../components/onboarding/nextButton';
@@ -10,6 +11,9 @@ import CheckboxNested from '../components/onboarding/checkboxNested';
 import OnboardingIntro from '../components/onboarding/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
+  handleNextButton() {
+    this.props.dispatch(actions.updateProfile(this.props.profile));
+  }
   render() {
     if (this.props.match.params.questionId === 'intro'){
       return <OnboardingIntro dispatch={this.props.dispatch} />;
@@ -25,7 +29,7 @@ export class OnboardingScreen extends React.Component {
         button = <SubmitButton />;
       }
       else{
-        button = <NextButton nextQuestion={++currentIndex} />;
+        button = <NextButton nextQuestion={++currentIndex} onClick={this.handleNextButton} />;
       }
 
       switch(currentQuestion.type){
