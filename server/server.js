@@ -150,6 +150,11 @@ function deepUpdate(update) {
   return setObject;
 }
 
+// Log user out of GitHub
+app.get('/api/auth/github/logout', (req, res) => {
+  req.logout(); res.clearCookie('accessToken'); res.redirect('/');
+});
+
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
   Users.findOneAndUpdate(
