@@ -62,9 +62,9 @@ export const update_profile = (githubId, updateBody) => dispatch => {
 export const login_request = () => ({
   type: ref.LOGIN_REQUEST
 });
-export const login_success = user => ({
-  type: ref.UPDATE_SUCCESS,
-  user
+export const login_success = gitHub => ({
+  type: ref.LOGIN_SUCCESS,
+  gitHub
 });
 export const login_error = error => ({
   type: ref.UPDATE_ERROR,
@@ -72,8 +72,7 @@ export const login_error = error => ({
 });
 export const fetchUser = accessToken => dispatch => {
   dispatch(login_request());
-  console.log('ACTIONS.FETCH accessToken:', accessToken);
-  dispatch(setAccessToken(accessToken));
+  // dispatch(setAccessToken(accessToken));
   fetch('/api/profile/me', {
     headers: {
       'Authorization': `Bearer ${accessToken}`
@@ -88,8 +87,9 @@ export const fetchUser = accessToken => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(currentUser => {
-    dispatch(login_success(currentUser));
+  }).then(gitHub => {
+    console.log('FETCHUSER gitHub:', gitHub);
+    dispatch(login_success(gitHub));
   }).catch(error => {
     dispatch(login_error(error));
   });

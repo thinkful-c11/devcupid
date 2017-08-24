@@ -66,7 +66,6 @@ passport.use(new GitHubStrategy({
       {$set: { 'gitHub.id': user.id, 'gitHub.accessToken': accessToken }
       },
         {new: true, upsert: true}, (error, user) => {
-          console.log('SERVER.JS USER:', user);
           return cb(error, user);
         }
       );
@@ -189,7 +188,7 @@ app.get('/api/profile/me',
   (req, res) => {
     console.log('/API/PROFILE/ME');
     return res.json({
-      githubId: req.user.gitHub.id
+      gitHub: req.user.gitHub
     });
   });
 

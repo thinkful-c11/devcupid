@@ -4,7 +4,7 @@ import * as ref from '../actions/refs';
 const initialState = {
   loading: false,
   error: null,
-  user: null,
+  user: false,
   gitHub: {},
   profile: {
     personalTitle: '',
@@ -229,6 +229,23 @@ const reducer = (state = initialState, action) => {
       profile: Object.assign( {}, state.profile, {
         [action.key]: action.value
       })
+    });
+
+  //Login User Reducers
+  case ref.LOGIN_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+  case ref.LOGIN_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      user: true,
+      gitHub: action.gitHub
+    });
+  case ref.LOGIN_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
     });
 
   //Update Profile Reducers
