@@ -45,14 +45,18 @@ export const update_error = (error) => ({
 });
 
 // Not working/tested yet.
-export const update_profile = (githubId, updateBody) => dispatch => {
-  disptach(update_request());
+export const update_profile = (githubId, profile) => dispatch => {
+  console.log('IN UPDATE PROFILE');
+  dispatch(update_request());
   //TODO: verify body formatting matches what DB expects
   const updateObj = {
-    updateBody
+    profile
   };
   const data = {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(updateObj)
   };
   fetch(`/api/update-user/${githubId}`, data).then(res => {

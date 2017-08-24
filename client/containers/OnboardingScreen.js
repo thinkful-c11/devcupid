@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/actions';
+import * as actions from '../actions/actions';
 
 import SubmitButton from '../components/onboarding/SubmitButton';
 import NextButton from '../components/onboarding/nextButton';
@@ -12,7 +12,9 @@ import OnboardingIntro from '../components/onboarding/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
   handleNextButton() {
-    this.props.dispatch(actions.updateProfile(this.props.profile));
+    const { dispatch, profile, gitHubId } = this.props;
+
+    dispatch(actions.update_profile(gitHubId, profile));
   }
   render() {
     if (this.props.match.params.questionId === 'intro'){
@@ -29,7 +31,7 @@ export class OnboardingScreen extends React.Component {
         button = <SubmitButton />;
       }
       else{
-        button = <NextButton nextQuestion={++currentIndex} onClick={this.handleNextButton} />;
+        button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNextButton()} />;
       }
 
       switch(currentQuestion.type){
@@ -58,7 +60,8 @@ export class OnboardingScreen extends React.Component {
 
 const mapStateToProps = state => ({
   onboardingQuestions: state.onboardingQuestions,
-  profile: state.profile
+  profile: state.profile,
+  gitHubId: state.gitHub.id
 });
 
 export default connect(mapStateToProps)(OnboardingScreen);

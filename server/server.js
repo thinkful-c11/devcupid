@@ -5,7 +5,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
 // const mongoose = require('mongoose');
-// const bodyParser = require ('body-parser');
+const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const {Users,Languages} = require('./models');
@@ -115,6 +115,8 @@ app.get('/api/auth/github/logout', (req, res) => {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
+  console.log('REQ.BODY:', req.body);
+  console.log(req.param.userId);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: deepUpdate(req.body) },
