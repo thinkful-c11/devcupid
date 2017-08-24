@@ -88,8 +88,8 @@ export const fetchUser = accessToken => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(gitHub => {
-    dispatch(login_success(gitHub));
+  }).then(user => {
+    dispatch(login_success(user.gitHub));
   }).catch(error => {
     dispatch(login_error(error));
   });
