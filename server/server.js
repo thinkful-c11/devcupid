@@ -40,24 +40,24 @@ app.get('/api/', (req, res) => {
 
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
-    clientID: process.env.GITHUB_CLIENT_ID,
-    clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: '/api/auth/github/callback'
-  },
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: '/api/auth/github/callback'
+},
   (accessToken, refreshToken, user, cb) => {
         // const githubId = profile.id
             // githubId: ,
             // accessToken: accessToken
         // };
         // console.log(user)
-        return cb(null, user);
-    }
+    return cb(null, user);
+  }
 ));
 
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
-app.get('/api/auth/github/callback', 
+app.get('/api/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
     const githubUser = req.user._json;
@@ -92,8 +92,8 @@ app.get('/api/auth/github/callback',
 );
 
 function deepUpdate(update) {
-   const setObject = {};
-   Object.keys(update).forEach((key) => {
+  const setObject = {};
+  Object.keys(update).forEach((key) => {
     if (typeof update[key] === 'object') {
       Object.keys(update[key]).forEach((subkey) => {
         setObject[`${key}.${subkey}`] = update[key][subkey];
@@ -108,8 +108,8 @@ function deepUpdate(update) {
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
   Users.findOneAndUpdate(
-    { 'gitHub.id': req.params.userId }, 
-    { $set: deepUpdate(req.body) }, 
+    { 'gitHub.id': req.params.userId },
+    { $set: deepUpdate(req.body) },
     { new: true }).exec()
   .then(profile => {
     return res.json(profile);
@@ -140,10 +140,10 @@ app.get('/api/profile/:id',
     // passport.authenticate('github', {failureRedirect:'/'}),
     (req, res) => {
     // our database should be 'in sync' with githubs,
-    // github object on Users model should update when 
+    // github object on Users model should update when
     // github updates.
     // To do that, we will update our database every time a profile is viewed.
-    Users.findOne({'gitHub.id': req.params.id})
+      Users.findOne({'gitHub.id': req.params.id})
     .then(user => {
       fetch(`https://api.github.com/users/${user.gitHub.login}`)
       .then(res => res.json())
@@ -152,8 +152,8 @@ app.get('/api/profile/:id',
         fetch(
           `http://localhost:8080/api/update-user/${ghUser.id}`,
           { // options
-            method: 'PUT', 
-            body: updateProfile(ghUser), 
+            method: 'PUT',
+            body: updateProfile(ghUser),
             headers: {'Content-Type': 'application/json'}
           }
         )
@@ -168,7 +168,7 @@ app.get('/api/profile/:id',
         res.status(500).json({error: 'Something went wrong oops'});
       });
     });
-});
+    });
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
