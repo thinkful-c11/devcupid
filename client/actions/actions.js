@@ -1,7 +1,5 @@
 import * as ref from './refs';
 
-
-
 export const signup_handler = (key, value) => ({
   type: ref.SIGNUP_HANDLER,
   key,
@@ -75,3 +73,13 @@ export const login_error = error => ({
 //     dispatch(login_error(error));
 //   });
 // };
+export const checkbox_handler = (key, array) => ({
+  type: ref.CHECKBOX_HANDLER,
+  key,
+  array
+});
+
+export const checkboxNested_handler = (body) => ({
+  type: ref.CHECKBOXNESTED_HANDLER,
+  body
+});

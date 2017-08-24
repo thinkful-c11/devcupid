@@ -15,18 +15,16 @@ const initialState = {
     location: '',
     email: '',
     bio: '',
-    social: {
-      linked_in: null,
-      twitter: null,
-      blog: null
-    },
-    passions: [],
+    linked_in: '',
+    twitter: '',
+    blog: '',
     skills: {
-      roles: null,
-      languages: null,
-      libraries: null,
-      speciality: null,
-      softwareTools: null
+      passions: [],
+      roles: [],
+      languages: {},
+      libraries: [],
+      speciality: [],
+      softwareTools: []
     },
   },
   onboardingQuestions: [
@@ -63,15 +61,15 @@ const initialState = {
           label: 'What\'s your email?'
         },
         {
-          key: 'social.linked_in',
+          key: 'linked_in',
           label: 'Do you have a LinkedIn account?'
         },
         {
-          key: 'social.twitter',
+          key: 'twitter',
           label: 'Do you have a Twitter?'
         },
         {
-          key: 'social.blog',
+          key: 'blog',
           label: 'Do you have a personal blog?'
         },
       ]
@@ -99,6 +97,7 @@ const initialState = {
     {
       text: 'Select some of the things you are passionate about.',
       type: 'checkbox',
+      key: 'passions',
       choices: [
         'Ed Tech', 'Machine Learning', 'Design', 'UI', 'UX', 'Fin Tech', 'Social Media', 'Big Data', 'Data Science', 'B2B', 'Internet of Things', 'Linux'
       ]
@@ -106,6 +105,7 @@ const initialState = {
     {
       text: 'Select some of the roles you can perform.',
       type: 'checkbox',
+      key: 'roles',
       choices: [
         'Front-End Web Developer', 'Back-End Web Developer', 'Full-Stack Web Developer', 'Web Designer', 'UI Engineer',
         'UX Engineer', 'Database Architect', 'Founder', 'Investor', 'DevOps', 'Developer', 'Designer'
@@ -114,6 +114,7 @@ const initialState = {
     {
       text: 'What (if any) languages and libraries are you competent with?',
       type: 'checkbox-nested',
+      key: 'languages',
       choices: [
         {
           language: 'JavaScript',
@@ -196,6 +197,7 @@ const initialState = {
     {
       text: 'What are some of your design specialties?',
       type: 'checkbox',
+      key: 'speciality',
       choices: [
         'Mobile', 'CRM', 'Blog', 'Web', 'UI', 'UX'
       ]
@@ -203,6 +205,7 @@ const initialState = {
     {
       text: 'What software tools do you have experience with?',
       type: 'checkbox',
+      key: 'softwareTools',
       choices: [
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
@@ -226,7 +229,7 @@ const reducer = (state = initialState, action) => {
         [action.key]: action.value
       })
     });
-
+    
   //Update Profile Reducers
   case ref.UPDATE_REQUEST:
     return Object.assign({}, state, {
@@ -243,6 +246,23 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       loading: false,
       error
+    });
+
+  case ref.CHECKBOX_HANDLER:
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        skills: Object.assign( {}, state.profile.skills, {
+          [action.key]: action.array
+        })
+      })
+    });
+  case ref.CHECKBOXNESTED_HANDLER:
+    return Object.assign( {}, state, {
+      profile: Object.assign( {}, state.profile, {
+        skills: Object.assign( {}, state.profile.skills, {
+          languages: action.body
+        })
+      })
     });
 
   default:
