@@ -187,8 +187,6 @@ app.get('/api/profile/:id',
       });
     });
     });
-<<<<<<< HEAD
-=======
 
   // Alternate Profile Endpoint
 app.get('/api/profile/me',
@@ -203,7 +201,6 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
 });
->>>>>>> create/oauth-accesstokens-bearer-strategy
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
