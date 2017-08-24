@@ -17,6 +17,7 @@ export class App extends React.Component {
   }
   render() {
     const loggedIn = this.props.user;
+    console.log('LOGGED IN?', loggedIn);
     return (
       <Router>
         <main>
@@ -39,4 +40,7 @@ export class App extends React.Component {
   }
 }
 
-export default connect()(App);
+const mapStateToProps = state => ({
+  user: state.user
+});
+export default connect(mapStateToProps)(App);
