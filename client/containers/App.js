@@ -29,7 +29,7 @@ export class App extends React.Component {
 
           <Route exact path='/' render={() => (
             loggedIn ? (
-              <Redirect to='/intro' />
+              <Redirect to='/onboarding/intro' />
             ) : (
               <LoginScreen />
               )
