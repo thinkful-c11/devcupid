@@ -1,6 +1,5 @@
 const path = require('path');
 const fetch = require('node-fetch');
-const FormData = require('form-data');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
@@ -9,7 +8,7 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 // const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const Users = require('./models');
+const {Users,Languages} = require('./models');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
@@ -166,8 +165,9 @@ app.put('/api/update-user/:userId', (req, res) => {
 });
 
 function updateProfile(ghUser) {
-  return JSON.stringify({
+  return {
     gitHub: {
+      id: ghUser.id,
       login: ghUser.login,
       avatar_url: ghUser.avatar_url,
       html_url: ghUser.html_url,
@@ -179,7 +179,7 @@ function updateProfile(ghUser) {
       hireable: ghUser.hireable,
       bio: ghUser.bio
     }
-  });
+  };
 }
 
 // Alternate Profile Endpoint
@@ -231,6 +231,36 @@ app.get('/api/profile/me',
 app.get(/^(?!\/api(\/|$))/, (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
+});
+
+function queryFilter(qry) {
+  const validQueries = {
+    'gitHub.login': qry.login,
+    'profile.skills.languages': qry.languages,
+    'profile.skills.roles': qry.roles,
+    'gitHub.name': qry.name,
+    'profile.social.linked_in': qry.linked_in,
+    'profile.social.twitter': qry.twitter,
+  };
+
+  const result = {};
+
+  for (let key in validQueries) {
+    if (validQueries[key] !== undefined) {
+            // case insensitive query
+      result[key] = { $regex : new RegExp(validQueries[key], 'i') };
+    }
+  }
+
+  return result;
+}
+
+app.get('/api/search', (req, res) => {
+  const searchableParams = queryFilter(req.query);
+  Users.find(searchableParams)
+  .then(user => {
+    res.json(user);
+  });
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
