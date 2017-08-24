@@ -61,12 +61,12 @@ passport.use(new GitHubStrategy({
   callbackURL: '/api/auth/github/callback'
 },
   (accessToken, refreshToken, user, cb) => {
-    User
-      .findOneAndUpdate({ githubId: user.id},
+    Users
+      .findOneAndUpdate({ githubId: user.id },
         {$set: { githubId: user.id, accessToken: accessToken } },
         {new: true, upsert: true}, (error, user) => {
           console.log('SERVER.JS USER:', user);
-          return cb(err, user);
+          return cb(error, user);
         }
       );
   }));
@@ -86,45 +86,55 @@ passport.use (
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
 
+// app.get('/api/auth/github/callback',
+//   passport.authenticate('github', { failureRedirect: '/' }),
+//   function(req, res) {
+//     const githubUser = req.user._json;
+//     // githubUser.id might be a number
+//     Users.findOne({ 'gitHub.id': githubUser.id }).exec()
+//     .then(user => {
+//       if (!user) {
+//         Users.create({
+//           onboarded: false,
+//           gitHub: {
+//             id: githubUser.id,
+//             login: githubUser.login,
+//             avatar_url: githubUser.avatar_url,
+//             html_url: githubUser.html_url,
+//             name: githubUser.name,
+//             company: githubUser.company,
+//             blog: githubUser.blog,
+//             location: githubUser.location,
+//             email: githubUser.email,
+//             hireable: githubUser.hireable,
+//             bio: githubUser.bio
+//           }
+//         }).then(newUser => {
+//           // res.json(newUser);
+//           res.cookie('accessToken', req.user.accessToken, {expires: 0});
+//           res.redirect('/');
+//         });
+//       } else {
+//         // res.json(user);
+//         res.cookie('accessToken', req.user.accessToken, {expires: 0});
+//         res.redirect('/');
+//       }
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+//   }
+// );
+
 app.get('/api/auth/github/callback',
-  passport.authenticate('github', { failureRedirect: '/' }),
-  function(req, res) {
-    const githubUser = req.user._json;
-    // githubUser.id might be a number
-    Users.findOne({ 'gitHub.id': githubUser.id }).exec()
-    .then(user => {
-      if (!user) {
-        Users.create({
-          onboarded: false,
-          gitHub: {
-            id: githubUser.id,
-            login: githubUser.login,
-            avatar_url: githubUser.avatar_url,
-            html_url: githubUser.html_url,
-            name: githubUser.name,
-            company: githubUser.company,
-            blog: githubUser.blog,
-            location: githubUser.location,
-            email: githubUser.email,
-            hireable: githubUser.hireable,
-            bio: githubUser.bio
-          }
-        }).then(newUser => {
-          // res.json(newUser);
-          res.cookie('accessToken', req.user.accessToken, {expires: 0});
-          res.redirect('/');
-        });
-      } else {
-        // res.json(user);
-        res.cookie('accessToken', req.user.accessToken, {expires: 0});
-        res.redirect('/');
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
-  }
-);
+  passport.authenticate('github', {
+    failureRedirect: '/',
+    session: false
+  }),
+  (req, res) => {
+    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    res.redirect('/');
+  });
 
 function deepUpdate(update) {
   const setObject = {};
