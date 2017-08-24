@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
-// const BearerStrategy = require('passport-http-bearer').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 // const mongoose = require('mongoose');
 // const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
@@ -38,13 +38,6 @@ app.get('/api/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
-// Unhandled requests which aren't for the API should serve index.html so
-// client-side routing using browserHistory can function
-// app.get(/^(?!\/api(\/|$))/, (req, res) => {
-//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-//   res.sendFile(index);
-// });
-
 // Configuring the GitHub strategy
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
@@ -60,6 +53,18 @@ passport.use(new GitHubStrategy({
     return cb(null, user);
   }
 ));
+
+passport.use (
+  new BearerStrategy (
+    (token, done) => {
+      User.findOne({ accessToken: token }, (err, user) => {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user, { scope: 'all'} );
+      });
+    }
+  )
+);
 
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
@@ -87,9 +92,15 @@ app.get('/api/auth/github/callback',
             hireable: githubUser.hireable,
             bio: githubUser.bio
           }
-        }).then(newUser => res.json(newUser));
+        }).then(newUser => {
+          // res.json(newUser);
+          res.cookie('accessToken', req.user.accessToken, {expires: 0});
+          res.redirect('/');
+        });
       } else {
-        res.json(user);
+        // res.json(user);
+        res.cookie('accessToken', req.user.accessToken, {expires: 0});
+        res.redirect('/');
       }
     })
     .catch(err => {
@@ -143,8 +154,8 @@ function updateProfile(ghUser) {
   });
 }
 
-app.get('/profile/:id',
-    // passport.authenticate('github', {failureRedirect:'/'}),
+app.get('/api/profile/:id',
+    // passport.authenticate('bearer', {session: false}),
     (req, res) => {
     // our database should be 'in sync' with githubs,
     // github object on Users model should update when
@@ -176,6 +187,23 @@ app.get('/profile/:id',
       });
     });
     });
+<<<<<<< HEAD
+=======
+
+  // Alternate Profile Endpoint
+app.get('/api/profile/me',
+    passport.authenticate('bearer', {session: false}),
+    (req, res) => res.json({
+      githubId: req.user.gitHub.id
+    }));
+
+// Unhandled requests which aren't for the API should serve index.html so
+// client-side routing using browserHistory can function
+app.get(/^(?!\/api(\/|$))/, (req, res) => {
+  const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+  res.sendFile(index);
+});
+>>>>>>> create/oauth-accesstokens-bearer-strategy
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
