@@ -62,8 +62,9 @@ passport.use(new GitHubStrategy({
 },
   (accessToken, refreshToken, user, cb) => {
     Users
-      .findOneAndUpdate({ githubId: user.id },
-        {$set: { githubId: user.id, accessToken: accessToken } },
+      .findOneAndUpdate({ 'gitHub.id': user.id },
+      {$set: { 'gitHub.id': user.id, 'gitHub.accessToken': accessToken }
+      },
         {new: true, upsert: true}, (error, user) => {
           console.log('SERVER.JS USER:', user);
           return cb(error, user);
@@ -74,7 +75,7 @@ passport.use(new GitHubStrategy({
 passport.use (
   new BearerStrategy (
     (token, done) => {
-      User.findOne({ accessToken: token }, (err, user) => {
+      Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
         return done(null, user, { scope: 'all'} );
@@ -132,7 +133,8 @@ app.get('/api/auth/github/callback',
     session: false
   }),
   (req, res) => {
-    res.cookie('accessToken', req.user.accessToken, {expires: 0});
+    const accessToken = req.user.gitHub.accessToken;
+    res.cookie('accessToken', accessToken, {expires: 0});
     res.redirect('/');
   });
 
@@ -181,46 +183,50 @@ function updateProfile(ghUser) {
   });
 }
 
-app.get('/api/profile/:id',
-    // passport.authenticate('bearer', {session: false}),
-    (req, res) => {
-    // our database should be 'in sync' with githubs,
-    // github object on Users model should update when
-    // github updates.
-    // To do that, we will update our database every time a profile is viewed.
-      Users.findOne({'gitHub.id': req.params.id})
-    .then(user => {
-      fetch(`https://api.github.com/users/${user.gitHub.login}`)
-      .then(res => res.json())
-      .then(ghUser => {
-        // Currently hard coded in local host, replace later with HTTP or something else
-        fetch(
-          `http://localhost:8080/api/update-user/${ghUser.id}`,
-          { // options
-            method: 'PUT',
-            body: updateProfile(ghUser),
-            headers: {'Content-Type': 'application/json'}
-          }
-        )
-        .then(res => res.json())
-        .then(updatedUser => {
-          res.json(updatedUser);
-        })
-        .catch(err => console.log(err));
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({error: 'Something went wrong oops'});
-      });
-    });
-    });
-
-  // Alternate Profile Endpoint
+// Alternate Profile Endpoint
 app.get('/api/profile/me',
-    passport.authenticate('bearer', {session: false}),
-    (req, res) => res.json({
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    console.log('/API/PROFILE/ME');
+    return res.json({
       githubId: req.user.gitHub.id
-    }));
+    });
+  });
+
+// app.get('/api/profile/:id',
+//     // passport.authenticate('bearer', {session: false}),
+//     (req, res) => {
+//       console.log('/API/PROFILE/:ID');
+//     // our database should be 'in sync' with githubs,
+//     // github object on Users model should update when
+//     // github updates.
+//     // To do that, we will update our database every time a profile is viewed.
+//       Users.findOne({'gitHub.id': req.params.id})
+//     .then(user => {
+//       fetch(`https://api.github.com/users/${user.gitHub.login}`)
+//       .then(res => res.json())
+//       .then(ghUser => {
+//         // Currently hard coded in local host, replace later with HTTP or something else
+//         fetch(
+//           `http://localhost:8080/api/update-user/${ghUser.id}`,
+//           { // options
+//             method: 'PUT',
+//             body: updateProfile(ghUser),
+//             headers: {'Content-Type': 'application/json'}
+//           }
+//         )
+//         .then(res => res.json())
+//         .then(updatedUser => {
+//           res.json(updatedUser);
+//         })
+//         .catch(err => console.log(err));
+//       })
+//       .catch(err => {
+//         console.log(err);
+//         res.status(500).json({error: 'Something went wrong oops'});
+//       });
+//     });
+//     });
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function

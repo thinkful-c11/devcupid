@@ -10,7 +10,7 @@ import '../SCSS/App.scss';
 export class App extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
-
+    console.log('APP.JS TOKEN:', accessToken);
     if (accessToken) {
       this.props.dispatch(actions.fetchUser(accessToken));
     }

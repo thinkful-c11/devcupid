@@ -246,7 +246,7 @@ const reducer = (state = initialState, action) => {
   case ref.UPDATE_ERROR:
     return Object.assign({}, state, {
       loading: false,
-      error
+      error: action.error
     });
 
   case ref.CHECKBOX_HANDLER:

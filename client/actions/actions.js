@@ -72,6 +72,7 @@ export const login_error = error => ({
 });
 export const fetchUser = accessToken => dispatch => {
   dispatch(login_request());
+  console.log('ACTIONS.FETCH accessToken:', accessToken);
   dispatch(setAccessToken(accessToken));
   fetch('/api/profile/me', {
     headers: {
