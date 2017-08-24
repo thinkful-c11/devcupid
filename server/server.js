@@ -4,11 +4,13 @@ const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
 const BearerStrategy = require('passport-http-bearer').Strategy;
-// const mongoose = require('mongoose');
-// const bodyParser = require ('body-parser');
-
+const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
+
 mongoose.Promise = global.Promise;
+
+require ('dotenv').config();
+const {TEST_DATABASE_URL,PORT} = process.env;
 const Users = require('./models');
 
 const secret = {
@@ -54,12 +56,17 @@ passport.use(new GitHubStrategy({
   }
 ));
 
+// Bearer strategy
 passport.use (
   new BearerStrategy (
     (token, done) => {
       User.findOne({ accessToken: token }, (err, user) => {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
+        if (err) { 
+          return done(err);
+        }
+        if (!user) {
+          return done(null, false);
+        }
         return done(null, user, { scope: 'all'} );
       });
     }
@@ -108,6 +115,14 @@ app.get('/api/auth/github/callback',
     });
   }
 );
+
+// Log user out of GitHub
+app.get('/api/auth/github/logout', (req, res) => {
+    req.logout();
+    res.clearCookie('accessToken');
+    res.redirect('/');
+});
+
 
 function deepUpdate(update) {
   const setObject = {};
