@@ -4,7 +4,7 @@ const FormData = require('form-data');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
-// const BearerStrategy = require('passport-http-bearer').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 // const mongoose = require('mongoose');
 // const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
@@ -53,6 +53,18 @@ passport.use(new GitHubStrategy({
     return cb(null, user);
   }
 ));
+
+passport.use (
+  new BearerStrategy (
+    (token, done) => {
+      User.findOne({ accessToken: token }, (err, user) => {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user, { scope: 'all'} );
+      });
+    }
+  )
+);
 
 app.get('/api/auth/github',
   passport.authenticate('github', { scope: [ 'user:email' ] }));
