@@ -214,7 +214,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(state);
+  // console.log(JSON.stringify(state.profile, null, 2));
   switch (action.type) {
 
   case ref.SIGNUP_HANDLER:
