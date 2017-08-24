@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import * as Cookies from 'js-cookie';
 import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
@@ -14,14 +14,23 @@ export class App extends React.Component {
     }
   }
   render() {
+    const loggedIn = this.props.user;
     return (
       <Router>
         <main>
-          <Route exact path='/' component={LoginScreen} />
+          {/* <Route exact path='/' component={LoginScreen} /> */}
           <Route
             path='/onboarding/:questionId'
             // path='/onboarding' re Issue #2
             component={OnboardingScreen} />
+
+          <Route exact path='/' render={() => (
+            loggedIn ? (
+              <Redirect to='/onboarding/:questionId' />
+            ) : (
+              <LoginScreen />
+              )
+          )} />
         </main>
       </Router>
     );
