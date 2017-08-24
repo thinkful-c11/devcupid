@@ -46,7 +46,6 @@ export const update_error = (error) => ({
 
 // Not working/tested yet.
 export const update_profile = (githubId, profile) => dispatch => {
-  console.log('IN UPDATE PROFILE');
   dispatch(update_request());
   //TODO: verify body formatting matches what DB expects
   const updateObj = {
