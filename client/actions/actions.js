@@ -10,16 +10,25 @@ export const removeAccessToken = () => ({
   type: ref.REMOVE_ACCESS_TOKEN
 });
 
+// Onboarding Handlers
 export const signup_handler = (key, value) => ({
   type: ref.SIGNUP_HANDLER,
   key,
   value
 });
-
 export const textInput_handler = (key, value) => ({
   type: ref.TEXTINPUT_HANDLER,
   key,
   value
+});
+export const checkbox_handler = (key, array) => ({
+  type: ref.CHECKBOX_HANDLER,
+  key,
+  array
+});
+export const checkboxNested_handler = (body) => ({
+  type: ref.CHECKBOXNESTED_HANDLER,
+  body
 });
 
 // Actions for PUT request to update profile.
@@ -95,14 +104,7 @@ export const fetchUser = accessToken => dispatch => {
   });
 };
 
-
-export const checkbox_handler = (key, array) => ({
-  type: ref.CHECKBOX_HANDLER,
-  key,
-  array
-});
-
-export const checkboxNested_handler = (body) => ({
-  type: ref.CHECKBOXNESTED_HANDLER,
-  body
+// Assign GitHub User data to redux store
+export const assignGitHubProfile = () => ({
+  type: ref.ASSIGN_GITHUB_PROFILE,
 });

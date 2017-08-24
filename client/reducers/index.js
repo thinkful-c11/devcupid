@@ -287,6 +287,18 @@ const reducer = (state = initialState, action) => {
       })
     });
 
+  case ref.ASSIGN_GITHUB_PROFILE:
+    return Object.assign({}, state, {
+      profile: Object.assign({}, state.profile, {
+        avatar_url: state.gitHub.avatar_url,
+        name: state.gitHub.name,
+        company: state.gitHub.company,
+        blog: state.gitHub.blog,
+        location: state.gitHub.location,
+        email: state.gitHub.email
+      })
+    });
+
   default:
     return state;
   }
