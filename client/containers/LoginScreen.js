@@ -15,7 +15,7 @@ export class LoginScreen extends React.Component {
           </a>
         </div>
 
-        <div><Link to={`/onboarding/${questionId}`}> Start Onboarding </Link></div>
+        {/* <div><Link to={`/onboarding/${questionId}`}> Start Onboarding </Link></div> */}
       </div>
     );
   }

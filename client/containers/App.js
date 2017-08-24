@@ -10,14 +10,12 @@ import '../SCSS/App.scss';
 export class App extends React.Component {
   componentDidMount() {
     const accessToken = Cookies.get('accessToken');
-    console.log('APP.JS TOKEN:', accessToken);
     if (accessToken) {
       this.props.dispatch(actions.fetchUser(accessToken));
     }
   }
   render() {
     const loggedIn = this.props.user;
-    console.log('LOGGED IN?', loggedIn);
     return (
       <Router>
         <main>
@@ -29,7 +27,7 @@ export class App extends React.Component {
 
           <Route exact path='/' render={() => (
             loggedIn ? (
-              <Redirect to='/onboarding/:questionId' />
+              <Redirect to='/intro' />
             ) : (
               <LoginScreen />
               )

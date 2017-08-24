@@ -186,7 +186,6 @@ function updateProfile(ghUser) {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
-    console.log('/API/PROFILE/ME');
     return res.json({
       gitHub: req.user.gitHub
     });

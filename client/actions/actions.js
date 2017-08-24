@@ -35,6 +35,7 @@ export const update_error = (error) => ({
   error
 });
 
+// Not working/tested yet.
 export const update_profile = (githubId, updateBody) => dispatch => {
   disptach(update_request());
   //TODO: verify body formatting matches what DB expects
@@ -88,7 +89,6 @@ export const fetchUser = accessToken => dispatch => {
     }
     return res.json();
   }).then(gitHub => {
-    console.log('FETCHUSER gitHub:', gitHub);
     dispatch(login_success(gitHub));
   }).catch(error => {
     dispatch(login_error(error));
