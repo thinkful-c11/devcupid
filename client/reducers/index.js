@@ -7,18 +7,22 @@ const initialState = {
   user: false,
   gitHub: {},
   profile: {
-    personalTitle: '',
-    remoteOk: '',
-    avatar_url: '',
-    name: '',
-    company: '',
-    personal_website: '',
-    location: '',
-    email: '',
-    bio: '',
-    linked_in: '',
-    twitter: '',
-    blog: '',
+    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
+    name: 'William',
+    personalTitle: 'cool dude',
+    location: 'ATL',
+    remoteOk: 'yes',
+    company: 'Myself',
+
+    email: 'me@butt.co',
+
+    bio: 'I was born then i went vegan',
+
+    personal_website: 'profile.com',
+    blog: 'blog.profile.com',
+    linked_in: 'linkedin.com/profile',
+    twitter: 'twitter.com/profile',
+
     skills: {
       passions: [],
       roles: [],

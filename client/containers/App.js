@@ -5,6 +5,7 @@ import * as Cookies from 'js-cookie';
 import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
+import ProfileScreen from './ProfileScreen';
 import '../SCSS/App.scss';
 
 export class App extends React.Component {
@@ -20,6 +21,7 @@ export class App extends React.Component {
       <Router>
         <main>
           {/* <Route exact path='/' component={LoginScreen} /> */}
+          <Route exact path='/me' component={ProfileScreen} />
           <Route
             path='/onboarding/:questionId'
             // path='/onboarding' re Issue #2

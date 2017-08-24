@@ -5,17 +5,10 @@ import * as actions from '../actions/actions';
 
 export class LoginScreen extends React.Component {
   render() {
-    let questionId = (this.props.questionId) ? this.props.questionId : 0;
     return(
       <div className='login-container'>
-        <div>
-          <a href='/api/auth/github'
-            >
-            Sign In With GitHub
-          </a>
-        </div>
-
-        {/* <div><Link to={`/onboarding/${questionId}`}> Start Onboarding </Link></div> */}
+        <div><a href='/api/auth/github'> Sign In With GitHub </a></div>
+        <div><Link to={'/onboarding/intro'}> Start Onboarding </Link></div>
       </div>
     );
   }

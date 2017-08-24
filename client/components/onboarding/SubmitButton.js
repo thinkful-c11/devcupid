@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default (props) => {
   return (
-    <button
-      href='#'
-      className='submit-button'
+    <Link
+      to={'/me'}
+      className='submit-Link'
       type='submit'
     >
       Submit
-    </button>
+    </Link>
   );
 };
