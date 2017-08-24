@@ -156,6 +156,7 @@ app.get('/profile/:id',
       .then(res => res.json())
       .then(ghUser => {
         // Currently hard coded in local host, replace later with HTTP or something else
+        https://www.npmjs.com/package/request-promise
         fetch(
           `http://localhost:8080/api/update-user/${ghUser.id}`, 
           { // options
@@ -175,6 +176,36 @@ app.get('/profile/:id',
         res.status(500).json({error: 'Something went wrong oops'});
       });
     });
+});
+
+function queryFilter(qry) {
+  const validQueries = {
+    'gitHub.login': qry.login,
+    'profile.skills.languages': qry.languages,
+    'profile.skills.roles': qry.roles,
+    'gitHub.name': qry.name,
+    'profile.social.linked_in': qry.linked_in,
+    'profile.social.twitter': qry.twitter,
+  };
+  
+  const result = {};
+
+    for (let key in validQueries) {
+        if (validQueries[key] !== undefined) {
+            // case insensitive query
+            result[key] = { $regex : new RegExp(validQueries[key], 'i') };
+        }
+    }
+
+    return result;
+}
+
+app.get('/api/search', (req, res) => {
+  const searchableParams = queryFilter(req.query);
+  Users.find(searchableParams)
+  .then(user => {
+    res.json(user);
+  });
 });
 
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
