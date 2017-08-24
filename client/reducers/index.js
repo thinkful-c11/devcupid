@@ -240,6 +240,7 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       loading: true
     });
+  //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
     return Object.assign({}, state, {
       loading: false,

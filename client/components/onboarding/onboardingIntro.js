@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as actions from '../../actions/actions';
 
 export default class OnboardingIntro extends React.Component{
   componentDidMount() {
