@@ -1,7 +1,61 @@
 const mongoose = require("mongoose");
 const LanguageSchema = mongoose.Schema({
-    name: {type: String},
-    libraries: {type: Array}
+    ".NET": {type:Boolean},
+    C: {type:Boolean},
+    "C#": {type:Boolean},
+    "C++": {type:Boolean},
+    CSS3:{
+        SASS: {type:Boolean},
+        LESS: {type:Boolean},
+        Bootstrap: {type:Boolean},
+        Foundation: {type:Boolean},
+        Materialize: {type:Boolean},
+        "CSS Grid": {type:Boolean},
+        "Responsive Design": {type:Boolean},
+        "Mobile First": {type:Boolean}
+    },
+    Clojure: {
+        Leiningen: {type:Boolean},
+        Ring: {type:Boolean},
+        Om: {type:Boolean}
+    },
+    Elm: {type:Boolean},
+    "F#": {type:Boolean},
+    Go: {type:Boolean},
+    HTML5:{
+        Pug: {type:Boolean}
+    },
+    Java:{
+        Swing: {type:Boolean},
+        "Spring Boot": {type:Boolean},
+        Guava: {type:Boolean}
+    },
+    javascript: {
+        Angular: {type:Boolean},
+        "Angular 2/4": {type:Boolean},
+        jQuery: {type:Boolean},
+        Mongoose: {type:Boolean},
+        NodeJS: {type:Boolean},
+        React: {type:Boolean},
+        Redux: {type:Boolean},
+        Vue: {type:Boolean}
+    },
+    Perl: {type:Boolean},
+    PHP: {
+        Laravel: {type:Boolean},
+        Dispatch: {type:Boolean}
+    },
+    Python: {
+        Django: {type:Boolean},
+        Flask: {type:Boolean}
+    },
+    Ruby: {
+        Rails: {type:Boolean},
+        Sinatra: {type:Boolean}
+    },
+    Rust: {type:Boolean},
+    Scala: {type:Boolean},
+    "Swift/Objective-C": {type:Boolean}
 });
 const UserModel = mongoose.Schema({
     onboarded: {type: String},
