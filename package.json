@@ -1,7 +1,8 @@
 {
   "name": "devcupid",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.13",
+  "description": "A web app for developers/designers to find and create teams", 
+  "homepage": "https://github.com/thinkful-c11/devcupid#readme",
   "main": "index.js",
   "scripts": {
     "start": "node ./server/server.js",
@@ -15,12 +16,28 @@
     "url": "git+https://github.com/thinkful-c11/devcupid.git"
   },
   "keywords": [],
-  "author": "",
+  "contributors": [
+    { "name" : "Thomas Kastanek",
+      "email" : "tckastanek@gmail.com",
+      "url" : "https://github.com/tckastanek"
+    },
+    { "name" : "William Martin",
+      "email" : "william@twobit.cc",
+      "url" : "https://github.com/williamtwobit"
+    },
+    { "name" : "Kyle Rogers",
+      "email" : "kylerogers334@gmail.com",
+      "url" : "https://github.com/kylerogers334"
+    },
+    { "name" : "Avi Zajac",
+      "email" : "hello@avizajac.com",
+      "url" : "https://keybase.io/av1"
+    }
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thinkful-c11/devcupid/issues"
   },
-  "homepage": "https://github.com/thinkful-c11/devcupid#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
