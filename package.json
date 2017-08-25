@@ -1,6 +1,6 @@
 {
   "name": "devcupid",
-  "version": "0.0.1",
+  "version": "0.1.13",
   "description": "A web app for developers/designers to find and create teams", 
   "homepage": "https://github.com/thinkful-c11/devcupid#readme",
   "main": "index.js",
