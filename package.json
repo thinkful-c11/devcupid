@@ -15,7 +15,24 @@
     "url": "git+https://github.com/thinkful-c11/devcupid.git"
   },
   "keywords": [],
-  "author": "",
+  "contributors": [
+    { "name" : "Thomas Kastanek",
+      "email" : "",
+      "url" : ""
+    },
+    { "name" : "William Martin",
+      "email" : "william@twobit.cc",
+      "url" : "https://github.com/williamtwobit"
+    },
+    { "name" : "Kyle Rogers",
+      "email" : "kylerogers334@gmail.com",
+      "url" : "https://github.com/kylerogers334"
+    },
+    { "name" : "Avi Zajac",
+      "email" : "hello@avizajac.com",
+      "url" : "https://keybase.io/av1"
+    },
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/thinkful-c11/devcupid/issues"
