@@ -113,8 +113,8 @@ function deepUpdate(update) {
 
 // Log user out of GitHub
 app.get('/api/auth/github/logout', (req, res) => {
-  req.logout(); 
-  res.clearCookie('accessToken'); 
+  req.logout();
+  res.clearCookie('accessToken');
   res.redirect('/');
 });
 
@@ -154,7 +154,7 @@ function updateProfile(ghUser) {
 }
 
 // Alternate Profile Endpoint
-app.get('/api/profile/me', 
+app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}), (req, res) => {
     return res.json({
       gitHub: req.user.gitHub
@@ -240,7 +240,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 // RUN SERVER
-(function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
+function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(dbUrl, err => {
       if (err) {
@@ -256,13 +256,13 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
       });
     });
   });
-})();
+}
 
 // CLOSE SERVER
 function closeServer() {
   return mongoose.disconnect().then(() => {
     return new Promise((resolve, reject) => {
-      console.log("Closing server");
+      console.log('Closing server');
       server.close(err => {
         if (err) {
           return reject(err);
