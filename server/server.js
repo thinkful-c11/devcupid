@@ -239,6 +239,7 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
   res.sendFile(index);
 });
 
+// RUN SERVER
 (function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(dbUrl, err => {
@@ -256,3 +257,24 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
     });
   });
 })();
+
+// CLOSE SERVER
+function closeServer() {
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log("Closing server");
+      server.close(err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  });
+}
+if (require.main === module) {
+  runServer().catch(err => console.error(err));
+}
+
+// Export out for tests
+module.exports = {app, runServer, closeServer};
