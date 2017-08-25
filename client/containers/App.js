@@ -15,15 +15,15 @@ export class App extends React.Component {
       this.props.dispatch(actions.fetchUser(accessToken));
     }
   }
+  // Inital load triggers a 401 error when it tries to sign in
   render() {
     const loggedIn = this.props.user;
     return (
       <Router>
         <main>
           {/* <Route exact path='/' component={LoginScreen} /> */}
-          <Route exact path='/me' component={ProfileScreen} />
           <Route
-            path='/onboarding/:questionId'
+            exact path='/onboarding/:questionId'
             // path='/onboarding' re Issue #2
             component={OnboardingScreen} />
 
@@ -34,6 +34,7 @@ export class App extends React.Component {
               <LoginScreen />
               )
           )} />
+          <Route exact path='/me' component={ProfileScreen} />
         </main>
       </Router>
     );
