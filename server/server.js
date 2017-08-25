@@ -131,6 +131,23 @@ app.put('/api/update-user/:userId', (req, res) => {
   });
 });
 
+app.put('/api/update-skills/:userId', (req, res) => {
+    // console.log('REQ.BODY:', req.body);
+  // console.log('languages: ', req.body.profile.skills.languages)
+  console.log('deepUpdate: ', deepUpdate(req.body))
+  // console.log(req.param.userId);
+  Users.findOneAndUpdate(
+    { 'gitHub.id': req.params.userId },
+    { $set: {'profile.skills': deepUpdate(req.body) }},
+    { new: true }).exec()
+  .then(profile => {
+    return res.json(profile);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+})
+
 function updateProfile(ghUser) {
   return {
     gitHub: {
