@@ -98,6 +98,7 @@ const UserModel = mongoose.Schema({
     skills: {
       passions: {type: Array},
       roles: {type: Array},
+      /// ISSUE WITH THIS
       languages: [LanguageSchema],
       speciality: {type: Array},
       softwareTools: {type: Array}
