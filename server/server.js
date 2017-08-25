@@ -33,7 +33,7 @@ passport.deserializeUser(function(user, done) {
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
