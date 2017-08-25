@@ -52,15 +52,15 @@ passport.use(new GitHubStrategy({
         'gitHub.accessToken': accessToken,
         'gitHub.id': user.id,
         'gitHub.login': user.login,
-        'gitHub.avatar_url': user.avatar_url,
+        'gitHub.avatar_url': user.avatar_url || '',
         'gitHub.html_url': user.html_url,
-        'gitHub.name': user.name,
-        'gitHub.company': user.company,
-        'gitHub.blog': user.blog,
-        'gitHub.location': user.location,
-        'gitHub.email': user.email,
-        'gitHub.hireable': user.hireable,
-        'gitHub.bio': user.bio}
+        'gitHub.name': user.name || '',
+        'gitHub.company': user.company || '',
+        'gitHub.blog': user.blog || '',
+        'gitHub.location': user.location || '',
+        'gitHub.email': user.email || '',
+        'gitHub.hireable': user.hireable || '',
+        'gitHub.bio': user.bio || ''}
       },
         {new: true, upsert: true}, (error, user) => {
           return cb(error, user);
