@@ -63,9 +63,9 @@ export const update_profile = (githubId, profile) => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(profile => {
-    console.log(profile);
-    // dispatch(update_success(profile));
+  }).then(user => {
+    console.log(user);
+    dispatch(update_success(user.profile));
   }).catch(error => {
     dispatch(update_error(error));
   });

@@ -260,6 +260,8 @@ const reducer = (state = initialState, action) => {
     });
 
   case ref.UPDATE_SUCCESS:
+    console.log('state profile:', state.profile);
+    console.log('action profile:', action.profile);
     return Object.assign({}, state, {
       loading: false,
       profile: action.profile
