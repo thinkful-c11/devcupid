@@ -1,7 +1,7 @@
 {
   "name": "devcupid",
   "version": "0.0.1",
-  "description": "",
+  "description": "A web app for developers/designers to find and create teams",
   "main": "index.js",
   "scripts": {
     "start": "node ./server/server.js",
@@ -31,7 +31,7 @@
     { "name" : "Avi Zajac",
       "email" : "hello@avizajac.com",
       "url" : "https://keybase.io/av1"
-    },
+    }
   ],
   "license": "ISC",
   "bugs": {
