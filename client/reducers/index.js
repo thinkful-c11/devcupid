@@ -5,6 +5,7 @@ const initialState = {
   loading: false,
   error: null,
   user: false,
+  onboarded:false,
   gitHub: {},
   profile: {
     avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
