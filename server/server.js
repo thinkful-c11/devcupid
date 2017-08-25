@@ -224,6 +224,13 @@ app.get('/api/search', (req, res) => {
   });
 });
 
+app.get('/api/search/all', (req, res) => {
+  Users.find()
+  .then(allUsers => {
+    res.json(allUsers);
+  });
+});
+
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
 app.get(/^(?!\/api(\/|$))/, (req, res) => {
