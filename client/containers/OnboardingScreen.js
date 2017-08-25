@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as actions from '../actions/actions';
 
 import SubmitButton from '../components/onboarding/SubmitButton';
 import NextButton from '../components/onboarding/nextButton';
@@ -10,9 +11,14 @@ import CheckboxNested from '../components/onboarding/checkboxNested';
 import OnboardingIntro from '../components/onboarding/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
+  handleNextButton() {
+    const { dispatch, profile, gitHubId } = this.props;
+
+    dispatch(actions.update_profile(gitHubId, profile));
+  }
   render() {
     if (this.props.match.params.questionId === 'intro'){
-      return <OnboardingIntro />
+      return <OnboardingIntro dispatch={this.props.dispatch} />;
     }
     else{
       const {onboardingQuestions} = this.props;
@@ -20,33 +26,33 @@ export class OnboardingScreen extends React.Component {
       const currentQuestion = onboardingQuestions[currentIndex];
       let question;
       let button;
-  
+
       if((currentIndex + 1) === onboardingQuestions.length){
-        button = <SubmitButton />
+        button = <SubmitButton />;
       }
       else{
-        button = <NextButton nextQuestion={++currentIndex}/>
+        button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNextButton()} />;
       }
-  
+
       switch(currentQuestion.type){
-        case 'signup':
-          question = <SignUp currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
-          break;
-        case 'textInput':
-          question = <TextInput currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
-          break;
-        case 'checkbox':
-          question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} key={currentQuestion.text}/>
-          break;
-        case 'checkbox-nested':
-          question = <CheckboxNested currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile}/>
+      case 'signup':
+        question = <SignUp currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} />;
+        break;
+      case 'textInput':
+        question = <TextInput currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} />;
+        break;
+      case 'checkbox':
+        question = <Checkbox currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} key={currentQuestion.text} />;
+        break;
+      case 'checkbox-nested':
+        question = <CheckboxNested currentQuestion={currentQuestion} dispatch={this.props.dispatch} profile={this.props.profile} />;
       }
-  
+
       return (
-          <div className='onboarding-container'>
-            {question}
-            {button}
-          </div>
+        <div className='onboarding-container'>
+          {question}
+          {button}
+        </div>
       );
     }
   }
@@ -54,7 +60,8 @@ export class OnboardingScreen extends React.Component {
 
 const mapStateToProps = state => ({
   onboardingQuestions: state.onboardingQuestions,
-  profile: state.profile
+  profile: state.profile,
+  gitHubId: state.gitHub.id
 });
 
 export default connect(mapStateToProps)(OnboardingScreen);

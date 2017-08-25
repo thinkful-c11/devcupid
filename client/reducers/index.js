@@ -240,6 +240,7 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       loading: true
     });
+  //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
     return Object.assign({}, state, {
       loading: false,
@@ -284,6 +285,18 @@ const reducer = (state = initialState, action) => {
         skills: Object.assign( {}, state.profile.skills, {
           languages: action.body
         })
+      })
+    });
+
+  case ref.ASSIGN_GITHUB_PROFILE:
+    return Object.assign({}, state, {
+      profile: Object.assign({}, state.profile, {
+        avatar_url: state.gitHub.avatar_url,
+        name: state.gitHub.name,
+        company: state.gitHub.company,
+        blog: state.gitHub.blog,
+        location: state.gitHub.location,
+        email: state.gitHub.email
       })
     });
 

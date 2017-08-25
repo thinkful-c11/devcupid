@@ -10,16 +10,25 @@ export const removeAccessToken = () => ({
   type: ref.REMOVE_ACCESS_TOKEN
 });
 
+// Onboarding Handlers
 export const signup_handler = (key, value) => ({
   type: ref.SIGNUP_HANDLER,
   key,
   value
 });
-
 export const textInput_handler = (key, value) => ({
   type: ref.TEXTINPUT_HANDLER,
   key,
   value
+});
+export const checkbox_handler = (key, array) => ({
+  type: ref.CHECKBOX_HANDLER,
+  key,
+  array
+});
+export const checkboxNested_handler = (body) => ({
+  type: ref.CHECKBOXNESTED_HANDLER,
+  body
 });
 
 // Actions for PUT request to update profile.
@@ -36,14 +45,17 @@ export const update_error = (error) => ({
 });
 
 // Not working/tested yet.
-export const update_profile = (githubId, updateBody) => dispatch => {
-  disptach(update_request());
+export const update_profile = (githubId, profile) => dispatch => {
+  dispatch(update_request());
   //TODO: verify body formatting matches what DB expects
   const updateObj = {
-    updateBody
+    profile
   };
   const data = {
     method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify(updateObj)
   };
   fetch(`/api/update-user/${githubId}`, data).then(res => {
@@ -68,7 +80,7 @@ export const login_success = gitHub => ({
   gitHub
 });
 export const login_error = error => ({
-  type: ref.UPDATE_ERROR,
+  type: ref.LOGIN_ERROR,
   error
 });
 export const fetchUser = accessToken => dispatch => {
@@ -88,21 +100,14 @@ export const fetchUser = accessToken => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(gitHub => {
-    dispatch(login_success(gitHub));
+  }).then(user => {
+    dispatch(login_success(user.gitHub));
   }).catch(error => {
     dispatch(login_error(error));
   });
 };
 
-
-export const checkbox_handler = (key, array) => ({
-  type: ref.CHECKBOX_HANDLER,
-  key,
-  array
-});
-
-export const checkboxNested_handler = (body) => ({
-  type: ref.CHECKBOXNESTED_HANDLER,
-  body
+// Assign GitHub User data to redux store
+export const assignGitHubProfile = () => ({
+  type: ref.ASSIGN_GITHUB_PROFILE,
 });
