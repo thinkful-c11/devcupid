@@ -9,13 +9,13 @@ const initialState = {
   gitHub: {},
   profile: {
     avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
-    name: 'William',
-    personalTitle: 'cool dude',
-    location: 'ATL',
-    remoteOk: 'yes',
-    company: 'Myself',
+    name: 'TEST',
+    personalTitle: 'TEST',
+    location: 'TEST',
+    remoteOk: 'TEST',
+    company: 'TEST',
 
-    email: 'me@butt.co',
+    email: 'TEST',
 
     bio: 'I was born then i went vegan',
 
