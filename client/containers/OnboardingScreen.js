@@ -16,6 +16,13 @@ export class OnboardingScreen extends React.Component {
 
     dispatch(actions.update_profile(gitHubId, profile));
   }
+  
+  handleNestedLanguageButton() {
+    const { dispatch, profile, gitHubId } = this.props;
+
+    dispatch(actions.update_skills(gitHubId, profile));
+  }
+  
   render() {
     if (this.props.match.params.questionId === 'intro'){
       return <OnboardingIntro dispatch={this.props.dispatch} />;
@@ -30,6 +37,11 @@ export class OnboardingScreen extends React.Component {
       if((currentIndex + 1) === onboardingQuestions.length){
         button = <SubmitButton />;
       }
+      
+      else if {
+        button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNestedLanguageButton()}
+      }
+      
       else{
         button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNextButton()} />;
       }

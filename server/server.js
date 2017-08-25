@@ -115,8 +115,10 @@ app.get('/api/auth/github/logout', (req, res) => {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-  console.log('REQ.BODY:', req.body);
-  console.log(req.param.userId);
+  // console.log('REQ.BODY:', req.body);
+  // console.log('languages: ', req.body.profile.skills.languages)
+  console.log('deepUpdate: ', deepUpdate(req.body))
+  // console.log(req.param.userId);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: deepUpdate(req.body) },

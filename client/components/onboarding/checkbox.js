@@ -10,10 +10,6 @@ export default class Checkbox extends React.Component{
   }
 
   componentDidMount(){
-    const emptyState = {};
-    this.setState({
-      emptyState
-    });
     this.props.currentQuestion.choices.forEach(choice => {
       this.setState({
         [choice]: false

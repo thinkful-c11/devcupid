@@ -66,6 +66,13 @@ const LanguageSchema = mongoose.Schema({
   Elm: {_active: {type:Boolean}},
   'F#': {_active: {type:Boolean}},
 });
+
+// const LanguageSchema = mongoose.Schema({
+//   language: {
+    
+//   }
+// });
+
 const UserModel = mongoose.Schema({
   onboarded: {type: String},
   gitHub: {
