@@ -24,7 +24,7 @@ const initialState = {
     twitter: 'twitter.com/profile',
 
     skills: {
-      passions: [],
+      passions: {},
       roles: [],
       languages: {},
       libraries: [],
@@ -123,7 +123,7 @@ const initialState = {
       choices: [
         {
           language: 'JavaScript',
-          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node.js']
+          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node']
         },
         {
           language: 'HTML5',
@@ -164,10 +164,6 @@ const initialState = {
         {
           language: 'Ruby',
           libraries: ['Rails', 'Sinatra']
-        },
-        {
-          language: '.NET',
-          libraries: []
         },
         {
           language: 'Go',
@@ -275,7 +271,7 @@ const reducer = (state = initialState, action) => {
     return Object.assign( {}, state, {
       profile: Object.assign( {}, state.profile, {
         skills: Object.assign( {}, state.profile.skills, {
-          [action.key]: action.array
+          [action.key]: action.obj
         })
       })
     });

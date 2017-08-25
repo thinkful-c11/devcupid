@@ -12,15 +12,19 @@ import OnboardingIntro from '../components/onboarding/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
   handleNextButton() {
+    console.log('regular button')
     const { dispatch, profile, gitHubId } = this.props;
-
     dispatch(actions.update_profile(gitHubId, profile));
   }
   
   handleNestedLanguageButton() {
-    const { dispatch, profile, gitHubId } = this.props;
+    console.log('Nested Language Button');
+    const { dispatch, profile, gitHubId, onboardingQuestions } = this.props;
+    let currentIndex = parseInt(this.props.match.params.questionId);
+    const currentQuestion = onboardingQuestions[currentIndex];
+    let key = currentQuestion.key;
 
-    dispatch(actions.update_skills(gitHubId, profile));
+    dispatch(actions.update_skills(gitHubId, profile, key));
   }
   
   render() {
@@ -38,8 +42,8 @@ export class OnboardingScreen extends React.Component {
         button = <SubmitButton />;
       }
       
-      else if {
-        button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNestedLanguageButton()}
+      else if(currentQuestion.type === 'checkbox' || currentQuestion.type === 'checkbox-nested') {
+        button = <NextButton nextQuestion={++currentIndex} onClick={() => this.handleNestedLanguageButton()} />;
       }
       
       else{

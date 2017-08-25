@@ -103,11 +103,11 @@ const UserModel = mongoose.Schema({
     twitter: {type: String},
     blog: {type: String},
     skills: {
-      passions: {type: Array},
-      roles: {type: Array},
-      languages: [LanguageSchema],
-      speciality: {type: Array},
-      softwareTools: {type: Array}
+      passions: {type: Object},
+      roles: {type: Object},
+      languages: {type: Object},
+      speciality: {type: Object},
+      softwareTools: {type: Object}
     }
   },
   personality: {
