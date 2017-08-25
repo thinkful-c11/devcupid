@@ -12,7 +12,7 @@ const {Users,Languages}=require('../models');
 // HTTP integration for testing with chai
 chai.use(chaiHttp);
 
-describe('Blog Posts', function() {
+describe('App', function() {
 
     // Run the server before we test
     before(function() {
@@ -24,4 +24,11 @@ describe('Blog Posts', function() {
         return closeServer();
     });
 
+    // Tests for GET
+    describe('GET endpoints', function(){
+        // Testing for app.get('/api/profile/me')
+        it("Should get the GitHub user profile"){
+            // Stuff
+        }
+    });
 });
