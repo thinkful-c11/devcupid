@@ -25,10 +25,10 @@ export class App extends React.Component {
       <div>
         <Header />
         <Router>
-          <main className="content">
+          <main className='content'>
             {/* <Route exact path='/' component={LoginScreen} /> */}
             <Route
-              exact path='/onboarding/:questionId'
+              path='/onboarding/:questionId'
               // path='/onboarding' re Issue #2
               component={OnboardingScreen} />
 
