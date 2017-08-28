@@ -20,9 +20,11 @@ export default class SignUp extends React.Component{
             return (
               <div key={index + q.key}>
                 <label htmlFor={q.key}>{q.label}</label>
-                <select id={q.key}>
-                  <option value='true'>Yes!</option>
-                  <option value='false'>Nope!</option>
+                <select
+                  id={q.key}
+                  onChange={e => this.onChange(e)}>
+                  <option value={false}>Nope!</option>
+                  <option value>Yes!</option>
                 </select>
               </div>
             );
@@ -31,7 +33,10 @@ export default class SignUp extends React.Component{
             return (
               <div key={index + q.key}>
                 <label htmlFor={q.key}>{q.label}</label>
-                <input id={q.key} type='text' onChange={e=> this.onChange(e)} value={this.props.profile[q.key]} />
+                <input
+                  id={q.key}
+                  type='text'
+                  onChange={e => this.onChange(e)} value={this.props.profile[q.key]} />
               </div>
             );
           }

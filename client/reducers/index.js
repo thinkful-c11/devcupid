@@ -12,7 +12,7 @@ const initialState = {
     name: 'TEST',
     personalTitle: 'TEST',
     location: 'TEST',
-    remoteOk: 'TEST',
+    remoteOk: false,
     company: 'TEST',
 
     email: 'TEST',
