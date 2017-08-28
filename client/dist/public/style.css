@@ -1,3 +1,100 @@
+.Varela, .column p, .column button {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+.column {
+  padding-top: 40px;
+  flex-direction: column;
+  width: 50%; }
+  .column img {
+    width: 70%;
+    margin: auto; }
+  .column p {
+    font-size: 25px;
+    color: #3B3561;
+    line-height: 1.5;
+    margin-bottom: 15px; }
+  .column button {
+    font-size: 20px;
+    text-align: center;
+    background-color: #A34170;
+    width: 200px;
+    height: 70px;
+    outline: none;
+    border: none;
+    border-radius: 10em;
+    margin: auto;
+    padding: 15px; }
+    .column button a {
+      text-decoration: none;
+      color: white; }
+.Varela, .onboardIntro h2, .onboardIntro button {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .onboardIntro p .italic, .Noto-Bold, .onboardIntro p {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic, .onboardIntro p .italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+.onboardIntro {
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px; }
+  .onboardIntro h2 {
+    width: 1000;
+    font-size: 35px;
+    text-align: center;
+    color: #3B3561;
+    margin-bottom: 30px; }
+  .onboardIntro button {
+    font-size: 20px;
+    text-align: center;
+    background-color: #A34170;
+    width: 200px;
+    height: 70px;
+    outline: none;
+    border: none;
+    border-radius: 10em;
+    margin: auto;
+    margin-top: 25px;
+    padding: 15px; }
+    .onboardIntro button a {
+      text-decoration: none;
+      color: white; }
+  .onboardIntro p {
+    width: 1000px;
+    font-size: 20px;
+    line-height: 1.3;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #3B3561; }
 .Varela {
   font-family: 'Varela Round', sans-serif; }
 
@@ -10,9 +107,143 @@
 .Noto-Bold {
   font-weight: 700; }
 
-.test {
-  color: #A34170;
-  font-size: 40px;
-  transition: .2s; }
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+header {
+  background-color: white;
+  width: 100%;
+  height: 50px;
+  align-items: center; }
+
+.topBar {
+  width: 100%;
+  align-items: center;
+  justify-content: space-between; }
+  .topBar .logo img {
+    width: 200px; }
+  .topBar .burgerMenu {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .topBar .burgerMenu .part {
+      width: 30px;
+      height: 5px;
+      background-color: #3B3561;
+      border-radius: 5em; }
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+footer {
+  background-color: #A34170;
+  width: 100%;
+  height: 20px;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  box-sizing: border-box; }
+
+.bottomBar {
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center; }
+  .bottomBar p {
+    color: #3B3561; }
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #FCBADA; }
 
 /*# sourceMappingURL=style.css.map*/
