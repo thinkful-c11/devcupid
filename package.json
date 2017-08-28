@@ -9,7 +9,8 @@
     "dev:start": "nodemon ./server/server.js",
     "dev": "concurrently \"npm run dev:start\" \"npm run watch\"",
     "webpack": "webpack --config ./config/webpack.config.js",
-    "watch": "webpack --watch --config ./config/webpack.config.js"
+    "watch": "webpack --watch --config ./config/webpack.config.js",
+    "heroku-postbuild": "npm run webpack"
   },
   "repository": {
     "type": "git",
