@@ -293,7 +293,8 @@ const reducer = (state = initialState, action) => {
         company: state.gitHub.company,
         blog: state.gitHub.blog,
         location: state.gitHub.location,
-        email: state.gitHub.email
+        email: state.gitHub.email,
+        bio: state.gitHub.bio,
       })
     });
 
