@@ -16,7 +16,7 @@ export default class SoftwareTools extends React.Component {
     const { user } = this.props;
     const formattedTools = this.formatTools(user);
     const tools = formattedTools.map((tool, index) => {
-      return <li key={`passion ${index}`}>{tool}</li>;
+      return <li key={`softwareTools ${index}`}>{tool}</li>;
     });
     return (
       <ul>
