@@ -1,24 +1,36 @@
 import React from 'react';
 import Passions from './profileBody/passions';
 import Tech from './profileBody/tech';
+import Roles from './profileBody/roles';
+import SoftwareTools from './profileBody/softwareTools';
+import Specialty from './profileBody/specialty';
+
 
 export default class ProfileBody extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
-  render(){
+  render() {
     const {user} = this.props;
     return(
       <div>
         <p>{user.bio}</p>
         <div>
           <h3> Interested In: </h3>
-          <Passions user={user}/>
+          <Passions user={user} />
         </div>
         <div>
           <h3> Tech Stack: </h3>
           <Tech user={user} />
+        </div>
+        <div>
+          <h3> Roles: </h3>
+          <Roles user={user} />
+        </div>
+        <div>
+          <h3> Software Tools: </h3>
+          <SoftwareTools user={user} />
+        </div>
+        <div>
+          <h3> Specialties: </h3>
+          <Specialty user={user} />
         </div>
         <div>
           <h3>Find Me Around The Web:</h3>
