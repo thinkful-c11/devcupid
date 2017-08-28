@@ -46,6 +46,7 @@ export const update_error = (error) => ({
 
 // Not working/tested yet.
 export const update_profile = (githubId, profile) => dispatch => {
+  console.log('PROFILE', profile);
   dispatch(update_request());
   //TODO: verify body formatting matches what DB expects
   const updateObj = {
@@ -73,26 +74,26 @@ export const update_profile = (githubId, profile) => dispatch => {
 export const update_skills = (githubId, profile, key) => dispatch => {
   dispatch(update_request());
 
- const updateObj = profile.skills;
+  const updateObj = profile.skills;
 
- const data = {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(updateObj)
- };
- fetch(`/api/update-skills/${key}/${githubId}`, data).then(res => {
-   if(!res.ok){
-     return Promise.reject(res.statustext);
-   }
-   return res.json();
- }).then(user => {
-   dispatch(update_success(user.profile));
- }).catch(error => {
-   dispatch(update_error(error));
- });
-}
+  const data = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updateObj)
+  };
+  fetch(`/api/update-skills/${key}/${githubId}`, data).then(res => {
+    if(!res.ok){
+      return Promise.reject(res.statustext);
+    }
+    return res.json();
+  }).then(user => {
+    dispatch(update_success(user.profile));
+  }).catch(error => {
+    dispatch(update_error(error));
+  });
+};
 
 // Actions for Auth/Login requests.
 export const login_request = () => ({
