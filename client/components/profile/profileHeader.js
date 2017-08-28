@@ -1,10 +1,6 @@
 import React from 'react';
 
 export default class ProfileHeader extends React.Component{
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { user } = this.props;
     const remoteOk = user.remoteOk ? 'Remote Ok' : '';
