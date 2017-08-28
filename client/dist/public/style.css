@@ -63,6 +63,8 @@
   margin: auto; }
 
 .onboardIntro {
+  display: flex;
+  flex-direction: column;
   padding-top: 40px; }
   .onboardIntro h2 {
     font-size: 30px;
@@ -78,8 +80,8 @@
     border: none;
     border-radius: 10em;
     margin: auto;
-    padding: 15px;
-    margin: auto; }
+    margin-top: 25px;
+    padding: 15px; }
     .onboardIntro button a {
       text-decoration: none;
       color: white; }
