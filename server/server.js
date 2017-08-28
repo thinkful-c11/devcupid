@@ -96,6 +96,12 @@ app.get('/api/auth/github/callback',
     res.redirect('/');
   }
 );
+// Log user out of GitHub
+app.get('/api/auth/github/logout', (req, res) => {
+  req.logout();
+  res.clearCookie('accessToken');
+  res.redirect('/');
+});
 
 function deepUpdate(update) {
   const setObject = {};
@@ -110,13 +116,6 @@ function deepUpdate(update) {
   });
   return setObject;
 }
-
-// Log user out of GitHub
-app.get('/api/auth/github/logout', (req, res) => {
-  req.logout();
-  res.clearCookie('accessToken');
-  res.redirect('/');
-});
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
@@ -154,7 +153,7 @@ app.put('/api/update-skills/:skill/:userId', (req, res) => {
   .catch(err => {
     console.log(err);
   });
-})
+});
 
 function updateProfile(ghUser) {
   return {
@@ -262,7 +261,11 @@ app.get('/api/search/all', (req, res) => {
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
+// app.get(/^(?!\/api(\/|$))/, (req, res) => {
+//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+//   res.sendFile(index);
+// });
+app.get('/*', (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
 });
