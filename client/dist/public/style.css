@@ -46,10 +46,10 @@
 .Varela, .onboardIntro h2, .onboardIntro button {
   font-family: 'Varela Round', sans-serif; }
 
-.Noto, .Noto-Italic, .Noto-Bold {
+.Noto, .Noto-Italic, .onboardIntro p .italic, .Noto-Bold, .onboardIntro p {
   font-family: 'Noto Serif', serif; }
 
-.Noto-Italic {
+.Noto-Italic, .onboardIntro p .italic {
   font-style: italic; }
 
 .Noto-Bold {
@@ -67,9 +67,11 @@
   flex-direction: column;
   padding-top: 40px; }
   .onboardIntro h2 {
-    font-size: 30px;
+    width: 1000;
+    font-size: 35px;
     text-align: center;
-    color: #3B3561; }
+    color: #3B3561;
+    margin-bottom: 30px; }
   .onboardIntro button {
     font-size: 20px;
     text-align: center;
@@ -85,6 +87,14 @@
     .onboardIntro button a {
       text-decoration: none;
       color: white; }
+  .onboardIntro p {
+    width: 1000px;
+    font-size: 20px;
+    line-height: 1.3;
+    margin: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #3B3561; }
 .Varela {
   font-family: 'Varela Round', sans-serif; }
 
