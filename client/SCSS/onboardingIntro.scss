@@ -1,0 +1,29 @@
+@import './_brand-styles/_Brand';
+
+.onboardIntro{
+  padding-top:40px;
+  h2{
+    @extend .Varela;
+    font-size:30px;
+    text-align:center;
+    color:$Koa-Blue;
+  }
+  button{
+    @extend .Varela;
+    font-size:20px;
+    text-align:center;
+    background-color:$Magenta-Haze;
+    width:200px;
+    height: 70px;
+    outline:none;
+    border:none;
+    border-radius:10em;
+    margin:auto;
+    padding:15px;
+    margin:auto;
+    a{
+      text-decoration:none;
+      color:white;
+    }
+  }
+}

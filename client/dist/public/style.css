@@ -1,3 +1,88 @@
+.Varela, .column p, .column button {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+.column {
+  padding-top: 40px;
+  flex-direction: column;
+  width: 50%; }
+  .column img {
+    width: 70%;
+    margin: auto; }
+  .column p {
+    font-size: 25px;
+    color: #3B3561;
+    line-height: 1.5;
+    margin-bottom: 15px; }
+  .column button {
+    font-size: 20px;
+    text-align: center;
+    background-color: #A34170;
+    width: 200px;
+    height: 70px;
+    outline: none;
+    border: none;
+    border-radius: 10em;
+    margin: auto;
+    padding: 15px; }
+    .column button a {
+      text-decoration: none;
+      color: white; }
+.Varela, .onboardIntro h2, .onboardIntro button {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+.onboardIntro {
+  padding-top: 40px; }
+  .onboardIntro h2 {
+    font-size: 30px;
+    text-align: center;
+    color: #3B3561; }
+  .onboardIntro button {
+    font-size: 20px;
+    text-align: center;
+    background-color: #A34170;
+    width: 200px;
+    height: 70px;
+    outline: none;
+    border: none;
+    border-radius: 10em;
+    margin: auto;
+    padding: 15px;
+    margin: auto; }
+    .onboardIntro button a {
+      text-decoration: none;
+      color: white; }
 .Varela {
   font-family: 'Varela Round', sans-serif; }
 
@@ -13,6 +98,10 @@
 .container {
   display: flex; }
 
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
 header {
   background-color: white;
   width: 100%;
@@ -21,8 +110,6 @@ header {
 
 .topBar {
   width: 100%;
-  max-width: 1200px;
-  margin: auto;
   align-items: center;
   justify-content: space-between; }
   .topBar .logo img {
@@ -52,6 +139,48 @@ header {
 
 .container {
   display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
+
+footer {
+  background-color: #A34170;
+  width: 100%;
+  height: 20px;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  box-sizing: border-box; }
+
+.bottomBar {
+  width: 100%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center; }
+  .bottomBar p {
+    color: #3B3561; }
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1200px;
+  margin: auto; }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126

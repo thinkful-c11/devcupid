@@ -8,6 +8,7 @@ import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
 import Header from '../components/static/header';
+import Footer from '../components/static/footer';
 import '../SCSS/App.scss';
 
 export class App extends React.Component {
@@ -24,7 +25,7 @@ export class App extends React.Component {
       <div>
         <Header />
         <Router>
-          <main>
+          <main className="content">
             {/* <Route exact path='/' component={LoginScreen} /> */}
             <Route
               exact path='/onboarding/:questionId'
@@ -41,6 +42,7 @@ export class App extends React.Component {
             <Route exact path='/me' component={ProfileScreen} />
           </main>
         </Router>
+        <Footer />
       </div>
     );
   }
