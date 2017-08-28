@@ -9,13 +9,13 @@ const initialState = {
   gitHub: {},
   profile: {
     avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
-    name: 'William',
-    personalTitle: 'cool dude',
-    location: 'ATL',
-    remoteOk: 'yes',
-    company: 'Myself',
+    name: 'TEST',
+    personalTitle: 'TEST',
+    location: 'TEST',
+    remoteOk: 'TEST',
+    company: 'TEST',
 
-    email: 'me@butt.co',
+    email: 'TEST',
 
     bio: 'I was born then i went vegan',
 
@@ -25,7 +25,7 @@ const initialState = {
     twitter: 'twitter.com/profile',
 
     skills: {
-      passions: [],
+      passions: {},
       roles: [],
       languages: {},
       libraries: [],
@@ -124,7 +124,7 @@ const initialState = {
       choices: [
         {
           language: 'JavaScript',
-          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node.js']
+          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node']
         },
         {
           language: 'HTML5',
@@ -165,10 +165,6 @@ const initialState = {
         {
           language: 'Ruby',
           libraries: ['Rails', 'Sinatra']
-        },
-        {
-          language: '.NET',
-          libraries: []
         },
         {
           language: 'Go',
@@ -276,7 +272,7 @@ const reducer = (state = initialState, action) => {
     return Object.assign( {}, state, {
       profile: Object.assign( {}, state.profile, {
         skills: Object.assign( {}, state.profile.skills, {
-          [action.key]: action.array
+          [action.key]: action.obj
         })
       })
     });

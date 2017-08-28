@@ -16,8 +16,11 @@ export class ProfileScreen extends React.Component{
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.profile
-});
+const mapStateToProps = state => {
+  console.log(state.profile);
+  return {
+    user: state.profile
+  }
+};
 
 export default connect(mapStateToProps)(ProfileScreen);
