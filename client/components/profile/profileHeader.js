@@ -3,7 +3,7 @@ import React from 'react';
 export default class ProfileHeader extends React.Component{
   render() {
     const { user } = this.props;
-    const remoteOk = user.remoteOk ? 'Remote Ok' : '';
+    const remoteOk = user.remoteOk ? '| Remote Ok' : '';
     return (
       <header>
         <div>
@@ -15,7 +15,7 @@ export default class ProfileHeader extends React.Component{
           </h2>
           <ul>
             <li>
-              {user.location} | {remoteOk}
+              {user.location} {remoteOk}
             </li>
             <li>
               {user.personalTitle}
