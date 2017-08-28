@@ -8,7 +8,7 @@ export class LoginScreen extends React.Component {
     return(
       <div className='login-container'>
         <div><a href='/api/auth/github'> Sign In With GitHub </a></div>
-        <div><Link to={'/onboarding/intro'}> Start Onboarding </Link></div>
+        <div><p>DevCupid is a place for developers and designers to match with each other, creating the perfect dream teams that they desire for any project. Search to find others who are just as passionate about your interests and projects by passions, languages, libraries, frameworks, and more. </p></div>
       </div>
     );
   }
