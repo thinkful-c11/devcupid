@@ -1,9 +1,6 @@
 import React from 'react';
 
-export default class Passions extends React.Component{
-  constructor(props){
-    super(props);
-  }
+export default class Passions extends React.Component {
   formatPassions(user) {
     let passions = user.skills.passions;
     let formatted = [];
@@ -14,13 +11,13 @@ export default class Passions extends React.Component{
     }
     return formatted;
   }
-  render(){
+  render() {
     const { user } = this.props;
     const formattedPassions = this.formatPassions(user);
     const passions = formattedPassions.map((passion, index) => {
       return <li key={`passion ${index}`}>{passion}</li>;
     });
-    return(
+    return (
       <ul>
         {passions}
       </ul>
