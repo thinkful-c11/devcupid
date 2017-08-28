@@ -3,7 +3,7 @@ import Passions from './profileBody/passions';
 import Tech from './profileBody/tech';
 import Roles from './profileBody/roles';
 import SoftwareTools from './profileBody/softwareTools';
-import Specialty from './profileBody/specialty';
+import Speciality from './profileBody/speciality';
 
 
 export default class ProfileBody extends React.Component{
@@ -30,7 +30,7 @@ export default class ProfileBody extends React.Component{
         </div>
         <div>
           <h3> Specialties: </h3>
-          <Specialty user={user} />
+          <Speciality user={user} />
         </div>
         <div>
           <h3>Find Me Around The Web:</h3>
