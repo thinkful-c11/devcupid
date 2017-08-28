@@ -21,10 +21,10 @@ export const textInput_handler = (key, value) => ({
   key,
   value
 });
-export const checkbox_handler = (key, array) => ({
+export const checkbox_handler = (key, obj) => ({
   type: ref.CHECKBOX_HANDLER,
   key,
-  array
+  obj
 });
 export const checkboxNested_handler = (body) => ({
   type: ref.CHECKBOXNESTED_HANDLER,
@@ -69,6 +69,30 @@ export const update_profile = (githubId, profile) => dispatch => {
     dispatch(update_error(error));
   });
 };
+
+export const update_skills = (githubId, profile, key) => dispatch => {
+  dispatch(update_request());
+
+ const updateObj = profile.skills;
+
+ const data = {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(updateObj)
+ };
+ fetch(`/api/update-skills/${key}/${githubId}`, data).then(res => {
+   if(!res.ok){
+     return Promise.reject(res.statustext);
+   }
+   return res.json();
+ }).then(user => {
+   dispatch(update_success(user.profile));
+ }).catch(error => {
+   dispatch(update_error(error));
+ });
+}
 
 // Actions for Auth/Login requests.
 export const login_request = () => ({

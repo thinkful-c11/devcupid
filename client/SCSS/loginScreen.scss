@@ -1,0 +1,35 @@
+@import './_brand-styles/_Brand';
+
+.column{
+  padding-top:40px;
+  flex-direction:column;
+  width:50%;
+  img{
+    width:70%;
+    margin:auto;
+  }
+  p{
+    @extend .Varela;
+    font-size:25px;
+    color:$Koa-Blue;
+    line-height: 1.5;
+    margin-bottom:15px;
+  }
+  button{
+    @extend .Varela;
+    font-size:20px;
+    text-align:center;
+    background-color:$Magenta-Haze;
+    width:200px;
+    height: 70px;
+    outline:none;
+    border:none;
+    border-radius:10em;
+    margin:auto;
+    padding:15px;
+    a{
+      text-decoration:none;
+      color:white;
+    }
+  }
+}

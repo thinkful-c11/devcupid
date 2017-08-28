@@ -7,10 +7,6 @@ export default class CheckboxNested extends React.Component{
   }
 
   componentWillMount(){
-    const emptyState = {};
-    this.setState({
-      emptyState
-    });
     this.props.currentQuestion.choices.forEach(choice => {
       let language = {
         _active: false,
