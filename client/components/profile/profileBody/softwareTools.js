@@ -9,10 +9,9 @@ export default class SoftwareTools extends React.Component {
         formatted.push(tool);
       }
     }
-    return tool;
+    return formatted;
   }
-
-  return() {
+  render() {
     const { user } = this.props;
     const formattedTools = this.formatTools(user);
     const tools = formattedTools.map((tool, index) => {
