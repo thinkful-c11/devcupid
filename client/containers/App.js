@@ -3,9 +3,11 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 import * as actions from '../actions/actions';
+
 import LoginScreen from './LoginScreen';
 import OnboardingScreen from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
+import Header from '../components/static/header';
 import '../SCSS/App.scss';
 
 export class App extends React.Component {
@@ -19,24 +21,27 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     return (
-      <Router>
-        <main>
-          {/* <Route exact path='/' component={LoginScreen} /> */}
-          <Route
-            exact path='/onboarding/:questionId'
-            // path='/onboarding' re Issue #2
-            component={OnboardingScreen} />
+      <div>
+        <Header />
+        <Router>
+          <main>
+            {/* <Route exact path='/' component={LoginScreen} /> */}
+            <Route
+              exact path='/onboarding/:questionId'
+              // path='/onboarding' re Issue #2
+              component={OnboardingScreen} />
 
-          <Route exact path='/' render={() => (
-            loggedIn ? (
-              <Redirect to='/onboarding/intro' />
-            ) : (
-              <LoginScreen />
-              )
-          )} />
-          <Route exact path='/me' component={ProfileScreen} />
-        </main>
-      </Router>
+            <Route exact path='/' render={() => (
+              loggedIn ? (
+                <Redirect to='/onboarding/intro' />
+              ) : (
+                <LoginScreen />
+                )
+            )} />
+            <Route exact path='/me' component={ProfileScreen} />
+          </main>
+        </Router>
+      </div>
     );
   }
 }
