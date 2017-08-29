@@ -4,24 +4,6 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 const MockStrategy = require('./mock-strategy').Strategy;
 const { Users } = require('../models');
 
-// Not totally sure what this is going to do for us atm.
-// const userStore = (() => {
-//   const state = {};
-//
-//   const fetchUser = id => {
-//     return new Promise(resolve => {
-//       if (state[id]) return resolve(state[id]);
-//       else return resolve({id});
-//     });
-//   };
-//
-//   const saveUser = user => {
-//     state[user.id] = Object.assign({}, user);
-//   };
-//
-//   return { fetchUser, saveUser };
-// })();
-
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
@@ -70,7 +52,7 @@ const strategyForEnv = () => {
       callbackURL: '/api/auth/github/callback'
     }, strategyCallback);
     break;
-  
+
   default:
     strategy = new MockStrategy('github', strategyCallback);
   }

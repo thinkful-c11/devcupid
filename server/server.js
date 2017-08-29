@@ -24,12 +24,6 @@ require('./util/auth');
 app.use(passport.initialize());
 app.use(passport.session());
 
-// passport.serializeUser(function(user, done) {
-//   done(null, user);
-// });
-// passport.deserializeUser(function(user, done) {
-//   done(null, user);
-// });
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
@@ -37,50 +31,6 @@ app.use(express.static(path.resolve(__dirname, '../client/dist')));
 app.get('/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
-
-// GitHub Auth (automatically updates user in DB on login)
-// passport.use(new GitHubStrategy({
-//   clientID: process.env.GITHUB_CLIENT_ID,
-//   clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//   callbackURL: '/api/auth/github/callback'
-// },
-//   (accessToken, refreshToken, user, cb) => {
-//     user = user._json;
-//     Users
-//       .findOneAndUpdate({ 'gitHub.id': user.id },
-//       {$set: {
-//         onboarded: false,
-//         'gitHub.accessToken': accessToken,
-//         'gitHub.id': user.id,
-//         'gitHub.login': user.login,
-//         'gitHub.avatar_url': user.avatar_url || '',
-//         'gitHub.html_url': user.html_url,
-//         'gitHub.name': user.name || '',
-//         'gitHub.company': user.company || '',
-//         'gitHub.blog': user.blog || '',
-//         'gitHub.location': user.location || '',
-//         'gitHub.email': user.email || '',
-//         'gitHub.hireable': user.hireable || '',
-//         'gitHub.bio': user.bio || ''}
-//       },
-//         {new: true, upsert: true}, (error, user) => {
-//           return cb(error, user);
-//         }
-//       );
-//   }));
-
-// Bearer strategy
-// passport.use (
-//   new BearerStrategy (
-//     (token, done) => {
-//       Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
-//         if (err) { return done(err); }
-//         if (!user) { return done(null, false); }
-//         return done(null, user, { scope: 'all'} );
-//       });
-//     }
-//   )
-// );
 
 // Authenticate into GitHub
 app.get('/api/auth/github',
@@ -120,10 +70,6 @@ function deepUpdate(update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-  // console.log('REQ.BODY:', req.body);
-  // console.log('languages: ', req.body.profile.skills.languages)
-  // console.log('deepUpdate: ', deepUpdate(req.body))
-  // console.log(req.param.userId);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: deepUpdate(req.body) },
@@ -138,12 +84,8 @@ app.put('/api/update-user/:userId', (req, res) => {
 });
 
 app.put('/api/update-skills/:skill/:userId', (req, res) => {
-    // console.log('REQ.BODY:', req.body);
-  // console.log('languages: ', req.body.profile.skills.languages)
-  // console.log('req body:', req.body);
   const skill = req.params.skill;
   const key = `profile.skills.${skill}`;
-  console.log(req.body);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: {[key]: req.body[skill]}},
