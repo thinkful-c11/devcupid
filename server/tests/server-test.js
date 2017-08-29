@@ -1,6 +1,5 @@
 // Chai
 const chai = require('chai');
-const should = require('chai').should();
 const chaiHttp = require('chai-http');
 
 // Backend requirements and files
@@ -10,17 +9,32 @@ const { app, runServer, closeServer } = require('../server');
 const { Users, Languages } = require('../models');
 
 // HTTP integration for testing with chai
+chai.should();
 chai.use(chaiHttp);
 
+const tearDownDb = () => {
+  return new Promise((resolve, reject) => {
+    console.warn('Deleting database');
+    mongoose.connection.dropDatabase()
+      .then(result => resolve(result))
+      .catch(error => reject(error));
+  });
+};
+
 describe('The Built Client', function() {
-    // Run the server before we test
+    // Run the server before we test.
   before(function() {
     return runServer();
   });
-    // Close the server once we finish testing
+    // Wipe the db after each test.
+  afterEach(function() {
+    return tearDownDb();
+  });
+    // Close the server once we finish testing.
   after(function() {
     return closeServer();
   });
+
 
   it('should serve index.html on GET to root', function() {
     return chai.request(app)
