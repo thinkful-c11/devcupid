@@ -3,6 +3,7 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const MockStrategy = require('./mock-strategy').Strategy;
 const { Users } = require('../models');
 
+// Default cb function for authing a user, finding and updating in db.
 const strategyCallback = (accessToken, refreshToken, user, cb) => {
   user = user._json;
   Users
@@ -46,3 +47,5 @@ const strategyForEnv = () => {
 
   return strategy;
 };
+
+passport.use(strategyForEnv());
