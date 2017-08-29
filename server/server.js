@@ -8,7 +8,7 @@ const BearerStrategy = require('passport-http-bearer').Strategy;
 const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const {Users,Languages} = require('./models');
+const { Users, Languages } = require('./models');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
 
 // GitHub Auth (automatically updates user in DB on login)
 passport.use(new GitHubStrategy({
-  clientID: process.env.GITHUB_CLIENT_ID,
-  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  clientID: secret.CLIENT_ID,
+  clientSecret: secret.CLIENT_SECRET,
   callbackURL: '/api/auth/github/callback'
 },
   (accessToken, refreshToken, user, cb) => {

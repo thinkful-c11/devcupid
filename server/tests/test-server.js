@@ -12,15 +12,14 @@ const { Users, Languages } = require('../models');
 // HTTP integration for testing with chai
 chai.use(chaiHttp);
 
-describe('Blog Posts', () => {
-
+describe('Blog Posts', function() {
     // Run the server before we test
-  before(() => {
+  before(function() {
     return runServer();
   });
-
     // Close the server once we finish testing
-  after(() => {
+  after(function() {
     return closeServer();
   });
+
 });
