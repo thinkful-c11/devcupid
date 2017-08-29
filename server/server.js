@@ -39,8 +39,8 @@ app.get('/', (req, res) => {
 
 // GitHub Auth (automatically updates user in DB on login)
 passport.use(new GitHubStrategy({
-  clientID: secret.CLIENT_ID,
-  clientSecret: secret.CLIENT_SECRET,
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: '/api/auth/github/callback'
 },
   (accessToken, refreshToken, user, cb) => {
@@ -273,19 +273,20 @@ app.get('/*', (req, res) => {
 // RUN SERVER
 function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(dbUrl, err => {
-      if (err) {
-        return reject(err);
-      }
-      app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
+    mongoose.connect(dbUrl, {
+      useMongoClient: true }, err => {
+        if (err) {
+          return reject(err);
+        }
+        app.listen(port, () => {
+          console.log(`Your app is listening on port ${port}`);
+          resolve();
+        })
       .on('error', err => {
         mongoose.disconnect();
         reject(err);
       });
-    });
+      });
   });
 }
 
@@ -308,4 +309,4 @@ if (require.main === module) {
 }
 
 // Export out for tests
-module.exports = {app, runServer, closeServer};
+module.exports = { app, runServer, closeServer };
