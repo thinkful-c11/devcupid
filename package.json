@@ -10,10 +10,10 @@
   "scripts": {
     "start": "node ./server/server.js",
     "dev:start": "nodemon ./server/server.js",
-    "dev": "concurrently \"npm run dev:start\" \"npm run watch\"",
+    "dev": "NODE_ENV=development concurrently \"npm run dev:start\" \"npm run watch\"",
     "webpack": "webpack --config ./config/webpack.config.js",
     "watch": "webpack --watch --config ./config/webpack.config.js",
-    "test": "mocha ./server/tests",
+    "test": "NODE_ENV=test mocha ./server/tests",
     "heroku-postbuild": "npm run webpack"
   },
   "repository": {

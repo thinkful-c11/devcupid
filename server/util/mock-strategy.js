@@ -20,8 +20,6 @@ function Strategy(name, strategyCallback) {
   // Callback supplied to OAuth2 strategies handling verification
   this._cb = strategyCallback;
 
-  // console.log('MOCK:', this);
-
   util.inherits(Strategy, passport.Strategy);
 
   Strategy.prototype.authenticate = function() {

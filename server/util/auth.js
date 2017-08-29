@@ -53,7 +53,6 @@ const strategyCallback = (accessToken, refreshToken, user, cb) => {
       'gitHub.bio': user.bio || ''
     } },
   { new: true, upsert: true }, (error, user) => {
-    console.log('CB:', user);
     return cb(error, user);
   });
 };
@@ -64,13 +63,14 @@ const strategyForEnv = () => {
   console.log('CURRENT ENV IS:', process.env.NODE_ENV);
   switch (process.env.NODE_ENV) {
   case 'production':
+  case 'development':
     strategy = new GitHubStrategy({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: '/api/auth/github/callback'
     }, strategyCallback);
     break;
-
+  
   default:
     strategy = new MockStrategy('github', strategyCallback);
   }
