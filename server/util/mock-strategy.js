@@ -6,7 +6,7 @@ const util = require('util');
 */
 
 // The reply from Github OAuth2
-const user = require('mockProfile');
+const user = require('./mockProfile');
 
 function Strategy(name, strategyCallback) {
   if (!name || name.length === 0) {
@@ -19,6 +19,8 @@ function Strategy(name, strategyCallback) {
   this._user = user;
   // Callback supplied to OAuth2 strategies handling verification
   this._cb = strategyCallback;
+
+  // console.log('MOCK:', this);
 
   util.inherits(Strategy, passport.Strategy);
 
