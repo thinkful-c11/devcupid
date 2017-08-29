@@ -270,6 +270,7 @@ app.get('/*', (req, res) => {
   res.sendFile(index);
 });
 
+let server;
 // RUN SERVER
 function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
@@ -278,9 +279,9 @@ function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.POR
         if (err) {
           return reject(err);
         }
-        app.listen(port, () => {
+        server = app.listen(port, () => {
           console.log(`Your app is listening on port ${port}`);
-          resolve();
+          resolve(server);
         })
       .on('error', err => {
         mongoose.disconnect();
