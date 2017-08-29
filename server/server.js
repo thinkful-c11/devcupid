@@ -20,15 +20,16 @@ const secret = {
 const app = express();
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/../client/dist'));
+require('./util/auth');
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-passport.deserializeUser(function(user, done) {
-  done(null, user);
-});
+// passport.serializeUser(function(user, done) {
+//   done(null, user);
+// });
+// passport.deserializeUser(function(user, done) {
+//   done(null, user);
+// });
 
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
@@ -38,48 +39,48 @@ app.get('/', (req, res) => {
 });
 
 // GitHub Auth (automatically updates user in DB on login)
-passport.use(new GitHubStrategy({
-  clientID: process.env.GITHUB_CLIENT_ID,
-  clientSecret: process.env.GITHUB_CLIENT_SECRET,
-  callbackURL: '/api/auth/github/callback'
-},
-  (accessToken, refreshToken, user, cb) => {
-    user = user._json;
-    Users
-      .findOneAndUpdate({ 'gitHub.id': user.id },
-      {$set: {
-        onboarded: false,
-        'gitHub.accessToken': accessToken,
-        'gitHub.id': user.id,
-        'gitHub.login': user.login,
-        'gitHub.avatar_url': user.avatar_url || '',
-        'gitHub.html_url': user.html_url,
-        'gitHub.name': user.name || '',
-        'gitHub.company': user.company || '',
-        'gitHub.blog': user.blog || '',
-        'gitHub.location': user.location || '',
-        'gitHub.email': user.email || '',
-        'gitHub.hireable': user.hireable || '',
-        'gitHub.bio': user.bio || ''}
-      },
-        {new: true, upsert: true}, (error, user) => {
-          return cb(error, user);
-        }
-      );
-  }));
+// passport.use(new GitHubStrategy({
+//   clientID: process.env.GITHUB_CLIENT_ID,
+//   clientSecret: process.env.GITHUB_CLIENT_SECRET,
+//   callbackURL: '/api/auth/github/callback'
+// },
+//   (accessToken, refreshToken, user, cb) => {
+//     user = user._json;
+//     Users
+//       .findOneAndUpdate({ 'gitHub.id': user.id },
+//       {$set: {
+//         onboarded: false,
+//         'gitHub.accessToken': accessToken,
+//         'gitHub.id': user.id,
+//         'gitHub.login': user.login,
+//         'gitHub.avatar_url': user.avatar_url || '',
+//         'gitHub.html_url': user.html_url,
+//         'gitHub.name': user.name || '',
+//         'gitHub.company': user.company || '',
+//         'gitHub.blog': user.blog || '',
+//         'gitHub.location': user.location || '',
+//         'gitHub.email': user.email || '',
+//         'gitHub.hireable': user.hireable || '',
+//         'gitHub.bio': user.bio || ''}
+//       },
+//         {new: true, upsert: true}, (error, user) => {
+//           return cb(error, user);
+//         }
+//       );
+//   }));
 
 // Bearer strategy
-passport.use (
-  new BearerStrategy (
-    (token, done) => {
-      Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        return done(null, user, { scope: 'all'} );
-      });
-    }
-  )
-);
+// passport.use (
+//   new BearerStrategy (
+//     (token, done) => {
+//       Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
+//         if (err) { return done(err); }
+//         if (!user) { return done(null, false); }
+//         return done(null, user, { scope: 'all'} );
+//       });
+//     }
+//   )
+// );
 
 // Authenticate into GitHub
 app.get('/api/auth/github',
