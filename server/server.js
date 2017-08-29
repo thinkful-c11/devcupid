@@ -33,7 +33,7 @@ passport.deserializeUser(function(user, done) {
 // Serve the built client
 app.use(express.static(path.resolve(__dirname, '../client/dist')));
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve('/index.html'));
 });
 
@@ -96,6 +96,12 @@ app.get('/api/auth/github/callback',
     res.redirect('/');
   }
 );
+// Log user out of GitHub
+app.get('/api/auth/github/logout', (req, res) => {
+  req.logout();
+  res.clearCookie('accessToken');
+  res.redirect('/');
+});
 
 function deepUpdate(update) {
   const setObject = {};
@@ -111,22 +117,36 @@ function deepUpdate(update) {
   return setObject;
 }
 
-// Log user out of GitHub
-app.get('/api/auth/github/logout', (req, res) => {
-  req.logout(); 
-  res.clearCookie('accessToken'); 
-  res.redirect('/');
-});
-
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-  console.log('REQ.BODY:', req.body);
-  console.log(req.param.userId);
+  // console.log('REQ.BODY:', req.body);
+  // console.log('languages: ', req.body.profile.skills.languages)
+  // console.log('deepUpdate: ', deepUpdate(req.body))
+  // console.log(req.param.userId);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: deepUpdate(req.body) },
     { new: true })
   .exec()
+  .then(profile => {
+    return res.json(profile);
+  })
+  .catch(err => {
+    console.log(err);
+  });
+});
+
+app.put('/api/update-skills/:skill/:userId', (req, res) => {
+    // console.log('REQ.BODY:', req.body);
+  // console.log('languages: ', req.body.profile.skills.languages)
+  // console.log('req body:', req.body);
+  const skill = req.params.skill;
+  const key = `profile.skills.${skill}`;
+  console.log(req.body);
+  Users.findOneAndUpdate(
+    { 'gitHub.id': req.params.userId },
+    { $set: {[key]: req.body[skill]}},
+    { new: true }).exec()
   .then(profile => {
     return res.json(profile);
   })
@@ -154,7 +174,7 @@ function updateProfile(ghUser) {
 }
 
 // Alternate Profile Endpoint
-app.get('/api/profile/me', 
+app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}), (req, res) => {
     return res.json({
       gitHub: req.user.gitHub
@@ -232,15 +252,26 @@ app.get('/api/search', (req, res) => {
   });
 });
 
+app.get('/api/search/all', (req, res) => {
+  Users.find()
+  .then(allUsers => {
+    res.json(allUsers);
+  });
+});
+
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
-app.get(/^(?!\/api(\/|$))/, (req, res) => {
+// app.get(/^(?!\/api(\/|$))/, (req, res) => {
+//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+//   res.sendFile(index);
+// });
+app.get('/*', (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
   res.sendFile(index);
 });
 
 // RUN SERVER
-(function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
+function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(dbUrl, err => {
       if (err) {
@@ -256,13 +287,13 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
       });
     });
   });
-})();
+}
 
 // CLOSE SERVER
 function closeServer() {
   return mongoose.disconnect().then(() => {
     return new Promise((resolve, reject) => {
-      console.log("Closing server");
+      console.log('Closing server');
       server.close(err => {
         if (err) {
           return reject(err);
