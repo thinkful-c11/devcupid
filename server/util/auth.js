@@ -15,7 +15,6 @@ passport.deserializeUser((user, done) => {
 // Default cb function for authing a user, finding and updating in db.
 const strategyCallback = (accessToken, refreshToken, user, cb) => {
   user = user._json;
-
   Users
     .findOneAndUpdate({ 'gitHub.id': user.id },
     {$set:
@@ -55,6 +54,7 @@ const strategyForEnv = () => {
 
   default:
     strategy = new MockStrategy('github', strategyCallback);
+    break;
   }
 
   return strategy;

@@ -42,6 +42,7 @@ app.get('/api/auth/github/callback',
     session: false
   }),
   (req, res) => {
+    // console.log('Cookie?', res);
     const accessToken = req.user.gitHub.accessToken;
     res.cookie('accessToken', accessToken, {expires: 0});
     res.redirect('/');

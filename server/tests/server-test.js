@@ -21,7 +21,7 @@ const tearDownDb = () => {
   });
 };
 
-describe('The Built Client', function() {
+describe('API Tests', function() {
     // Run the server before we test.
   before(function() {
     return runServer();
@@ -35,31 +35,43 @@ describe('The Built Client', function() {
     return closeServer();
   });
 
+  describe('Serving the Client', function() {
+    it('should serve index.html on GET to root', function() {
+      return chai.request(app)
+      .get('/')
+      .then(function(res) {
+        res.should.have.status(200);
+        res.should.be.html;
+      });
+    });
 
-  it('should serve index.html on GET to root', function() {
-    return chai.request(app)
-    .get('/')
-    .then(function(res) {
-      res.should.have.status(200);
-      res.should.be.html;
+    it('should serve index.html on GET to any non /api/ endpoint', function() {
+      return chai.request(app)
+      .get('/thisisnotavalidendpoint')
+      .then(function(res) {
+        res.should.have.status(200);
+        res.should.be.html;
+      });
+    });
+
+    it('should serve index.html on GET to not explicitly defined /api endpoints', function() {
+      return chai.request(app)
+      .get('/api/thisisabunchofgibberish')
+      .then(function(res) {
+        res.should.have.status(200);
+        res.should.be.html;
+      });
     });
   });
 
-  it('should serve index.html on GET to any non /api/ endpoint', function() {
-    return chai.request(app)
-    .get('/thisisnotavalidendpoint')
-    .then(function(res) {
-      res.should.have.status(200);
-      res.should.be.html;
+  describe('The Auth Endpoint', function() {
+    it('should return a user', function() {
+      return chai.request(app)
+        .get('/api/auth/github')
+        .then(function(res) {
+          console.log('RESPONSE', res);
+        });
     });
   });
 
-  it('should serve index.html on GET to not explicitly defined /api endpoints', function() {
-    return chai.request(app)
-    .get('/api/thisisabunchofgibberish')
-    .then(function(res) {
-      res.should.have.status(200);
-      res.should.be.html;
-    });
-  });
 });
