@@ -1,11 +1,39 @@
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy;
+const BearerStrategy = require('passport-http-bearer').Strategy;
 const MockStrategy = require('./mock-strategy').Strategy;
 const { Users } = require('../models');
+
+// Not totally sure what this is going to do for us atm.
+// const userStore = (() => {
+//   const state = {};
+//
+//   const fetchUser = id => {
+//     return new Promise(resolve => {
+//       if (state[id]) return resolve(state[id]);
+//       else return resolve({id});
+//     });
+//   };
+//
+//   const saveUser = user => {
+//     state[user.id] = Object.assign({}, user);
+//   };
+//
+//   return { fetchUser, saveUser };
+// })();
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user.id);
+});
 
 // Default cb function for authing a user, finding and updating in db.
 const strategyCallback = (accessToken, refreshToken, user, cb) => {
   user = user._json;
+
   Users
     .findOneAndUpdate({ 'gitHub.id': user.id },
     {$set:
@@ -25,6 +53,7 @@ const strategyCallback = (accessToken, refreshToken, user, cb) => {
       'gitHub.bio': user.bio || ''
     } },
   { new: true, upsert: true }, (error, user) => {
+    console.log('CB:', user);
     return cb(error, user);
   });
 };
@@ -32,10 +61,11 @@ const strategyCallback = (accessToken, refreshToken, user, cb) => {
 // Defines a mock strategy to be used for testing
 const strategyForEnv = () => {
   let strategy;
+  console.log('CURRENT ENV IS:', process.env.NODE_ENV);
   switch (process.env.NODE_ENV) {
   case 'production':
     strategy = new GitHubStrategy({
-      clientID: process.enf.GITHUB_CLIENT_ID,
+      clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: '/api/auth/github/callback'
     }, strategyCallback);
@@ -49,3 +79,16 @@ const strategyForEnv = () => {
 };
 
 passport.use(strategyForEnv());
+
+// Bearer strategy
+passport.use (
+  new BearerStrategy (
+    (token, done) => {
+      Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user, { scope: 'all'} );
+      });
+    }
+  )
+);
