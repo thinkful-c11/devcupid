@@ -161,6 +161,7 @@ describe('API Tests', function() {
   describe('The /api/update-skills/:skill/:userId Endpoint', function() {
     it('should find and update the specific skills in the db', function() {
       return chai.request(app)
+      //TODO: like above, still missing tests for the req obj
         .put(`/api/update-skills/passions/${mockGitHubId}`)
         .set('Content-Type', 'application/json')
         .send(testSkill)
