@@ -65,6 +65,9 @@ describe('API Tests', function() {
       }
     }
   };
+  const testSkill = {
+    passions: { 'passion': true },
+  };
 
   describe('Serving the Client', function() {
     it('should serve index.html on GET to root', function() {
@@ -151,6 +154,20 @@ describe('API Tests', function() {
               res.should.be.json;
               res.body.profile.should.deep.equal(testProfile.profile);
             });
+        });
+    });
+  });
+
+  describe('The /api/update-skills/:skill/:userId Endpoint', function() {
+    it('should find and update the specific skills in the db', function() {
+      return chai.request(app)
+        .put(`/api/update-skills/passions/${mockGitHubId}`)
+        .set('Content-Type', 'application/json')
+        .send(testSkill)
+        .then(function(res) {
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.profile.skills.passions.should.deep.equal(testSkill.passions);
         });
     });
   });
