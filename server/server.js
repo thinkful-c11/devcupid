@@ -83,9 +83,9 @@ app.put('/api/update-user/:userId',
   (req, res) => {
     Users
       .findOneAndUpdate(
-      { 'gitHub.id': req.params.userId },
-      { $set: deepUpdate(req.body) },
-      { new: true })
+        { 'gitHub.id': req.params.userId },
+        { $set: deepUpdate(req.body) },
+        { new: true })
       .exec()
       .then(profile => {
         return res.json(profile);
@@ -95,20 +95,23 @@ app.put('/api/update-user/:userId',
       });
   });
 
-app.put('/api/update-skills/:skill/:userId', (req, res) => {
-  const skill = req.params.skill;
-  const key = `profile.skills.${skill}`;
-  Users.findOneAndUpdate(
-    { 'gitHub.id': req.params.userId },
-    { $set: {[key]: req.body[skill]}},
-    { new: true }).exec()
-  .then(profile => {
-    return res.json(profile);
-  })
-  .catch(err => {
-    console.log(err);
+app.put('/api/update-skills/:skill/:userId',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    const skill = req.params.skill;
+    const key = `profile.skills.${skill}`;
+    Users
+      .findOneAndUpdate(
+        { 'gitHub.id': req.params.userId },
+        { $set: {[key]: req.body[skill]}},
+        { new: true }).exec()
+      .then(profile => {
+        return res.json(profile);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
-});
 
 function updateProfile(ghUser) {
   return {
