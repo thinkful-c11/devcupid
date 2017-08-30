@@ -22,11 +22,12 @@ export class OnboardingScreen extends React.Component {
 
   handleNestedLanguageButton() {
     const { dispatch, profile, gitHubId, onboardingQuestions } = this.props;
+    const accessToken = Cookies.get('accessToken');
     let currentIndex = parseInt(this.props.match.params.questionId);
     const currentQuestion = onboardingQuestions[currentIndex];
     let key = currentQuestion.key;
 
-    dispatch(actions.update_skills(gitHubId, profile, key));
+    dispatch(actions.update_skills(gitHubId, profile, key, accessToken));
   }
 
   render() {
