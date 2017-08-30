@@ -42,7 +42,6 @@ app.get('/api/auth/github/callback',
     session: false
   }),
   (req, res) => {
-    // console.log('Cookie?', res);
     const accessToken = req.user.gitHub.accessToken;
     res.cookie('accessToken', accessToken, {expires: 0});
     res.redirect('/');
@@ -54,6 +53,15 @@ app.get('/api/auth/github/logout', (req, res) => {
   res.clearCookie('accessToken');
   res.redirect('/');
 });
+
+// Pull the user profile off of the db after auth.
+app.get('/api/profile/me',
+  passport.authenticate('bearer', {session: false}), (req, res) => {
+    return res.json({
+      gitHub: req.user.gitHub
+    });
+  }
+);
 
 function deepUpdate(update) {
   const setObject = {};
@@ -116,15 +124,6 @@ function updateProfile(ghUser) {
     }
   };
 }
-
-// Alternate Profile Endpoint
-app.get('/api/profile/me',
-  passport.authenticate('bearer', {session: false}), (req, res) => {
-    return res.json({
-      gitHub: req.user.gitHub
-    });
-  }
-);
 
 // app.get('/api/profile/:id',
 //     // passport.authenticate('bearer', {session: false}),

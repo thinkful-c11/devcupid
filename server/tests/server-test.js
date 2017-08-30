@@ -64,12 +64,37 @@ describe('API Tests', function() {
     });
   });
 
-  describe('The Auth Endpoint', function() {
-    it('should return a user', function() {
+  describe('The /api/profile/me Endpoint', function() {
+    it('should return a formatted user obj from the db after login', function() {
       return chai.request(app)
-        .get('/api/auth/github')
-        .then(function(res) {
-          console.log('RESPONSE', res);
+        /* Making initial call to auth endpoint to set and
+           format mock user in the db.
+           Assumes the /api/profile/me endpoint will return the
+           authorized user.
+        */
+        .get('/api/auth/github/callback')
+        .then(function() {
+          return chai.request(app)
+            .get('/api/profile/me')
+            .then(function(res) {
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.should.have.all.keys('gitHub');
+              res.body.gitHub.should.have.all.keys(
+                'accessToken',
+                'login',
+                'avatar_url',
+                'html_url',
+                'name',
+                'company',
+                'blog',
+                'location',
+                'email',
+                'hireable',
+                'bio',
+                'id'
+              );
+            });
         });
     });
   });
