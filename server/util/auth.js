@@ -40,37 +40,37 @@ const strategyCallback = (accessToken, refreshToken, user, cb) => {
 
 // Defines a mock strategy to be used for testing
 const strategyForEnv = () => {
-  let strategy;
+  let authStrategy;
+  let bearerStrategy;
   console.log('CURRENT ENV IS:', process.env.NODE_ENV);
   switch (process.env.NODE_ENV) {
   case 'production':
   case 'development':
-    strategy = new GitHubStrategy({
+    authStrategy = new GitHubStrategy({
       clientID: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
       callbackURL: '/api/auth/github/callback'
     }, strategyCallback);
+    bearerStrategy = new BearerStrategy (
+      (token, done) => {
+        Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
+          if (err) { return done(err); }
+          if (!user) { return done(null, false); }
+          return done(null, user, { scope: 'all'} );
+        });
+      }
+    );
     break;
 
   default:
-    strategy = new MockStrategy('github', strategyCallback);
+    authStrategy = new MockStrategy('github', strategyCallback);
+    bearerStrategy = new MockStrategy('bearer', strategyCallback);
     break;
   }
 
-  return strategy;
+  passport.use(authStrategy);
+  passport.use(bearerStrategy);
+  return;
 };
 
-passport.use(strategyForEnv());
-
-// Bearer strategy
-passport.use (
-  new BearerStrategy (
-    (token, done) => {
-      Users.findOne({ 'gitHub.accessToken': token }, (err, user) => {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        return done(null, user, { scope: 'all'} );
-      });
-    }
-  )
-);
+strategyForEnv();
