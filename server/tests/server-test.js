@@ -99,4 +99,57 @@ describe('API Tests', function() {
     });
   });
 
+  describe('The /api/update-user/:userId Endpoint', function() {
+    it('should find and update the user in the db', function() {
+      const mockGitHubId = 123456;
+      const testProfile = {
+        profile: {
+          avatar_url: 'url string',
+          name: 'Something differet to test',
+          personalTitle: 'Something differet to test',
+          location: 'Something differet to test',
+          remoteOk: true,
+          company: 'Something differet to test',
+          email: 'Something differet to test',
+          bio: 'Something different to test',
+          personal_website: 'website',
+          blog: 'blog',
+          linked_in: 'LinkedIn',
+          twitter: 'twitter',
+          skills: {
+            passions: { 'passion': true },
+            roles: { 'role': true },
+            languages: {
+              javascript: {
+                _active: true,
+                React: true
+              }
+            },
+            speciality: { 'speciality': true },
+            softwareTools: { 'tool': true }
+          }
+        }
+      };
+      return chai.request(app)
+      /*
+        Set's mock user then updates it, expecting response to
+        be the updated profile.
+      */
+        .get('/api/auth/github/callback')
+        .then(function() {
+          return chai.request(app)
+            .put(`/api/update-user/${mockGitHubId}`)
+            .set('Content-Type', 'application/json')
+            .send(testProfile)
+            .then(function(res) {
+              // console.log('TEST', res.body);
+              // req.should.have.param('userId', 123456);
+              // req.body.should.be.json;
+              res.should.have.status(200);
+              res.should.be.json;
+              res.body.profile.should.deep.equal(testProfile.profile);
+            });
+        });
+    });
+  });
 });
