@@ -35,6 +35,37 @@ describe('API Tests', function() {
     return closeServer();
   });
 
+  // Test constants
+  const mockGitHubId = 123456;
+  const testProfile = {
+    profile: {
+      avatar_url: 'url string',
+      name: 'Something differet to test',
+      personalTitle: 'Something differet to test',
+      location: 'Something differet to test',
+      remoteOk: true,
+      company: 'Something differet to test',
+      email: 'Something differet to test',
+      bio: 'Something different to test',
+      personal_website: 'website',
+      blog: 'blog',
+      linked_in: 'LinkedIn',
+      twitter: 'twitter',
+      skills: {
+        passions: { 'passion': true },
+        roles: { 'role': true },
+        languages: {
+          javascript: {
+            _active: true,
+            React: true
+          }
+        },
+        speciality: { 'speciality': true },
+        softwareTools: { 'tool': true }
+      }
+    }
+  };
+
   describe('Serving the Client', function() {
     it('should serve index.html on GET to root', function() {
       return chai.request(app)
@@ -101,35 +132,6 @@ describe('API Tests', function() {
 
   describe('The /api/update-user/:userId Endpoint', function() {
     it('should find and update the user in the db', function() {
-      const mockGitHubId = 123456;
-      const testProfile = {
-        profile: {
-          avatar_url: 'url string',
-          name: 'Something differet to test',
-          personalTitle: 'Something differet to test',
-          location: 'Something differet to test',
-          remoteOk: true,
-          company: 'Something differet to test',
-          email: 'Something differet to test',
-          bio: 'Something different to test',
-          personal_website: 'website',
-          blog: 'blog',
-          linked_in: 'LinkedIn',
-          twitter: 'twitter',
-          skills: {
-            passions: { 'passion': true },
-            roles: { 'role': true },
-            languages: {
-              javascript: {
-                _active: true,
-                React: true
-              }
-            },
-            speciality: { 'speciality': true },
-            softwareTools: { 'tool': true }
-          }
-        }
-      };
       return chai.request(app)
       /*
         Set's mock user then updates it, expecting response to
