@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
+import * as Cookies from 'js-cookie';
 
 import SubmitButton from '../components/onboarding/SubmitButton';
 import NextButton from '../components/onboarding/nextButton';
@@ -12,8 +13,11 @@ import OnboardingIntro from '../components/onboarding/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
   handleNextButton() {
+    const accessToken = Cookies.get('accessToken');
     const { dispatch, profile, gitHubId } = this.props;
-    dispatch(actions.update_profile(gitHubId, profile));
+    dispatch(
+      actions.update_profile(gitHubId, profile, accessToken
+    ));
   }
 
   handleNestedLanguageButton() {
