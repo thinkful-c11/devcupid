@@ -135,6 +135,7 @@ describe('API Tests', function() {
         Set's mock user then updates it, expecting response to
         be the updated profile.
       */
+      // TODO: figure out where I can test the below req object tests
         .get('/api/auth/github/callback')
         .then(function() {
           return chai.request(app)
@@ -142,7 +143,6 @@ describe('API Tests', function() {
             .set('Content-Type', 'application/json')
             .send(testProfile)
             .then(function(res) {
-              // console.log('TEST', res.body);
               // req.should.have.param('userId', 123456);
               // req.body.should.be.json;
               res.should.have.status(200);
