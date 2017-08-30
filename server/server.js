@@ -100,6 +100,7 @@ app.put('/api/update-skills/:skill/:userId',
   (req, res) => {
     const skill = req.params.skill;
     const key = `profile.skills.${skill}`;
+    console.log('SKILL', req.body);
     Users
       .findOneAndUpdate(
         { 'gitHub.id': req.params.userId },
@@ -113,23 +114,23 @@ app.put('/api/update-skills/:skill/:userId',
       });
   });
 
-function updateProfile(ghUser) {
-  return {
-    gitHub: {
-      id: ghUser.id,
-      login: ghUser.login,
-      avatar_url: ghUser.avatar_url,
-      html_url: ghUser.html_url,
-      name: ghUser.name,
-      company: ghUser.company,
-      blog: ghUser.blog,
-      location: ghUser.location,
-      email: ghUser.email,
-      hireable: ghUser.hireable,
-      bio: ghUser.bio
-    }
-  };
-}
+// function updateProfile(ghUser) {
+//   return {
+//     gitHub: {
+//       id: ghUser.id,
+//       login: ghUser.login,
+//       avatar_url: ghUser.avatar_url,
+//       html_url: ghUser.html_url,
+//       name: ghUser.name,
+//       company: ghUser.company,
+//       blog: ghUser.blog,
+//       location: ghUser.location,
+//       email: ghUser.email,
+//       hireable: ghUser.hireable,
+//       bio: ghUser.bio
+//     }
+//   };
+// }
 
 // app.get('/api/profile/:id',
 //     // passport.authenticate('bearer', {session: false}),
@@ -210,12 +211,9 @@ app.get('/api/search/all', (req, res) => {
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
-// app.get(/^(?!\/api(\/|$))/, (req, res) => {
-//   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-//   res.sendFile(index);
-// });
 app.get('/*', (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
+  console.log('INVALID ENDPOINT');
   res.sendFile(index);
 });
 
