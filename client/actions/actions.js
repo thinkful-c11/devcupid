@@ -45,8 +45,7 @@ export const update_error = (error) => ({
 });
 
 // Not working/tested yet.
-export const update_profile = (githubId, profile) => dispatch => {
-  console.log('PROFILE', profile);
+export const update_profile = (githubId, profile, accessToken) => dispatch => {
   dispatch(update_request());
   //TODO: verify body formatting matches what DB expects
   const updateObj = {
@@ -55,6 +54,7 @@ export const update_profile = (githubId, profile) => dispatch => {
   const data = {
     method: 'PUT',
     headers: {
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(updateObj)
