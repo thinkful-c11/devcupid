@@ -56,7 +56,8 @@ app.get('/api/auth/github/logout', (req, res) => {
 
 // Pull the user profile off of the db after auth.
 app.get('/api/profile/me',
-  passport.authenticate('bearer', {session: false}), (req, res) => {
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
     return res.json({
       gitHub: req.user.gitHub
     });
@@ -77,20 +78,22 @@ function deepUpdate(update) {
   return setObject;
 }
 
-// passport.authenticate('github', { failureRedirect: '/' }
-app.put('/api/update-user/:userId', (req, res) => {
-  Users.findOneAndUpdate(
-    { 'gitHub.id': req.params.userId },
-    { $set: deepUpdate(req.body) },
-    { new: true })
-  .exec()
-  .then(profile => {
-    return res.json(profile);
-  })
-  .catch(err => {
-    console.log(err);
+app.put('/api/update-user/:userId',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Users
+      .findOneAndUpdate(
+      { 'gitHub.id': req.params.userId },
+      { $set: deepUpdate(req.body) },
+      { new: true })
+      .exec()
+      .then(profile => {
+        return res.json(profile);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   });
-});
 
 app.put('/api/update-skills/:skill/:userId', (req, res) => {
   const skill = req.params.skill;
