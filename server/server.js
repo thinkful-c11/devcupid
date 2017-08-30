@@ -1,11 +1,6 @@
 const path = require('path');
-const fetch = require('node-fetch');
 const express = require('express');
 const passport = require('passport');
-const GitHubStrategy = require('passport-github2').Strategy;
-const BearerStrategy = require('passport-http-bearer').Strategy;
-// const mongoose = require('mongoose');
-const bodyParser = require ('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const { Users, Languages } = require('./models');
@@ -113,59 +108,6 @@ app.put('/api/update-skills/:skill/:userId',
         console.log(err);
       });
   });
-
-// function updateProfile(ghUser) {
-//   return {
-//     gitHub: {
-//       id: ghUser.id,
-//       login: ghUser.login,
-//       avatar_url: ghUser.avatar_url,
-//       html_url: ghUser.html_url,
-//       name: ghUser.name,
-//       company: ghUser.company,
-//       blog: ghUser.blog,
-//       location: ghUser.location,
-//       email: ghUser.email,
-//       hireable: ghUser.hireable,
-//       bio: ghUser.bio
-//     }
-//   };
-// }
-
-// app.get('/api/profile/:id',
-//     // passport.authenticate('bearer', {session: false}),
-//     (req, res) => {
-//       console.log('/API/PROFILE/:ID');
-//     // our database should be 'in sync' with githubs,
-//     // github object on Users model should update when
-//     // github updates.
-//     // To do that, we will update our database every time a profile is viewed.
-//       Users.findOne({'gitHub.id': req.params.id})
-//     .then(user => {
-//       fetch(`https://api.github.com/users/${user.gitHub.login}`)
-//       .then(res => res.json())
-//       .then(ghUser => {
-//         // Currently hard coded in local host, replace later with HTTP or something else
-//         fetch(
-//           `http://localhost:8080/api/update-user/${ghUser.id}`,
-//           { // options
-//             method: 'PUT',
-//             body: updateProfile(ghUser),
-//             headers: {'Content-Type': 'application/json'}
-//           }
-//         )
-//         .then(res => res.json())
-//         .then(updatedUser => {
-//           res.json(updatedUser);
-//         })
-//         .catch(err => console.log(err));
-//       })
-//       .catch(err => {
-//         console.log(err);
-//         res.status(500).json({error: 'Something went wrong oops'});
-//       });
-//     });
-//     });
 
 // Create query entries for searching other developers and designers
 function queryFilter(qry) {
