@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import ProfileHeader from '../components/profile/profileHeader';
 import ProfileBody from '../components/profile/profileBody';
+import SearchBar from '../components/static/SearchBar';
 
 export class ProfileScreen extends React.Component{
   render(){
@@ -10,6 +11,7 @@ export class ProfileScreen extends React.Component{
     return(
       <div>
         <ProfileHeader user={user} />
+        <SearchBar />
         <ProfileBody user={user} />
       </div>
     );
