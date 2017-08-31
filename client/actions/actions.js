@@ -152,7 +152,6 @@ export const searchError = error => ({
 });
 
 export const search = query => dispatch => {
-  console.log('search action');
   dispatch(searchRequest());
 
   fetch('/api/search/all').then(res => {

@@ -213,11 +213,10 @@ const initialState = {
       ]
     },
   ],
-  searchResults: {}
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
-  console.log(action.type)
   switch (action.type) {
 
   case ref.SIGNUP_HANDLER:
@@ -306,7 +305,6 @@ const reducer = (state = initialState, action) => {
     });
     
   case ref.SEARCH_SUCCESS: { 
-    console.log('search success', action.results)
     return Object.assign({}, state, {
       loading: false,
       searchResults: action.results

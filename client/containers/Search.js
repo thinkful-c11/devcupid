@@ -1,9 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { search } from '../../actions/actions';
+import { bindActionCreators } from 'redux';
+import { search } from '../actions/actions';
 
-export class SearchBar extends React.Component {
+import SearchItem from '../components/search/SearchItem';
+
+export class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = { userInput: '' };
@@ -11,10 +14,17 @@ export class SearchBar extends React.Component {
   
   handleSubmit(e) {
     e.preventDefault();
-    search();
+    this.props.search();
   }
   
   render(){
+    let userResults;
+    if (this.props.searchResults) {
+      userResults = this.props.searchResults.map((user, i) => {
+        return <SearchItem user={user} key={i}/>;
+      });
+    }
+    
     return(
       <div>
         <form onSubmit={e => this.handleSubmit(e)}>
@@ -25,7 +35,9 @@ export class SearchBar extends React.Component {
           />
           <input type="submit" placeholder="Go!" />
         </form>
-        <p>{JSON.stringify(this.props.searchResults)}</p>
+        <div>
+          {userResults}
+        </div>
       </div>
     );
   }
@@ -35,4 +47,10 @@ const mapStateToProps = state => ({
   searchResults: state.searchResults
 });
 
-export default connect(mapStateToProps)(SearchBar);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    search: search
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
