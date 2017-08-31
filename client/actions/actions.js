@@ -44,17 +44,15 @@ export const update_error = (error) => ({
   error
 });
 
-// Not working/tested yet.
-export const update_profile = (githubId, profile) => dispatch => {
-  console.log('PROFILE', profile);
+export const update_profile = (githubId, profile, accessToken) => dispatch => {
   dispatch(update_request());
-  //TODO: verify body formatting matches what DB expects
   const updateObj = {
     profile
   };
   const data = {
     method: 'PUT',
     headers: {
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(updateObj)
@@ -71,7 +69,7 @@ export const update_profile = (githubId, profile) => dispatch => {
   });
 };
 
-export const update_skills = (githubId, profile, key) => dispatch => {
+export const update_skills = (githubId, profile, key, accessToken) => dispatch => {
   dispatch(update_request());
 
   const updateObj = profile.skills;
@@ -79,6 +77,7 @@ export const update_skills = (githubId, profile, key) => dispatch => {
   const data = {
     method: 'PUT',
     headers: {
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(updateObj)
