@@ -4,16 +4,10 @@ import * as actions from '../../actions/actions';
 export default class Checkbox extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      hold: false
-    };
+    this.state = {};
   }
 
   componentDidMount(){
-    const emptyState = {};
-    this.setState({
-      emptyState
-    });
     this.props.currentQuestion.choices.forEach(choice => {
       this.setState({
         [choice]: false
@@ -41,7 +35,7 @@ export default class Checkbox extends React.Component{
             arr.push(k)
           }
         }
-        this.props.dispatch(actions.checkbox_handler(key, arr));
+        this.props.dispatch(actions.checkbox_handler(key, this.state));
       }
     );
   }

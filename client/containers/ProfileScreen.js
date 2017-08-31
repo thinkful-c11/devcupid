@@ -9,15 +9,17 @@ export class ProfileScreen extends React.Component{
     const { user } = this.props;
     return(
       <div>
-       <ProfileHeader user={user}/>
-       <ProfileBody user={user}/>
+        <ProfileHeader user={user} />
+        <ProfileBody user={user} />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.profile
-});
+const mapStateToProps = state => {
+  return {
+    user: state.profile
+  };
+};
 
 export default connect(mapStateToProps)(ProfileScreen);

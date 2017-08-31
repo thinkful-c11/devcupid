@@ -1,16 +1,13 @@
 import React from 'react';
 
 export default class ProfileHeader extends React.Component{
-  constructor(props){
-    super(props);
-  }
-
-  render(){
+  render() {
     const { user } = this.props;
-    return(
+    const remoteOk = user.remoteOk ? '| Remote Ok' : '';
+    return (
       <header>
         <div>
-          <img src={user.avatar_url}/>
+          <img src={user.avatar_url} />
         </div>
         <div>
           <h2>
@@ -18,7 +15,7 @@ export default class ProfileHeader extends React.Component{
           </h2>
           <ul>
             <li>
-              {user.location} | Remote Ok: {user.remoteOk}
+              {user.location} {remoteOk}
             </li>
             <li>
               {user.personalTitle}

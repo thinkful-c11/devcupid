@@ -1,0 +1,46 @@
+@import './_brand-styles/_Brand';
+
+.onboardIntro{
+  display:flex;
+  flex-direction:column;
+  padding-top:40px;
+  h2{
+    @extend .Varela;
+    width:1000;
+    font-size:35px;
+    text-align:center;
+    color:$Koa-Blue;
+    margin-bottom:30px;
+  }
+  button{
+    @extend .Varela;
+    font-size:20px;
+    text-align:center;
+    background-color:$Magenta-Haze;
+    width:200px;
+    height: 70px;
+    outline:none;
+    border:none;
+    border-radius:10em;
+    margin:auto;
+    margin-top:25px;
+    padding:15px;
+    a{
+      text-decoration:none;
+      color:white;
+    }
+  }
+  p{
+    width:1000px;
+    font-size:20px;
+    line-height:1.3;
+    margin:auto;
+    margin-bottom:10px;
+    @extend .Noto;
+    text-align:center;
+    color: $Koa-Blue;
+    .italic{
+      @extend .Noto-Italic
+    }
+  }
+}
