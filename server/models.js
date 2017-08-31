@@ -119,9 +119,9 @@ const TeamSchema = mongoose.Schema({
   }],
   // Basic info, mostly copied from GitHub org format
   url: String,
+  name: String,
   description: String,
   avatar_url: String,
-  name: String,
   company: String,
   location: String,
   email: String,
