@@ -152,6 +152,35 @@ app.get('/api/search/all', (req, res) => {
 });
 
 // Teams Endpoints
+
+// Creates a team, setting the current user as admin and creator
+app.post('/api/teams/:userId',
+  // Only authenticated users can create teams
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Teams
+      .create(
+      {
+        createdBy: req.params.userId,
+        admins: [req.params.userId],
+        url: '',
+        name: req.body.teamName,
+        description: req.body.teamDescription || '',
+        avatar_url: req.body.teamAvatarUrl || '',
+        company: req.body.teamCompany || '',
+        location: req.body.teamLocation || '',
+        email: req.body.teamEmail || ''
+      })
+      .then(team => {
+        res.status(201).json(team);
+      })
+      .catch(error => {
+        console.error(error);
+        res.sendStatus(500);
+      });
+  });
+
+// Return a single team by id.
 app.get('/api/teams/:teamId',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
