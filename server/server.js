@@ -241,7 +241,7 @@ app.patch('/api/teams/:teamId',
         {new: true})
       .exec()
       .then(team => {
-        res.status(201).send(team);
+        res.status(201).json(team);
       })
       .catch(error => {
         console.error(error);
@@ -269,12 +269,42 @@ app.patch('/api/teams/:teamId/members',
             { new: true })
           .exec()
           .then(team => {
-            res.status(201).send(team);
+            res.status(201).json(team);
           });
       })
       .catch(error => {
         console.error(error);
         res.status(500);
+      });
+  });
+
+// Removes a team from a user doc and a user from a team.
+app.delete('/api/teams/:teamId/members',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    // Key is the field from which the member is being deleted
+    const key = req.body.key;
+    const deleteMember = req.body.deleteMember;
+    Users
+      .findOneAndUpdate(
+        { 'gitHub.id': deleteMember.gitHub.id },
+        // Essentially the member to be deleted should be updated on client and sent over to db to update there.
+        { $pull: { teams: req.params.teamId } })
+      .exec()
+      .then(() => {
+        Teams
+          .findOneAndUpdate(
+            { _id: req.params.id },
+            { $pull: { key: deleteMember.gitHub.id } },
+            { new: true})
+          .exec()
+          .then(team => {
+            res.status(201).json(team);
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        res.sendStatus(500);
       });
   });
 
