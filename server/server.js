@@ -152,9 +152,10 @@ app.get('/api/search/all', (req, res) => {
 });
 
 // Teams Endpoints
+// TODO: Look at the /api/teams eps and maybe reconfig as some take a userId from the body and others from queries.
 
 // Creates a team, setting the current user as admin and creator
-app.post('/api/teams/:userId',
+app.post('/api/teams',
   // Only authenticated users can create teams
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
@@ -162,8 +163,8 @@ app.post('/api/teams/:userId',
     Teams
       .create(
       {
-        createdBy: req.params.userId,
-        admins: [req.params.userId],
+        createdBy: req.body.userId,
+        admins: [req.body.userId],
         url: '',
         name: req.body.teamName,
         description: req.body.teamDescription || '',
@@ -176,7 +177,7 @@ app.post('/api/teams/:userId',
         team = _team;
         Users
           .findOneAndUpdate(
-            { 'gitHub.id': req.params.userId },
+            { 'gitHub.id': req.body.userId },
             { $push: { teams: _team._id } },
             { new: true })
           .exec()
@@ -191,11 +192,11 @@ app.post('/api/teams/:userId',
   });
 
 // Returns a list of a single users teams
-app.get('/api/teams/:userId',
+app.get('/api/teams',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
     User
-      .findById(req.params.userId)
+      .findById(req.query.userId)
       .populate('teams')
       .exec()
       .then(user => {
