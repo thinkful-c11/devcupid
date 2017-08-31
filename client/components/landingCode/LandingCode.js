@@ -1,13 +1,13 @@
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { darcula } from 'react-syntax-highlighter/dist/styles';
+import {devCupid} from './syntaxhighlights';
 
 import {languages} from './languages';
 
 export default class LandingCode extends React.Component{
   render(){
     return(
-      <SyntaxHighlighter language={languages.javascript.key} style={darcula}>
+      <SyntaxHighlighter language={languages.javascript.key} style={devCupid}>
         {languages.javascript.text}
       </SyntaxHighlighter>
     );

@@ -9,7 +9,7 @@ import SignUp from '../components/onboarding/signup';
 import TextInput from '../components/onboarding/textInput';
 import Checkbox from '../components/onboarding/checkbox';
 import CheckboxNested from '../components/onboarding/checkboxNested';
-import OnboardingIntro from '../components/onboarding/onboardingIntro';
+import OnboardingIntro from '../components/onboarding/onboardingIntro/onboardingIntro';
 
 export class OnboardingScreen extends React.Component {
   handleNextButton() {
@@ -68,7 +68,7 @@ export class OnboardingScreen extends React.Component {
       }
 
       return (
-        <div className='onboarding-container'>
+        <div className='terminal-card'>
           {question}
           {button}
         </div>

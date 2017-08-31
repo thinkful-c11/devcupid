@@ -6,6 +6,24 @@
 }
 
 .content{
-  max-width:1200px;
+  max-width:1024px;
   margin:auto;
+  flex-wrap:wrap;
+}
+
+main.content{
+  margin-top:40px;
+}
+
+.pop-card{
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding:10px;
+}
+
+.terminal-card{
+  background-color:$Koa-Blue;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding:10px;
+  outline:none;
 }

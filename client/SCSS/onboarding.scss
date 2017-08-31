@@ -1,0 +1,14 @@
+@import './_brand-styles/_Brand';
+
+.onboarding.terminal-card{
+  width:780px;
+  height:430px;
+  margin:auto;
+  p{
+    font-size:14px;
+    margin-bottom:20px;
+  }
+  .comment{
+    color: rgba(255, 255, 255, 0.5);
+  }
+}

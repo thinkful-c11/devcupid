@@ -22,7 +22,7 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     return (
-      <div>
+      <div className="major-cont">
         <Header loggedIn={loggedIn}/>
         <Router>
           <main className='content'>

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions/actions';
 
+import LandingCode from '../components/landingCode/LandingCode';
+
 import '../SCSS/loginScreen.scss';
 
 export class LoginScreen extends React.Component {
@@ -10,7 +12,7 @@ export class LoginScreen extends React.Component {
     return(
       <div className='landing content container'>
         <div className="column content container left">
-          <div class="pop-card">
+          <div className="pop-card">
             <p>devCupid is a place for developers to find and match with one another to assemble the perfect team for any passion project, startup venture, open source library, or even full-time job.</p>
 
             <p>We believe that there is more to assembling a great team than resumes and portfolios - there has to be chemistry and a common goal that every contributor is passionate about.</p>
@@ -19,38 +21,11 @@ export class LoginScreen extends React.Component {
           </div>
         </div>
         <div className="column content container right">
-          <div class="terminal-card">
-            <pre>
-            {`
-class myTeam extends dreamTeam{
-  founder: {
-    name: 'Alva Snelling',
-    skills:['Product Design', 'Ideation', 'Leadership']
-  },
-  designer:{
-    name: 'Mckenna Haight',
-    skills:['Sketch3', 'Storyboards', 'Logos', 'UI/UX']
-  },
-  devs:{
-    frontEnd:{
-      name: 'Dustin Bachchan',
-      skills: ['React', 'CSS3', 'Accessibility']
-    },
-    backEnd: {
-      name: 'Gale Hill',
-      skills:['Node', 'DevOps', 'RESTful', 'mongoDB']
-    },
-    testWizard: {
-      name: 'Kurt Courtenay',
-      skills:['Mocha & Chai', 'Enzyme', 'Jest', 'TDD']
-    }
-  }
-} 
-            `}
-            </pre>
+          <div className="terminal-card">
+            <LandingCode />
           </div>
         </div>
-        <button><a href='/api/auth/github'> Sign In With GitHub </a></button>
+        <button><a href='/api/auth/github'> sign in with gitHub </a></button>
       </div>
     );
   }

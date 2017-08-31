@@ -1,100 +1,9 @@
-.Varela, .column p, .column button {
-  font-family: 'Varela Round', sans-serif; }
+.Mono, .Mono-Bold, button {
+  font-family: "Ubuntu Mono", monospace; }
 
-.Noto, .Noto-Italic, .Noto-Bold {
-  font-family: 'Noto Serif', serif; }
-
-.Noto-Italic {
+.Mono-Bold {
   font-style: italic; }
 
-.Noto-Bold {
-  font-weight: 700; }
-
-.container {
-  display: flex; }
-
-.content {
-  max-width: 1200px;
-  margin: auto; }
-
-.column {
-  padding-top: 40px;
-  flex-direction: column;
-  width: 50%; }
-  .column img {
-    width: 70%;
-    margin: auto; }
-  .column p {
-    font-size: 25px;
-    color: #3B3561;
-    line-height: 1.5;
-    margin-bottom: 15px; }
-  .column button {
-    font-size: 20px;
-    text-align: center;
-    background-color: #A34170;
-    width: 200px;
-    height: 70px;
-    outline: none;
-    border: none;
-    border-radius: 10em;
-    margin: auto;
-    padding: 15px; }
-    .column button a {
-      text-decoration: none;
-      color: white; }
-.Varela, .onboardIntro h2, .onboardIntro button {
-  font-family: 'Varela Round', sans-serif; }
-
-.Noto, .Noto-Italic, .onboardIntro p .italic, .Noto-Bold, .onboardIntro p {
-  font-family: 'Noto Serif', serif; }
-
-.Noto-Italic, .onboardIntro p .italic {
-  font-style: italic; }
-
-.Noto-Bold {
-  font-weight: 700; }
-
-.container {
-  display: flex; }
-
-.content {
-  max-width: 1200px;
-  margin: auto; }
-
-.onboardIntro {
-  display: flex;
-  flex-direction: column;
-  padding-top: 40px; }
-  .onboardIntro h2 {
-    width: 1000;
-    font-size: 35px;
-    text-align: center;
-    color: #3B3561;
-    margin-bottom: 30px; }
-  .onboardIntro button {
-    font-size: 20px;
-    text-align: center;
-    background-color: #A34170;
-    width: 200px;
-    height: 70px;
-    outline: none;
-    border: none;
-    border-radius: 10em;
-    margin: auto;
-    margin-top: 25px;
-    padding: 15px; }
-    .onboardIntro button a {
-      text-decoration: none;
-      color: white; }
-  .onboardIntro p {
-    width: 1000px;
-    font-size: 20px;
-    line-height: 1.3;
-    margin: auto;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #3B3561; }
 .Varela {
   font-family: 'Varela Round', sans-serif; }
 
@@ -111,8 +20,149 @@
   display: flex; }
 
 .content {
-  max-width: 1200px;
+  max-width: 1024px;
+  margin: auto;
+  flex-wrap: wrap; }
+
+main.content {
+  margin-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
+
+.column {
+  padding-top: 40px;
+  flex-direction: column;
+  align-items: stretch;
+  margin-left: 12px;
+  margin-right: 12px;
+  width: 50%; }
+  .column img {
+    width: 70%;
+    margin: auto; }
+  .column .terminal-card {
+    width: 100%;
+    max-width: 530px;
+    height: 430px; }
+
+.pop-card {
+  width: 95%;
+  max-width: 430px;
+  height: 428px;
   margin: auto; }
+  .pop-card p {
+    max-width: 400px;
+    margin: auto;
+    font-size: 24px;
+    color: #3B3561;
+    margin-bottom: 15px; }
+
+button {
+  font-size: 36px;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  margin: auto;
+  margin-top: 15px; }
+  button a {
+    text-decoration: none;
+    color: #A34170; }
+.Mono, .Mono-Bold {
+  font-family: "Ubuntu Mono", monospace; }
+
+.Mono-Bold {
+  font-style: italic; }
+
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1024px;
+  margin: auto;
+  flex-wrap: wrap; }
+
+main.content {
+  margin-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
+
+.onboarding.terminal-card {
+  width: 780px;
+  height: 430px;
+  margin: auto; }
+  .onboarding.terminal-card p {
+    font-size: 14px;
+    margin-bottom: 20px; }
+  .onboarding.terminal-card .comment {
+    color: rgba(255, 255, 255, 0.5); }
+.Mono, .Mono-Bold {
+  font-family: "Ubuntu Mono", monospace; }
+
+.Mono-Bold {
+  font-style: italic; }
+
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1024px;
+  margin: auto;
+  flex-wrap: wrap; }
+
+main.content {
+  margin-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
 
 header {
   background-color: white;
@@ -122,18 +172,20 @@ header {
 .topBar {
   width: 100%;
   align-items: center;
-  justify-content: space-between; }
+  justify-content: space-between;
+  height: 50px; }
   .topBar .logo img {
     width: 200px; }
   .topBar .burgerMenu {
     width: 30px;
-    height: 25px;
+    height: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; }
+    justify-content: space-between;
+    padding-top: 7px;
+    padding-bottom: 8px; }
     .topBar .burgerMenu .part {
-      width: 30px;
-      height: 5px;
+      height: 3px;
       background-color: #3B3561;
       border-radius: 5em; }
 
@@ -155,6 +207,12 @@ header {
       height: 5px;
       background-color: #3B3561;
       border-radius: 5em; }
+.Mono, .Mono-Bold {
+  font-family: "Ubuntu Mono", monospace; }
+
+.Mono-Bold {
+  font-style: italic; }
+
 .Varela {
   font-family: 'Varela Round', sans-serif; }
 
@@ -171,19 +229,30 @@ header {
   display: flex; }
 
 .content {
-  max-width: 1200px;
-  margin: auto; }
+  max-width: 1024px;
+  margin: auto;
+  flex-wrap: wrap; }
+
+main.content {
+  margin-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
 
 footer {
-  background-color: #A34170;
+  background-color: #3B3561;
   width: 100%;
-  height: 20px;
+  height: 25px;
   align-items: center;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  box-sizing: border-box; }
+  align-self: flex-end; }
 
 .bottomBar {
   width: 100%;
@@ -192,26 +261,8 @@ footer {
   justify-content: center;
   text-align: center; }
   .bottomBar p {
-    color: #3B3561; }
-.Varela {
-  font-family: 'Varela Round', sans-serif; }
-
-.Noto, .Noto-Italic, .Noto-Bold {
-  font-family: 'Noto Serif', serif; }
-
-.Noto-Italic {
-  font-style: italic; }
-
-.Noto-Bold {
-  font-weight: 700; }
-
-.container {
-  display: flex; }
-
-.content {
-  max-width: 1200px;
-  margin: auto; }
-
+    font-size: 12px;
+    color: white; }
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -259,9 +310,60 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+.Mono, .Mono-Bold, body {
+  font-family: "Ubuntu Mono", monospace; }
+
+.Mono-Bold {
+  font-style: italic; }
+
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1024px;
+  margin: auto;
+  flex-wrap: wrap; }
+
+main.content {
+  margin-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
+
+* {
+  box-sizing: border-box; }
+
 body {
+  display: flex;
+  flex-direction: column;
   width: 100vw;
   height: 100vh;
   background-color: #FCBADA; }
+
+.major-cont {
+  min-height: 100vh;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column; }
 
 /*# sourceMappingURL=style.css.map*/
