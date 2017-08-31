@@ -190,6 +190,23 @@ app.post('/api/teams/:userId',
       });
   });
 
+// Returns a list of a single users teams
+app.get('/api/teams/:userId',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    User
+      .findById(req.params.userId)
+      .populate('teams')
+      .exec()
+      .then(user => {
+        res.json(user.teams);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500);
+      });
+  });
+
 // Return a single team by id.
 app.get('/api/teams/:teamId',
   passport.authenticate('bearer', {session: false}),
