@@ -3,7 +3,7 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const { Users, Languages } = require('./models');
+const { Users, Languages, Teams } = require('./models');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
@@ -150,6 +150,21 @@ app.get('/api/search/all', (req, res) => {
     res.json(allUsers);
   });
 });
+
+// Teams Endpoints
+app.get('/api/teams/:teamId',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Teams
+      .findOne({ _id: req.params.teamId })
+      .then(team => {
+        res.json(team);
+      })
+      .catch(error => {
+        console.error(error);
+        res.sendStatus(500);
+      });
+  });
 
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
