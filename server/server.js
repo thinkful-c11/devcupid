@@ -158,6 +158,7 @@ app.post('/api/teams/:userId',
   // Only authenticated users can create teams
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
+    let team;
     Teams
       .create(
       {
@@ -171,8 +172,17 @@ app.post('/api/teams/:userId',
         location: req.body.teamLocation || '',
         email: req.body.teamEmail || ''
       })
-      .then(team => {
-        res.status(201).json(team);
+      .then(_team => {
+        team = _team;
+        Users
+          .findOneAndUpdate(
+            { 'gitHub.id': req.params.userId },
+            { $push: { teams: _team._id } },
+            { new: true })
+          .exec()
+          .then(() => {
+            res.status(201).json(team);
+          });
       })
       .catch(error => {
         console.error(error);
