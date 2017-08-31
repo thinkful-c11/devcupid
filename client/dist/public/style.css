@@ -10,6 +10,9 @@
 .Noto-Bold {
   font-weight: 700; }
 
+.Code, .column .code {
+  font-family: "Ubuntu Mono", monospace; }
+
 .container {
   display: flex; }
 
@@ -28,7 +31,8 @@
     font-size: 25px;
     color: #3B3561;
     line-height: 1.5;
-    margin-bottom: 15px; }
+    margin-bottom: 15px;
+    text-align: center; }
   .column button {
     font-size: 20px;
     text-align: center;
@@ -43,6 +47,13 @@
     .column button a {
       text-decoration: none;
       color: white; }
+  .column .image {
+    overflow: wrap; }
+  .column .code {
+    font-size: 20px;
+    overflow: wrap; }
+  .column code {
+    white-space: pre-wrap; }
 .Varela, .onboardIntro h2, .onboardIntro button {
   font-family: 'Varela Round', sans-serif; }
 
@@ -54,6 +65,9 @@
 
 .Noto-Bold {
   font-weight: 700; }
+
+.Code {
+  font-family: "Ubuntu Mono", monospace; }
 
 .container {
   display: flex; }
@@ -107,6 +121,9 @@
 .Noto-Bold {
   font-weight: 700; }
 
+.Code {
+  font-family: "Ubuntu Mono", monospace; }
+
 .container {
   display: flex; }
 
@@ -149,6 +166,9 @@ header {
 .Noto-Bold {
   font-weight: 700; }
 
+.Code {
+  font-family: "Ubuntu Mono", monospace; }
+
 .container {
   display: flex; }
 
@@ -186,6 +206,9 @@ footer {
 
 .Noto-Bold {
   font-weight: 700; }
+
+.Code {
+  font-family: "Ubuntu Mono", monospace; }
 
 .container {
   display: flex; }

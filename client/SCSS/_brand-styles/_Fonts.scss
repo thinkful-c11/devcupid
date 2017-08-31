@@ -1,5 +1,6 @@
 $Varela:'Varela Round', sans-serif;
 $Noto:'Noto Serif', serif;
+$Code: 'Ubuntu Mono', monospace;
 
 .Varela{
   font-family: 'Varela Round', sans-serif;
@@ -17,4 +18,8 @@ $Noto:'Noto Serif', serif;
 .Noto-Bold{
   @extend .Noto;
   font-weight:700;
+}
+
+.Code{
+  font-family: $Code;
 }
