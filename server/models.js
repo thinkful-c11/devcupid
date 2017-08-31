@@ -109,17 +109,11 @@ const UserModel = mongoose.Schema({
 });
 
 const TeamSchema = mongoose.Schema({
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  },
-  admins: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
+  createdBy: { type: String, required: True },
+  admins: [{ type: String, required: True }],
   // Basic info, mostly copied from GitHub org format
   url: String,
-  name: String,
+  name: { type: String, required: True },
   description: String,
   avatar_url: String,
   company: String,
@@ -132,22 +126,10 @@ const TeamSchema = mongoose.Schema({
 
   // Roles, doubles as roster and may be duplicates of above:
   // TODO: expand this set as needed but try to keep it relatively generic
-  developers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
-  founders: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
-  projectManagers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
-  designers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Users'
-  }],
+  developers: [ String ],
+  founders: [ String ],
+  projectManagers: [ String ],
+  designers: [ String ],
 
   // Team desires, i.e. searchable by users:
   desiredRoles: {
