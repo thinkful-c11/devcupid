@@ -117,7 +117,6 @@
 header {
   background-color: white;
   width: 100%;
-  height: 50px;
   align-items: center; }
 
 .topBar {
@@ -133,6 +132,25 @@ header {
     flex-direction: column;
     justify-content: space-between; }
     .topBar .burgerMenu .part {
+      width: 30px;
+      height: 5px;
+      background-color: #3B3561;
+      border-radius: 5em; }
+
+.topBar.landing {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 86px; }
+  .topBar.landing .logo img {
+    width: 385px; }
+  .topBar.landing .burgerMenu {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+    .topBar.landing .burgerMenu .part {
       width: 30px;
       height: 5px;
       background-color: #3B3561;

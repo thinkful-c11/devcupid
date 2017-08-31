@@ -23,7 +23,7 @@ export class App extends React.Component {
     const loggedIn = this.props.user;
     return (
       <div>
-        <Header />
+        <Header loggedIn={loggedIn}/>
         <Router>
           <main className='content'>
             {/* <Route exact path='/' component={LoginScreen} /> */}
