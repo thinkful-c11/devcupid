@@ -249,6 +249,35 @@ app.patch('/api/teams/:teamId',
       });
   });
 
+// Adds a team to a user and a user to a team.
+// TODO: Ensure client validation of user permission
+app.patch('/api/teams/:teamId/members',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    const key = req.body.key;
+    const newMember = req.body.newMember;
+    Users
+      .findOneAndUpdate(
+        { 'gitHub.id': newMember.gitHub.id },
+        { $push: { teams: req.params.teamId } })
+      .exec()
+      .then(() => {
+        Teams
+          .findOneAndUpdate(
+            { _id: req.params.teamId },
+            { $push: { key: newMember } },
+            { new: true })
+          .exec()
+          .then(team => {
+            res.status(201).send(team);
+          });
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500);
+      });
+  });
+
 // Unhandled requests which aren't for the API should serve index.html so
 // client-side routing using browserHistory can function
 app.get('/*', (req, res) => {
