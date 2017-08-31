@@ -90,6 +90,8 @@ app.put('/api/update-user/:userId',
       });
   });
 
+
+// TODO: Technically the below should probably be a PATCH.
 app.put('/api/update-skills/:skill/:userId',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
@@ -220,6 +222,30 @@ app.get('/api/teams/:teamId',
       .catch(error => {
         console.error(error);
         res.sendStatus(500);
+      });
+  });
+
+// Updates a team
+// TODO: make sure there is data validation on the front endpoint
+// to check that a user is only updating his/her own team.
+// TODO: Ensure client is only using this for [url, name, description, avatar_url, company, location, email, and possibly GitHub]
+app.patch('/api/teams/:teamId',
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    const key = req.body.key;
+    const value = req.body.value;
+    Teams
+      .findOneAndUpdate(
+        { _id: req.params.teamId },
+        { $set: { key: value } },
+        {new: true})
+      .exec()
+      .then(team => {
+        res.status(201).send(team);
+      })
+      .catch(error => {
+        console.error(error);
+        res.status(500);
       });
   });
 
