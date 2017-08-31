@@ -67,12 +67,6 @@ const LanguageSchema = mongoose.Schema({
   'F#': {_active: {type:Boolean}},
 });
 
-// const LanguageSchema = mongoose.Schema({
-//   language: {
-    
-//   }
-// });
-
 const UserModel = mongoose.Schema({
   onboarded: {type: String},
   gitHub: {
@@ -113,13 +107,6 @@ const UserModel = mongoose.Schema({
   personality: {
   }
 });
-
-// UserModel.methods.apiRepr = function() {
-//     return {
-//         firstName: this.name.split(' ')[0],
-//         lastName: this.name.split(' ')[1],
-//     };
-// };
 
 module.exports = {
   Users: mongoose.model('Users', UserModel),
