@@ -105,7 +105,8 @@ const UserModel = mongoose.Schema({
     }
   },
   personality: {
-  }
+  },
+  teams: [{ type: Schema.Types.ObjectId, ref: 'Teams' }]
 });
 
 const TeamSchema = mongoose.Schema({
