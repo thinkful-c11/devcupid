@@ -132,7 +132,6 @@ export const fetchUser = accessToken => dispatch => {
     return res.json();
   })
   .then(user => {
-    console.log('USER', user);
     dispatch(login_success(user));
   })
   .catch(error => {
