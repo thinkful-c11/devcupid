@@ -224,12 +224,7 @@ function queryFilter(qry) {
     'gitHub.login': qry.login,
     'profile.skills.languages': qry.languages,
     'profile.skills.roles': qry.roles,
-    'gitHub.name': qry.name,
-    'profile.linked_in': qry.linked_in,
-    'profile.twitter': qry.twitter,
-    'profile.email': qry.email,
-    'profile.location': qry.location,
-    'profile.company': qry.company
+    'profile.name': qry.name,
   };
 
   // Get the results of the search from the queries
@@ -241,6 +236,14 @@ function queryFilter(qry) {
     }
   }
   return result;
+}
+
+function delay(t) {
+  // delay function used to delay a promise
+  // initially used to test SearchLoadingNotifier component
+   return new Promise(function(resolve) { 
+       setTimeout(resolve, t);
+   });
 }
 
 // Search endpoint to use the queryFilter function
@@ -255,12 +258,16 @@ app.get('/api/search', (req, res) => {
 app.get('/api/search/all', (req, res) => {
   Users.find()
   .then(allUsers => {
-    res.json(allUsers);
+    delay(1000).then(() => {
+      res.json(allUsers);
+    });
   });
 });
 
 app.get('/api/fake-users', (req, res) => {
-  const randomUserSchema = {
+  const fakeUsers = [];
+  for (var i = 0; i < 100; i++) {
+    fakeUsers.push({
     onboarded: true,
     profile: {
             twitter: faker.internet.url(),
@@ -413,8 +420,8 @@ app.get('/api/fake-users', (req, res) => {
       avatar_url: faker.image.image(),
       login: faker.internet.userName()
     }
-  };
-  const fakeUsers = Array(100).fill(randomUserSchema);
+  })
+  }
   
   Users.create(fakeUsers)
   .then(users => {

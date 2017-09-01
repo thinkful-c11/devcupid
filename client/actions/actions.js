@@ -153,7 +153,7 @@ export const searchError = error => ({
 
 export const search = query => dispatch => {
   dispatch(searchRequest());
-
+  // TODO add format function for query in an actionHelpers.js file
   fetch('/api/search/all').then(res => {
     if(!res.ok) {
       return Promise.reject(res.statusText);

@@ -1,22 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { bindActionCreators } from 'redux';
-import { search } from '../actions/actions';
-
+import SearchForm from '../components/search/SearchForm';
 import SearchItem from '../components/search/SearchItem';
+import SearchLoadingNotifier from '../components/search/SearchLoadingNotifier';
 
 export class Search extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { userInput: '' };
-  }
-  
-  handleSubmit(e) {
-    e.preventDefault();
-    this.props.search();
-  }
-  
   render(){
     let userResults;
     if (this.props.searchResults) {
@@ -24,18 +13,15 @@ export class Search extends React.Component {
         return <SearchItem user={user} key={i}/>;
       });
     }
-    
+    // document.readyState prevents SearchLoadingNotifier
+    // from displaying during page load
+    let isLoading = (this.props.loading && document.readyState === 'complete')
+                      ? <SearchLoadingNotifier /> : <div></div>;
     return(
       <div>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <input type="text" 
-            value={this.state.userInput} 
-            placeholder="Search for friends!" 
-            onChange={e => this.setState({userInput: e.target.value})}
-          />
-          <input type="submit" placeholder="Go!" />
-        </form>
-        <div>
+        <SearchForm />
+        {isLoading}
+        <div className="user-results-container">
           {userResults}
         </div>
       </div>
@@ -44,13 +30,8 @@ export class Search extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  searchResults: state.searchResults
+  searchResults: state.searchResults,
+  loading: state.loading
 });
 
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators({
-    search: search
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps)(Search);
