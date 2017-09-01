@@ -134,3 +134,43 @@ export const fetchUser = accessToken => dispatch => {
 export const assignGitHubProfile = () => ({
   type: ref.ASSIGN_GITHUB_PROFILE,
 });
+
+// Team Actions
+export const create_team_request = () => ({
+  type: ref.CREATE_TEAM_REQUEST
+});
+export const create_team_success = team => ({
+  type: ref.CREATE_TEAM_SUCCESS,
+  team
+});
+export const create_team_error = error => ({
+  type: ref.CREATE_TEAM_ERROR,
+  error
+});
+export const create_team = (accessToken, userId, teamFormData) =>
+  dispatch => {
+    dispatch(create_team_request());
+    // Create a req body from teamFormData and add in userId
+    const newBody = Object.assign({}, { userId }, teamFormData);
+    const data = {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newBody)
+    };
+    fetch('/api/teams', data)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject(res.statusText);
+        }
+        return res.json();
+      })
+      .then(team => {
+        dispatch(create_team_success(team));
+      })
+      .catch(error => {
+        dispatch(create_team_error(error));
+      });
+  };
