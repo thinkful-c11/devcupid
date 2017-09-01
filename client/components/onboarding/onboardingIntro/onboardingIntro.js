@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { Route } from 'react-router-dom';
-
 import * as actions from '../../../actions/actions';
 
 import {introContent} from './introContent';
@@ -20,12 +18,12 @@ export default class OnboardingIntro extends React.Component{
   }
 
   keydown(e){
-    console.log(e.keyCode);
     if(e.keyCode == 32){
+      this.termPrompt.className = 'comment';
       this.setState({i: ++this.state.i});
     }
     if(this.state.i >= 6 && e.keyCode == 13){
-      history.push('/onboarding/0');
+      this.props.history.push('/onboarding/0');
     }
   }
 
@@ -38,9 +36,15 @@ export default class OnboardingIntro extends React.Component{
     let content = [];
     for(let key in introContent){
       if(key <= this.state.i){
-        if(key > 6){
+        console.log(key);
+        if(key === '6'){
           content.push(
-            <p key={key} className="comment">{introContent[key]}<span className="func">Press enter to continue.</span></p>
+            <p key={key} className="comment">{introContent[key]} <span className="termPrompt">Press enter to get started.</span></p>
+          );
+        }
+        else if(key === '0'){
+          content.push(
+            <p key={key} className="comment">{introContent[key]} <span className="termPrompt" ref={(ref) => this.termPrompt = ref}>Press the space bar to continue.</span></p>
           );
         }
         else{

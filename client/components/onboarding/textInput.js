@@ -1,6 +1,8 @@
 import React from 'react';
 import * as actions from '../../actions/actions';
 
+import ObjectWrapper from './onboardingBlocks/objectWrapper';
+
 export default class TextInput extends React.Component{
   constructor(props){
     super(props);
@@ -15,13 +17,13 @@ export default class TextInput extends React.Component{
   render(){
     const {currentQuestion} = this.props;
     return(
-      <div>
+      <ObjectWrapper qTitle={'About_Me'} userName={this.props.profile.name}>
         <h2>{currentQuestion.text}</h2>
         <label htmlFor={currentQuestion.choices[0].key}>
           {currentQuestion.choices[0].label}
         </label>
         <input id={currentQuestion.choices[0].key} type='text' onChange={ e=> this.onChange(e) } value={this.props.profile[currentQuestion.choices[0].key]} />
-      </div>
+      </ObjectWrapper>
     );
   }
 }

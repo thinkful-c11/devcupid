@@ -32,16 +32,13 @@
   }
 }
 
-button{
+.landing > button{
   @extend .Mono;
   font-size:36px;
   text-align:center;
-  background-color:rgba(0, 0, 0, 0);
-  border:none;
   margin:auto;
   margin-top:15px;
   a{
-    text-decoration:none;
     color:$Magenta-Haze;
   }
 }

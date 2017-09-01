@@ -1,4 +1,4 @@
-.Mono, .Mono-Bold, button {
+.Mono, .Mono-Bold, .landing > button {
   font-family: "Ubuntu Mono", monospace; }
 
 .Mono-Bold {
@@ -37,6 +37,13 @@ main.content {
   box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
   padding: 10px;
   outline: none; }
+
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
 
 .column {
   padding-top: 40px;
@@ -65,17 +72,14 @@ main.content {
     color: #3B3561;
     margin-bottom: 15px; }
 
-button {
+.landing > button {
   font-size: 36px;
   text-align: center;
-  background-color: transparent;
-  border: none;
   margin: auto;
   margin-top: 15px; }
-  button a {
-    text-decoration: none;
+  .landing > button a {
     color: #A34170; }
-.Mono, .Mono-Bold {
+.Mono, .Mono-Bold, .onboarding.terminal-card .func, .onboarding.terminal-card .jsBoolean {
   font-family: "Ubuntu Mono", monospace; }
 
 .Mono-Bold {
@@ -115,15 +119,65 @@ main.content {
   padding: 10px;
   outline: none; }
 
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
+
 .onboarding.terminal-card {
   width: 780px;
   height: 430px;
-  margin: auto; }
+  margin: auto;
+  color: white; }
   .onboarding.terminal-card p {
     font-size: 14px;
     margin-bottom: 20px; }
   .onboarding.terminal-card .comment {
     color: rgba(255, 255, 255, 0.5); }
+  .onboarding.terminal-card .termPrompt {
+    color: #FDE74C; }
+  .onboarding.terminal-card .func {
+    color: #FDE74C; }
+  .onboarding.terminal-card .func::after {
+    content: "();"; }
+  .onboarding.terminal-card .jsKeyword {
+    color: #A34170; }
+  .onboarding.terminal-card .jsName {
+    color: #FDE74C; }
+  .onboarding.terminal-card .jsPunc {
+    color: #A34170; }
+  .onboarding.terminal-card .jsString {
+    color: #FCBADA; }
+  .onboarding.terminal-card .jsString::before, .onboarding.terminal-card .jsString::after {
+    content: "'"; }
+  .onboarding.terminal-card .jsInput {
+    border: 0px;
+    outline: none;
+    opacity: 0;
+    position: absolute;
+    left: 0; }
+  .onboarding.terminal-card .jsBoolean {
+    font-size: 14px;
+    background-color: #3B3561;
+    border: 0px;
+    color: #8EC8FF;
+    outline: none; }
+  .onboarding.terminal-card .jsObjectWrapper {
+    height: 340px;
+    overflow-y: auto; }
+  .onboarding.terminal-card .jsObjectContent {
+    padding: 30px;
+    padding-right: 0px; }
+  .onboarding.terminal-card .jsLine {
+    margin-bottom: 10px; }
+  .onboarding.terminal-card .progHash {
+    margin-right: 1px; }
+  .onboarding.terminal-card .strInputContainer {
+    position: relative; }
+  .onboarding.terminal-card button {
+    font-size: 14px; }
 .Mono, .Mono-Bold {
   font-family: "Ubuntu Mono", monospace; }
 
@@ -163,6 +217,13 @@ main.content {
   box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
   padding: 10px;
   outline: none; }
+
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
 
 header {
   background-color: white;
@@ -246,6 +307,13 @@ main.content {
   box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
   padding: 10px;
   outline: none; }
+
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
 
 footer {
   background-color: #3B3561;
@@ -349,6 +417,13 @@ main.content {
   box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
   padding: 10px;
   outline: none; }
+
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
 
 * {
   box-sizing: border-box; }
