@@ -76,5 +76,8 @@
     "redux-devtools-extension": "^2.13.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0"
   }
 }
