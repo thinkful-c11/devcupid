@@ -163,7 +163,7 @@ export const team_error = error => ({
   error
 });
 /*
-*   Creates a for a user.
+*   Creates a team for a user.
 *   @param (teamFormData) expected to be obj with keys:
 *     teamName, teamDescription, teamAvatarUrl, teamCompany,
 *     teamLocation, teamEmail
