@@ -271,7 +271,7 @@ export const update_team_info = (accessToken, teamId, updateData) =>
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       },
-      body: requestBody(updateData)
+      body: JSON.stringify(requestBody(updateData))
     };
     fetch(`/api/teams/${teamId}`, data)
       .then(res => {
@@ -287,3 +287,53 @@ export const update_team_info = (accessToken, teamId, updateData) =>
         dispatch(team_error(error));
       });
   };
+
+/*
+*  
+*
+*/
+// const update_team_member = (accessToken, teamId, updateData) =>
+//   dispatch => {
+//     dispatch(team_request());
+//     // Validates user has permission to edit team
+//     const requestBody = updateData => {
+//       const data = {
+//         method: 'GET',
+//         headers: { 'Authorization': `Bearer ${accessToken}` },
+//       };
+//       fetch(`/api/teams/${teamId}`, data)
+//         .then(res => {
+//           if (!res.ok) {
+//             return Promise.reject(res.statusText);
+//           }
+//           return res.json();
+//         })
+//         .then(team => {
+//           if (!team.admins.includes(updateData.newMember._id)) {
+//             return Promise.reject('User does not have permission.');
+//           }
+//           return updateData;
+//         });
+//     };
+//     const data = {
+//       method: 'PATCH',
+//       headers: {
+//         'Authorization': `Bearer ${accessToken}`,
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(requestBody(updateData))
+//     };
+//     fetch(`/api/teams/${teamId}/members`, data)
+//       .then(res => {
+//         if (!res.ok) {
+//           return Promise.reject(res.statusText);
+//         }
+//         return res.json();
+//       })
+//       .then(team => {
+//         dispatch(team_single_success(team));
+//       })
+//       .catch(error => {
+//         dispatch(team_error(error));
+//       });
+//   };
