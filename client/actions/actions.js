@@ -229,7 +229,7 @@ export const fetch_team = (accessToken, teamId) => dispatch => {
   fetch(`/api/teams/${teamId}`, data)
     .then(res => {
       if (!res.ok) {
-        return Promist.reject(res.statusText);
+        return Promise.reject(res.statusText);
       }
       return res.json();
     })
@@ -240,3 +240,50 @@ export const fetch_team = (accessToken, teamId) => dispatch => {
       dispatch(team_error(error));
     });
 };
+
+/*
+*   Updates a static field on a team and returns it.
+*   @param (updateData) expects object of with keys of key: and
+*   value: and will only accept certain keys.
+*/
+export const update_team_info = (accessToken, teamId, updateData) =>
+  dispatch => {
+    dispatch(team_request());
+    // validates key passed to outer fn.
+    const requestBody = updateData => {
+      const validKeys = [
+        'url',
+        'name',
+        'description',
+        'avatar_url',
+        'company',
+        'email',
+        'GitHub'
+      ];
+      if (!validKeys.includes(udpateData.key)) {
+        throw new Error('Invalid Key');
+      }
+      return updateData;
+    };
+    const data = {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: requestBody(updateData)
+    };
+    fetch(`/api/teams/${teamId}`, data)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject(res.statusText);
+        }
+        return res.json();
+      })
+      .then(team => {
+        dispatch(team_single_success(team));
+      })
+      .catch(error => {
+        dispatch(team_error(error));
+      });
+  };

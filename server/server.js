@@ -234,7 +234,6 @@ app.patch('/api/teams/:teamId',
   (req, res) => {
     const key = req.body.key;
     const value = req.body.value;
-    console.log('PATCH', req.body);
     Teams
       .findOneAndUpdate(
         { _id: req.params.teamId },
