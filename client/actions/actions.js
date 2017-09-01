@@ -204,7 +204,7 @@ export const fetch_teams = (accessToken, userId) => dispatch => {
     headers: { 'Authorization': `Bearer ${accessToken}` },
     body: JSON.stringify({ userId })
   };
-  fetch('/api/teams', data)
+  fetch(`/api/teams?userId=${userId}`, data)
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
