@@ -154,7 +154,7 @@ export const team_single_success = team => ({
   team
 });
 // Pulls a users list of teams to assign to user object.
-export const team_list_success = teams = ({
+export const team_list_success = teams => ({
   type: ref.TEAM_LIST_SUCCESS,
   teams
 });
@@ -289,7 +289,7 @@ export const update_team_info = (accessToken, teamId, updateData) =>
   };
 
 /*
-*  
+*
 *
 */
 // const update_team_member = (accessToken, teamId, updateData) =>
