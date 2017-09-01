@@ -53,7 +53,6 @@ app.get('/api/auth/github/logout', (req, res) => {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
-    console.log('REQ', req.user);
     return res.json(req.user);
   }
 );
