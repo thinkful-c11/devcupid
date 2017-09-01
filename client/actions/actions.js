@@ -57,16 +57,19 @@ export const update_profile = (githubId, profile, accessToken) => dispatch => {
     },
     body: JSON.stringify(updateObj)
   };
-  fetch(`/api/update-user/${githubId}`, data).then(res => {
-    if(!res.ok) {
-      return Promise.reject(res.statusText);
-    }
-    return res.json();
-  }).then(user => {
-    dispatch(update_success(user.profile));
-  }).catch(error => {
-    dispatch(update_error(error));
-  });
+  fetch(`/api/update-user/${githubId}`, data)
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(user => {
+      dispatch(update_success(user.profile));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
 };
 
 export const update_skills = (githubId, profile, key, accessToken) => dispatch => {
@@ -82,16 +85,19 @@ export const update_skills = (githubId, profile, key, accessToken) => dispatch =
     },
     body: JSON.stringify(updateObj)
   };
-  fetch(`/api/update-skills/${key}/${githubId}`, data).then(res => {
-    if(!res.ok){
-      return Promise.reject(res.statustext);
-    }
-    return res.json();
-  }).then(user => {
-    dispatch(update_success(user.profile));
-  }).catch(error => {
-    dispatch(update_error(error));
-  });
+  fetch(`/api/update-skills/${key}/${githubId}`, data)
+    .then(res => {
+      if(!res.ok){
+        return Promise.reject(res.statustext);
+      }
+      return res.json();
+    })
+    .then(user => {
+      dispatch(update_success(user.profile));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
 };
 
 // Actions for Auth/Login requests.
@@ -113,7 +119,8 @@ export const fetchUser = accessToken => dispatch => {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
-  }).then(res => {
+  })
+  .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
         Cookies.remove('accessToken');
@@ -123,9 +130,11 @@ export const fetchUser = accessToken => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(user => {
+  })
+  .then(user => {
     dispatch(login_success(user.gitHub));
-  }).catch(error => {
+  })
+  .catch(error => {
     dispatch(login_error(error));
   });
 };
