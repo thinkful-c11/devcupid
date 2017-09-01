@@ -25,7 +25,7 @@
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 40px; }
+  margin-top: 2vh; }
 
 .pop-card {
   background-color: #ffffff;
@@ -106,7 +106,7 @@ a {
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 40px; }
+  margin-top: 2vh; }
 
 .pop-card {
   background-color: #ffffff;
@@ -205,7 +205,7 @@ a {
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 40px; }
+  margin-top: 2vh; }
 
 .pop-card {
   background-color: #ffffff;
@@ -295,7 +295,7 @@ header {
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 40px; }
+  margin-top: 2vh; }
 
 .pop-card {
   background-color: #ffffff;
@@ -405,7 +405,7 @@ table {
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 40px; }
+  margin-top: 2vh; }
 
 .pop-card {
   background-color: #ffffff;
