@@ -104,9 +104,9 @@ export const update_skills = (githubId, profile, key, accessToken) => dispatch =
 export const login_request = () => ({
   type: ref.LOGIN_REQUEST
 });
-export const login_success = gitHub => ({
+export const login_success = user => ({
   type: ref.LOGIN_SUCCESS,
-  gitHub
+  user
 });
 export const login_error = error => ({
   type: ref.LOGIN_ERROR,
@@ -132,7 +132,8 @@ export const fetchUser = accessToken => dispatch => {
     return res.json();
   })
   .then(user => {
-    dispatch(login_success(user.gitHub));
+    console.log('USER', user);
+    dispatch(login_success(user));
   })
   .catch(error => {
     dispatch(login_error(error));
