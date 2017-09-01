@@ -106,15 +106,15 @@ const UserModel = mongoose.Schema({
   },
   personality: {
   },
-  teams: [{ type: Schema.Types.ObjectId, ref: 'Teams' }]
+  teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teams' }]
 });
 
 const TeamSchema = mongoose.Schema({
-  createdBy: { type: String, required: True },
-  admins: [{ type: String, required: True }],
+  createdBy: { type: String, required: true },
+  admins: [{ type: String, required: true }],
   // Basic info, mostly copied from GitHub org format
   url: String,
-  name: { type: String, required: True },
+  name: { type: String, required: true },
   description: String,
   avatar_url: String,
   company: String,
