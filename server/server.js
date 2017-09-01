@@ -198,7 +198,7 @@ app.get('/api/teams',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
     User
-      .findById(req.query.userId)
+      .findById(req.body.userId)
       .populate('teams')
       .exec()
       .then(user => {
