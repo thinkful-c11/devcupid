@@ -146,26 +146,25 @@ export const assignGitHubProfile = () => ({
 
 // Team Actions
 export const create_team_request = () => ({
-  type: ref.CREATE_TEAM_REQUEST
+  type: ref.TEAM_REQUEST
 });
 export const create_team_success = team => ({
-  type: ref.CREATE_TEAM_SUCCESS,
+  type: ref.TEAM_SUCCESS,
   team
 });
 export const create_team_error = error => ({
-  type: ref.CREATE_TEAM_ERROR,
+  type: ref.TEAM_ERROR,
   error
 });
-
 /*
 *   Creates a for a user.
-*   @param (teamFormData) expected to be obj with keys: 
+*   @param (teamFormData) expected to be obj with keys:
 *     teamName, teamDescription, teamAvatarUrl, teamCompany,
 *     teamLocation, teamEmail
 */
 export const create_team = (accessToken, userId, teamFormData) =>
   dispatch => {
-    dispatch(create_team_request());
+    dispatch(team_request());
     // Create a req body from teamFormData and add in userId
     const newBody = Object.assign({}, { userId }, teamFormData);
     const data = {
@@ -184,9 +183,13 @@ export const create_team = (accessToken, userId, teamFormData) =>
         return res.json();
       })
       .then(team => {
-        dispatch(create_team_success(team));
+        dispatch(team_success(team));
       })
       .catch(error => {
-        dispatch(create_team_error(error));
+        dispatch(team_error(error));
       });
   };
+
+export const fetch_team = (accessToken, userId) => dispatch => {
+
+};
