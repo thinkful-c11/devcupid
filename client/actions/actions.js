@@ -145,14 +145,20 @@ export const assignGitHubProfile = () => ({
 });
 
 // Team Actions
-export const create_team_request = () => ({
+export const team_request = () => ({
   type: ref.TEAM_REQUEST
 });
-export const create_team_success = team => ({
-  type: ref.TEAM_SUCCESS,
+// Pulls a single team to be used on an active page for that team.
+export const team_single_success = team => ({
+  type: ref.TEAM_SINGLE_SUCCESS,
   team
 });
-export const create_team_error = error => ({
+// Pulls a users list of teams to assign to user object.
+export const team_list_success = teams = ({
+  type: ref.TEAM_LIST_SUCCESS,
+  teams
+});
+export const team_error = error => ({
   type: ref.TEAM_ERROR,
   error
 });
@@ -190,6 +196,25 @@ export const create_team = (accessToken, userId, teamFormData) =>
       });
   };
 
-export const fetch_team = (accessToken, userId) => dispatch => {
-
+// Returns an array of the users teams
+export const fetch_teams = (accessToken, userId) => dispatch => {
+  dispatch(team_request());
+  const data = {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${accessToken}` },
+    body: JSON.stringify({ userId })
+  };
+  fetch('/api/teams', data)
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(teams => {
+      dispatch(team_list_success(teams));
+    })
+    .catch(error => {
+      dispatch(team_error(error));
+    });
 };
