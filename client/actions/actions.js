@@ -218,3 +218,25 @@ export const fetch_teams = (accessToken, userId) => dispatch => {
       dispatch(team_error(error));
     });
 };
+
+// Fetch a single team by its id
+export const fetch_team = (accessToken, teamId) => dispatch => {
+  dispatch(team_request());
+  const data = {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${accessToken}` },
+  };
+  fetch(`/api/teams/${teamId}`, data)
+    .then(res => {
+      if (!res.ok) {
+        return Promist.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(team => {
+      dispatch(team_single_success(team));
+    })
+    .catch(error => {
+      dispatch(team_error(error));
+    });
+};
