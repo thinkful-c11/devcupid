@@ -197,8 +197,8 @@ app.post('/api/teams',
 app.get('/api/teams',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
-    User
-      .findById(req.body.userId)
+    Users
+      .findOne({ 'gitHub.id': req.query.userId })
       .populate('teams')
       .exec()
       .then(user => {
