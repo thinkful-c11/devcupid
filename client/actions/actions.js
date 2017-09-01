@@ -156,6 +156,13 @@ export const create_team_error = error => ({
   type: ref.CREATE_TEAM_ERROR,
   error
 });
+
+/*
+*   Creates a for a user.
+*   @param (teamFormData) expected to be obj with keys: 
+*     teamName, teamDescription, teamAvatarUrl, teamCompany,
+*     teamLocation, teamEmail
+*/
 export const create_team = (accessToken, userId, teamFormData) =>
   dispatch => {
     dispatch(create_team_request());
