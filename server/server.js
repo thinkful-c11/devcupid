@@ -312,7 +312,7 @@ app.delete('/api/teams/:teamId/members',
 // client-side routing using browserHistory can function
 app.get('/*', (req, res) => {
   const index = path.resolve(__dirname + '/../client/dist', 'index.html');
-  console.log('INVALID ENDPOINT');
+  console.log('INVALID ENDPOINT', req.url);
   res.sendFile(index);
 });
 
