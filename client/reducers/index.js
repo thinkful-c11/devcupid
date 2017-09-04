@@ -221,11 +221,11 @@ const reducer = (state = initialState, action) => {
     });
   //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
-    return Object.assign({}, state, {
-      loading: false,
-      user: true,
-      gitHub: action.gitHub
-    });
+    return Object.assign({},
+      state,
+      { loading: false, user: true, },
+      action.user
+  );
   case ref.LOGIN_ERROR:
     return Object.assign({}, state, {
       loading: false,
