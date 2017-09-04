@@ -22,10 +22,11 @@
 .content {
   max-width: 1024px;
   margin: auto;
+  margin-top: 0px;
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 2vh; }
+  padding-top: 40px; }
 
 .pop-card {
   background-color: #ffffff;
@@ -45,8 +46,18 @@ button {
 a {
   text-decoration: none; }
 
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
+
 .column {
-  padding-top: 40px;
   flex-direction: column;
   align-items: stretch;
   margin-left: 12px;
@@ -103,10 +114,11 @@ a {
 .content {
   max-width: 1024px;
   margin: auto;
+  margin-top: 0px;
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 2vh; }
+  padding-top: 40px; }
 
 .pop-card {
   background-color: #ffffff;
@@ -126,6 +138,17 @@ button {
 a {
   text-decoration: none; }
 
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
+
 .onboarding.terminal-card {
   width: 780px;
   height: 430px;
@@ -142,6 +165,8 @@ a {
     color: #FDE74C; }
   .onboarding.terminal-card .func::after {
     content: "();"; }
+  .onboarding.terminal-card .skills::after {
+    content: none; }
   .onboarding.terminal-card .jsKeyword {
     color: #A34170; }
   .onboarding.terminal-card .jsName {
@@ -170,6 +195,21 @@ a {
   .onboarding.terminal-card .jsObjectContent {
     padding: 30px;
     padding-right: 0px; }
+  .onboarding.terminal-card .dotdotdot {
+    display: none; }
+  .onboarding.terminal-card .closed {
+    display: inline-block; }
+    .onboarding.terminal-card .closed .dotdotdot {
+      display: inline; }
+    .onboarding.terminal-card .closed .jsOpening {
+      display: inline; }
+    .onboarding.terminal-card .closed .jsClosing {
+      display: inline; }
+    .onboarding.terminal-card .closed .closed {
+      width: 0px;
+      height: 0px;
+      display: inline-block;
+      overflow: hidden; }
   .onboarding.terminal-card .jsLine {
     margin-bottom: 10px; }
   .onboarding.terminal-card .progHash {
@@ -202,10 +242,11 @@ a {
 .content {
   max-width: 1024px;
   margin: auto;
+  margin-top: 0px;
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 2vh; }
+  padding-top: 40px; }
 
 .pop-card {
   background-color: #ffffff;
@@ -224,6 +265,17 @@ button {
 
 a {
   text-decoration: none; }
+
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
 
 header {
   background-color: white;
@@ -292,10 +344,11 @@ header {
 .content {
   max-width: 1024px;
   margin: auto;
+  margin-top: 0px;
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 2vh; }
+  padding-top: 40px; }
 
 .pop-card {
   background-color: #ffffff;
@@ -315,6 +368,17 @@ button {
 a {
   text-decoration: none; }
 
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
+
 footer {
   background-color: #3B3561;
   width: 100%;
@@ -324,7 +388,7 @@ footer {
 
 .bottomBar {
   width: 100%;
-  margin: auto;
+  margin: auto !important;
   align-items: center;
   justify-content: center;
   text-align: center; }
@@ -402,10 +466,11 @@ table {
 .content {
   max-width: 1024px;
   margin: auto;
+  margin-top: 0px;
   flex-wrap: wrap; }
 
 main.content {
-  margin-top: 2vh; }
+  padding-top: 40px; }
 
 .pop-card {
   background-color: #ffffff;
@@ -424,6 +489,17 @@ button {
 
 a {
   text-decoration: none; }
+
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
 
 * {
   box-sizing: border-box; }

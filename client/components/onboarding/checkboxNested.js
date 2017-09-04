@@ -1,6 +1,12 @@
 import React from 'react';
 import * as actions from '../../actions/actions';
 
+import CommentHeader from './onboardingBlocks/commentHeader';
+import ObjectWrapper from './onboardingBlocks/objectWrapper';
+import NestedObjectWrapper from './onboardingBlocks/nestedObjectWrapper';
+import Prompt from './onboardingBlocks/prompt';
+import BooleanField from './onboardingBlocks/booleanField';
+
 export default class CheckboxNested extends React.Component{
   constructor(props){
     super(props);
@@ -32,9 +38,11 @@ export default class CheckboxNested extends React.Component{
     });
   }
 
-  onChangeLibrary(language, e){
-    let library = e.target.value;
-    let value = e.target.checked;
+  onChangeLibrary(e){
+    let langLib = e.target.id.split('_');
+    let language = langLib[0];
+    let library = langLib[1];
+    let value = (e.target.value == 'true' ? true : false);
     this.setState({
       [language]: Object.assign({}, this.state[language], {
         [library]: value
@@ -48,32 +56,34 @@ export default class CheckboxNested extends React.Component{
     const {currentQuestion} = this.props;
     return(
       <div>
-        <h2>{currentQuestion.text}</h2>
-        {
-          currentQuestion.choices.map((q, index) => {
-            return (
-              <div key={index}>
-                <label htmlFor={index}>{q.language}</label>
-                <input id={index} type='checkbox' value={q.language} onChange={e => this.onChangeLanguage(e)} checked={this.state[q.language]._active}/>
-                {
-                    q.libraries.map((l, index) => {
-                      return (
-                        <div key={`language${index}`} style={ {paddingLeft: 30+'px'} }>
-                          <label htmlFor={`language${index}`}>{l}</label>
-                          <input
-                            id={`language${index}`}
-                            type='checkbox'
-                            value={l} 
-                            onChange={e => this.onChangeLibrary(q.language, e)}
-                            checked={this.state[q.language][l]} />
-                        </div>
-                      );
-                    })
-                  }
-              </div>
-            );
-          })
-        }
+        <CommentHeader text={currentQuestion.text} />
+        <ObjectWrapper qTitle={"Tech"} userName={this.props.profile.name}>
+          {
+            currentQuestion.choices.map((q, index) => {
+              return (
+                <div key={index} className={"jsLine"}>
+                  <Prompt labelFor={index}>{q.language}</Prompt>
+                  <NestedObjectWrapper language={q.language} libraries={this.state[q.language]}>
+                  {
+                      q.libraries.map((library, index) => {
+                        return (
+                          <div key={`language${index}`}  className={"jsLine"}>
+                            <Prompt labelFor={q.language + '_' + library}>{library}</Prompt>
+                            <BooleanField
+                              id={q.language + '_' + library}
+                              onChange={e => this.onChangeLibrary(e)}
+                            />
+                          </div>
+                        );
+                      })
+                    }
+                  </NestedObjectWrapper>
+                </div>
+              );
+            })
+          }
+        </ObjectWrapper>
+        {this.props.button}
       </div>
     );
   }

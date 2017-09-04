@@ -8,11 +8,12 @@
 .content{
   max-width:1024px;
   margin:auto;
+  margin-top:0px;
   flex-wrap:wrap;
 }
 
 main.content{
-  margin-top:2vh;
+  padding-top:40px;
 }
 
 .pop-card{
@@ -35,4 +36,18 @@ button{
 
 a{
   text-decoration:none;
+}
+
+::-webkit-scrollbar {
+  width: .5em;
+}
+
+::-webkit-scrollbar-track {
+  background-color:rgba(0,0,0,0);
+  border:1px solid white;
+}
+
+::-webkit-scrollbar-thumb {
+background-color: rgba(255,255,255,0.5);
+outline: none;
 }

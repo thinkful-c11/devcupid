@@ -22,6 +22,9 @@
   .func::after{
     content: "();"
   }
+  .skills::after{
+    content: none;
+  }
   .jsKeyword{
     color: $Magenta-Haze;
   }
@@ -60,6 +63,33 @@
     padding:30px;
     padding-right:0px;
   }
+
+  .jsNestedObj{
+
+  }
+  .dotdotdot{
+    display:none;
+  }
+
+  .closed{
+    display:inline-block;
+    .dotdotdot{
+      display:inline;
+    }
+    .jsOpening{
+      display:inline;
+    }
+    .jsClosing{
+      display:inline;
+    }
+    .closed{
+      width:0px;
+      height: 0px;
+      display:inline-block;
+      overflow: hidden;
+    }
+  }
+
   .jsLine{
     margin-bottom:10px;
   }
