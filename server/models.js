@@ -67,12 +67,6 @@ const LanguageSchema = mongoose.Schema({
   'F#': {_active: {type:Boolean}},
 });
 
-// const LanguageSchema = mongoose.Schema({
-//   language: {
-    
-//   }
-// });
-
 const UserModel = mongoose.Schema({
   onboarded: {type: String},
   gitHub: {
@@ -114,14 +108,65 @@ const UserModel = mongoose.Schema({
   }
 });
 
-// UserModel.methods.apiRepr = function() {
-//     return {
-//         firstName: this.name.split(' ')[0],
-//         lastName: this.name.split(' ')[1],
-//     };
-// };
+const TeamSchema = mongoose.Schema({
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  },
+  admins: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+  // Basic info, mostly copied from GitHub org format
+  url: String,
+  description: String,
+  avatar_url: String,
+  name: String,
+  company: String,
+  location: String,
+  email: String,
+
+  // We could consider adding GitHub org integration like this:
+  // https://developer.github.com/v3/orgs/
+  gitHub: Object,
+
+  // Roles, doubles as roster and may be duplicates of above:
+  // TODO: expand this set as needed but try to keep it relatively generic
+  developers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+  founders: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+  projectManagers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+  designers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Users'
+  }],
+
+  // Team desires, i.e. searchable by users:
+  desiredRoles: {
+    developers: Boolean,
+    founders: Boolean,
+    projectManagers: Boolean,
+    designers: Boolean
+  },
+
+  // The below are possible extensions to the search feature
+  // Desired languages will map to the above language schema
+  desiredLanguages: {type: Object},
+  desiredPassions: {type: Object},
+  desiredSpecialty: {type: Object},
+  desiredSoftwareTools: {type: Object}
+});
 
 module.exports = {
   Users: mongoose.model('Users', UserModel),
-  Languages: mongoose.model('Languages', LanguageSchema)
+  Languages: mongoose.model('Languages', LanguageSchema),
+  Teams: mongoose.model('Teams', TeamSchema)
 };
