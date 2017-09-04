@@ -44,63 +44,69 @@ export const update_error = (error) => ({
   error
 });
 
-// Not working/tested yet.
-export const update_profile = (githubId, profile) => dispatch => {
+export const update_profile = (githubId, profile, accessToken) => dispatch => {
   dispatch(update_request());
-  //TODO: verify body formatting matches what DB expects
   const updateObj = {
     profile
   };
   const data = {
     method: 'PUT',
     headers: {
+      'Authorization': `Bearer ${accessToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(updateObj)
   };
-  fetch(`/api/update-user/${githubId}`, data).then(res => {
-    if(!res.ok) {
-      return Promise.reject(res.statusText);
-    }
-    return res.json();
-  }).then(user => {
-    dispatch(update_success(user.profile));
-  }).catch(error => {
-    dispatch(update_error(error));
-  });
+  fetch(`/api/update-user/${githubId}`, data)
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(user => {
+      dispatch(update_success(user.profile));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
 };
 
-export const update_skills = (githubId, profile, key) => dispatch => {
+export const update_skills = (githubId, profile, key, accessToken) => dispatch => {
   dispatch(update_request());
 
- const updateObj = profile.skills;
+  const updateObj = profile.skills;
 
- const data = {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(updateObj)
- };
- fetch(`/api/update-skills/${key}/${githubId}`, data).then(res => {
-   if(!res.ok){
-     return Promise.reject(res.statustext);
-   }
-   return res.json();
- }).then(user => {
-   dispatch(update_success(user.profile));
- }).catch(error => {
-   dispatch(update_error(error));
- });
-}
+  const data = {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updateObj)
+  };
+  fetch(`/api/update-skills/${key}/${githubId}`, data)
+    .then(res => {
+      if(!res.ok){
+        return Promise.reject(res.statustext);
+      }
+      return res.json();
+    })
+    .then(user => {
+      dispatch(update_success(user.profile));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
+};
 
 // Actions for Auth/Login requests.
 export const login_request = () => ({
   type: ref.LOGIN_REQUEST
 });
-export const login_success = gitHub => ({
+export const login_success = user => ({
   type: ref.LOGIN_SUCCESS,
-  gitHub
+  user
 });
 export const login_error = error => ({
   type: ref.LOGIN_ERROR,
@@ -113,7 +119,8 @@ export const fetchUser = accessToken => dispatch => {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
-  }).then(res => {
+  })
+  .then(res => {
     if (!res.ok) {
       if (res.status === 401) {
         Cookies.remove('accessToken');
@@ -123,9 +130,11 @@ export const fetchUser = accessToken => dispatch => {
       return Promise.reject(res.statusText);
     }
     return res.json();
-  }).then(user => {
-    dispatch(login_success(user.gitHub));
-  }).catch(error => {
+  })
+  .then(user => {
+    dispatch(login_success(user));
+  })
+  .catch(error => {
     dispatch(login_error(error));
   });
 };
@@ -134,3 +143,197 @@ export const fetchUser = accessToken => dispatch => {
 export const assignGitHubProfile = () => ({
   type: ref.ASSIGN_GITHUB_PROFILE,
 });
+
+// Team Actions
+export const team_request = () => ({
+  type: ref.TEAM_REQUEST
+});
+// Pulls a single team to be used on an active page for that team.
+export const team_single_success = team => ({
+  type: ref.TEAM_SINGLE_SUCCESS,
+  team
+});
+// Pulls a users list of teams to assign to user object.
+export const team_list_success = teams => ({
+  type: ref.TEAM_LIST_SUCCESS,
+  teams
+});
+export const team_error = error => ({
+  type: ref.TEAM_ERROR,
+  error
+});
+/*
+*   Creates a team for a user.
+*   @param (teamFormData) expected to be obj with keys:
+*     teamName, teamDescription, teamAvatarUrl, teamCompany,
+*     teamLocation, teamEmail
+*/
+export const create_team = (accessToken, userId, teamFormData) =>
+  dispatch => {
+    dispatch(team_request());
+    // Create a req body from teamFormData and add in userId
+    const newBody = Object.assign({}, { userId }, teamFormData);
+    const data = {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newBody)
+    };
+    fetch('/api/teams', data)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject(res.statusText);
+        }
+        return res.json();
+      })
+      .then(team => {
+        dispatch(team_success(team));
+      })
+      .catch(error => {
+        dispatch(team_error(error));
+      });
+  };
+
+// Returns an array of the users teams
+export const fetch_teams = (accessToken, userId) => dispatch => {
+  dispatch(team_request());
+  const data = {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${accessToken}` },
+    body: JSON.stringify({ userId })
+  };
+  fetch(`/api/teams?userId=${userId}`, data)
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(teams => {
+      dispatch(team_list_success(teams));
+    })
+    .catch(error => {
+      dispatch(team_error(error));
+    });
+};
+
+// Fetch a single team by its id
+export const fetch_team = (accessToken, teamId) => dispatch => {
+  dispatch(team_request());
+  const data = {
+    method: 'GET',
+    headers: { 'Authorization': `Bearer ${accessToken}` },
+  };
+  fetch(`/api/teams/${teamId}`, data)
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(team => {
+      dispatch(team_single_success(team));
+    })
+    .catch(error => {
+      dispatch(team_error(error));
+    });
+};
+
+/*
+*   Updates a static field on a team and returns it.
+*   @param (updateData) expects object of with keys of key: and
+*   value: and will only accept certain keys.
+*/
+export const update_team_info = (accessToken, teamId, updateData) =>
+  dispatch => {
+    dispatch(team_request());
+    // validates key passed to outer fn.
+    const requestBody = updateData => {
+      const validKeys = [
+        'url',
+        'name',
+        'description',
+        'avatar_url',
+        'company',
+        'email',
+        'GitHub'
+      ];
+      if (!validKeys.includes(udpateData.key)) {
+        throw new Error('Invalid Key');
+      }
+      return updateData;
+    };
+    const data = {
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody(updateData))
+    };
+    fetch(`/api/teams/${teamId}`, data)
+      .then(res => {
+        if (!res.ok) {
+          return Promise.reject(res.statusText);
+        }
+        return res.json();
+      })
+      .then(team => {
+        dispatch(team_single_success(team));
+      })
+      .catch(error => {
+        dispatch(team_error(error));
+      });
+  };
+
+/*
+*
+*
+*/
+// const update_team_member = (accessToken, teamId, updateData) =>
+//   dispatch => {
+//     dispatch(team_request());
+//     // Validates user has permission to edit team
+//     const requestBody = updateData => {
+//       const data = {
+//         method: 'GET',
+//         headers: { 'Authorization': `Bearer ${accessToken}` },
+//       };
+//       fetch(`/api/teams/${teamId}`, data)
+//         .then(res => {
+//           if (!res.ok) {
+//             return Promise.reject(res.statusText);
+//           }
+//           return res.json();
+//         })
+//         .then(team => {
+//           if (!team.admins.includes(updateData.newMember._id)) {
+//             return Promise.reject('User does not have permission.');
+//           }
+//           return updateData;
+//         });
+//     };
+//     const data = {
+//       method: 'PATCH',
+//       headers: {
+//         'Authorization': `Bearer ${accessToken}`,
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(requestBody(updateData))
+//     };
+//     fetch(`/api/teams/${teamId}/members`, data)
+//       .then(res => {
+//         if (!res.ok) {
+//           return Promise.reject(res.statusText);
+//         }
+//         return res.json();
+//       })
+//       .then(team => {
+//         dispatch(team_single_success(team));
+//       })
+//       .catch(error => {
+//         dispatch(team_error(error));
+//       });
+//   };

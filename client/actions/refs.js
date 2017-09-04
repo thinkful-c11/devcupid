@@ -19,3 +19,9 @@ export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const UPDATE_ERROR = 'UPDATE_ERROR';
 
 export const ASSIGN_GITHUB_PROFILE = 'ASSIGN_GITHUB_PROFILE';
+
+// Team Constants
+export const TEAM_REQUEST = 'TEAM_REQUEST';
+export const TEAM_SINGLE_SUCCESS = 'TEAM_SINGLE_SUCCESS';
+export const TEAM_LIST_SUCCESS = 'TEAM_LIST_SUCCESS';
+export const TEAM_ERROR = 'TEAM_ERROR';

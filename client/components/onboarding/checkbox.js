@@ -1,10 +1,17 @@
 import React from 'react';
 import * as actions from '../../actions/actions';
 
+import CommentHeader from './onboardingBlocks/commentHeader';
+import ObjectWrapper from './onboardingBlocks/objectWrapper';
+import Prompt from './onboardingBlocks/prompt';
+import BooleanField from './onboardingBlocks/booleanField';
+
 export default class Checkbox extends React.Component{
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      'Ed tech':false
+    };
   }
 
   componentDidMount(){
@@ -21,10 +28,11 @@ export default class Checkbox extends React.Component{
     })
   }
 
-  onClick(e){
-    let key = e.target.id;
-    let pos = e.target.value;
-    let value = e.target.checked;
+  onChange(e){
+    let keyPos = e.target.id.split('_');
+    let key = keyPos[0];
+    let pos = keyPos[1];
+    let value = (e.target.value == 'true' ? true : false);
     this.setState({
       [pos]: value
     }, 
@@ -47,17 +55,20 @@ export default class Checkbox extends React.Component{
     const {currentQuestion} = this.props;
     return(
       <div>
-        <h2>{currentQuestion.text}</h2>
-        {
-          currentQuestion.choices.map((q, index) => {
-            return (
-              <div key={`${q}${index}`}>
-                <label htmlFor={index}>{q}</label>
-                <input className='input' type='checkbox' value={q} id={currentQuestion.key} onClick={e => this.onClick(e)} checked={this.state[q]} />
-              </div>
-            );
-          })
-        }
+        <CommentHeader text={currentQuestion.text}/>
+        <ObjectWrapper qTitle={'Passions'} userName={this.props.profile.name}>
+          {
+            currentQuestion.choices.map((q, index) => {
+              return (
+                <div key={`${q}${index}`} className="jsLine">
+                  <Prompt labelFor={index}>{q}</Prompt>
+                  <BooleanField id={currentQuestion.key + '_' + q} onChange={e => this.onChange(e)} />
+                </div>
+              );
+            })
+          }
+          {this.props.button}
+        </ObjectWrapper>
       </div>
     );
   }
