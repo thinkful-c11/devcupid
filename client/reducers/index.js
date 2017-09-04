@@ -35,60 +35,42 @@ const initialState = {
   },
   onboardingQuestions: [
     {
-      text: 'We pulled some info from GitHub. If you\'d like to, go ahead and update it:',
+      text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
       type: 'signup', //enumerated value 'multiple choice', etc.
       choices: [
-        {
-          key: 'remoteOk',
-          label: 'Are you willing to work remotely?'
-        },
-        {
-          key: 'avatar_url',
-          label: 'What\'s your avatar url?'
-        },
         {
           key: 'name',
           label: 'What\'s your name?'
         },
         {
-          key: 'company',
-          label: 'What company do you work for?'
-        },
-        {
-          key: 'personal_website',
-          label: 'Do you have a personal website?'
-        },
-        {
           key: 'location',
-          label: 'Where are you located?'
+          label: 'Where are based out of?'
+        },
+        {
+          key: 'remoteOk',
+          label: 'Are you willing to work remotely?'
+        },
+        {
+          key: 'personalTitle',
+          label: 'In a few words, how would you describe your primary skillset?'
         },
         {
           key: 'email',
-          label: 'What\'s your email?'
+          label: 'What email address can you reliably be reached at?'
         },
         {
-          key: 'linked_in',
-          label: 'Do you have a LinkedIn account?'
+          key: 'company',
+          label: 'What company do you currently work for?'
         },
         {
-          key: 'twitter',
-          label: 'Do you have a Twitter?'
+          key: 'personal_website',
+          label: 'What\'s the URL of your personal website or portfolio?'
         },
         {
           key: 'blog',
-          label: 'Do you have a personal blog?'
+          label: 'What\'s the URL of your personal blog, if you have one?'
         },
       ]
-    },
-    {
-      text: 'How would you describe yourself?',
-      type: 'textInput', //enumerated value 'multiple choice', etc.
-      choices: [
-        {
-          key: 'personalTitle',
-          label: 'Personal Title'
-        },
-      ],
     },
     {
       text: 'Please write a short bio about yourself (to help us help you find great collaborators).',
