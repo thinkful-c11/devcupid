@@ -7,24 +7,36 @@ export default class CreateTeamForm extends React.Component {
     super(props);
 
     this.state = {
-      teamName: '',
-      teamDescription: '',
-      teamAvatarUrl: '',
-      teamCompany: '',
-      teamLocation: '',
-      teamEmail: ''
+      teamFormData: {
+        teamName: '',
+        teamDescription: '',
+        teamAvatarUrl: '',
+        teamCompany: '',
+        teamLocation: '',
+        teamEmail: ''
+      },
+      // Pulled gitHub into state as comp was not rerendering
+      // on fetch call.
+      gitHub: {}
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ gitHub: nextProps.props.gitHub });
   }
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    this.setState({ teamFormData: { [name]: value } });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const accessToken = Cookies.get('accessToken');
-    const { dispatch, gitHub } = this.props;
+    // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
+    const { dispatch } = this.props.props;
+    // console.log(this.props);
+    const { gitHub } = this.state;
     dispatch(actions.create_team(accessToken, gitHub.id, this.state));
   }
 
