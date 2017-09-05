@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actions from '../../actions/actions';
+import * as actions from '../actions/actions';
 import * as Cookies from 'js-cookie';
 
-import CreateTeamForm from '../team/CreateTeamForm';
+import CreateTeamForm from '../components/team/CreateTeamForm';
 
 export class TeamScreen extends React.Component {
   componentDidMount() {
