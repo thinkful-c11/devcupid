@@ -1,6 +1,6 @@
 import React from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {devCupid} from './syntaxhighlights';
+import {devCupid} from './syntaxHighlights';
 
 import {languages} from './languages';
 

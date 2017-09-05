@@ -6,6 +6,10 @@ const initialState = {
     error: null,
     user: true,
     onboarded: false,
+  // List of teams the user is on
+  userTeams: [],
+  // Team info held in state when viewing a team page
+  activeTeam: {},
     gitHub: {
       accessToken: 'd7b7dc3629a0273f8b551859634f3f2f2715773b',
       login: 'williamtwobit',
@@ -177,6 +181,7 @@ const initialState = {
         }
       }
     },
+  },
   onboardingQuestions: [
     {
       text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
@@ -338,7 +343,8 @@ const initialState = {
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
     },
-  ]
+  ],
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -365,11 +371,11 @@ const reducer = (state = initialState, action) => {
     });
   //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
-    return Object.assign({}, state, {
-      loading: false,
-      user: true,
-      gitHub: action.gitHub
-    });
+    return Object.assign({},
+      state,
+      { loading: false, user: true, },
+      action.user
+  );
   case ref.LOGIN_ERROR:
     return Object.assign({}, state, {
       loading: false,
@@ -423,7 +429,46 @@ const reducer = (state = initialState, action) => {
         bio: state.gitHub.bio,
       })
     });
+    
+  case ref.SEARCH_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+    
+  case ref.SEARCH_SUCCESS: { 
+    return Object.assign({}, state, {
+      loading: false,
+      searchResults: action.results
+    });
+  }
 
+  case ref.SEARCH_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+
+  // Team Reducers
+  case ref.TEAM_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+  case ref.TEAM_SINGLE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      activeTeam: action.team
+    });
+  case ref.TEAM_LIST_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      userTeams: action.teams
+    });
+  case ref.TEAM_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+    
   default:
     return state;
   }
