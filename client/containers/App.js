@@ -23,8 +23,8 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     return (
-      <div className="major-cont">
-        <Header loggedIn={loggedIn}/>
+      <div className='major-cont'>
+        <Header loggedIn={loggedIn} />
         <Router history={browserHistory}>
           <main className='content'>
             {/* <Route exact path='/' component={LoginScreen} /> */}
