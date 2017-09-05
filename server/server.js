@@ -119,10 +119,6 @@ function deepUpdate(update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 app.put('/api/update-user/:userId', (req, res) => {
-  // console.log('REQ.BODY:', req.body);
-  // console.log('languages: ', req.body.profile.skills.languages)
-  // console.log('deepUpdate: ', deepUpdate(req.body))
-  // console.log(req.param.userId);
   Users.findOneAndUpdate(
     { 'gitHub.id': req.params.userId },
     { $set: deepUpdate(req.body) },
@@ -176,9 +172,7 @@ function updateProfile(ghUser) {
 // Alternate Profile Endpoint
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}), (req, res) => {
-    return res.json({
-      gitHub: req.user.gitHub
-    });
+    return res.json(req.user);
   }
 );
 
