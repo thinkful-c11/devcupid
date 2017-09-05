@@ -1,10 +1,17 @@
 import React from 'react';
 import fire from '../../fire';
 
+/*
+* https://www.codementor.io/yurio/all-you-need-is-react-firebase-4v7g9p4kf
+*/
+
 export default class TeamView extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { messages: [] };
+    this.state = {
+      messages: [],
+      newMessage: ''
+    };
   }
 
   componentWillMount() {
@@ -17,6 +24,14 @@ export default class TeamView extends React.Component {
       this.setState({ messages: [message].concat(this.state.messages) });
     });
   }
+
+  addMessage(e) {
+    e.preventDefault();
+    // Send new message to the db
+    fire.database().ref('messages').push(this.state.newMessage);
+    this.setState({ newMessage: '' });
+  }
+
   render() {
     console.log('VIEW', this.props);
     const {
