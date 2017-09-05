@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../SCSS/header.scss';
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component{
   constructor(props){
@@ -16,6 +17,9 @@ export default class Header extends React.Component{
             <ul>
               <li>
                 <a href='/api/auth/github/logout'>Signout</a>
+              </li>
+              <li>
+                <Link to='/team/create'>Create a Team</Link>
               </li>
             </ul>
           </nav>
