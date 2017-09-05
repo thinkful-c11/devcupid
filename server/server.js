@@ -246,10 +246,22 @@ function delay(t) {
    });
 }
 
+function regexFix(param) {
+  // ignore non selected queries
+  if (!param) return /.*?/;
+  return new RegExp('^' + param, 'i');
+}
+
 // Search endpoint to use the queryFilter function
 app.get('/api/search', (req, res) => {
-  const searchableParams = queryFilter(req.query);
-  Users.find(searchableParams)
+  const q = req.query;
+  console.log(q);
+  Users.find()
+  .where({ 'gitHub.login': { $regex : regexFix(q.login) } })
+  .where({ 'profile.name': { $regex : regexFix(q.name) } })
+  .where({[`${!q.languages ? 'onboarded' : [`profile.skills.languages.${q.languages}._active`]}`]: true })
+  .where({[`${!q.roles ? 'onboarded' : [`profile.skills.roles.${q.roles}`]}`]: true })
+  .where({ onboarded: true })
   .then(user => {
     res.json(user);
   });
@@ -266,7 +278,7 @@ app.get('/api/search/all', (req, res) => {
 
 app.get('/api/fake-users', (req, res) => {
   const fakeUsers = [];
-  for (var i = 0; i < 100; i++) {
+  for (let i = 0; i < 100; i++) {
     fakeUsers.push({
     onboarded: true,
     profile: {

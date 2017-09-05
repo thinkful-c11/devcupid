@@ -1,3 +1,4 @@
+/* global fetch */
 import * as ref from './refs';
 import * as Cookies from 'js-cookie';
 
@@ -153,13 +154,13 @@ export const searchError = error => ({
 
 export const search = query => dispatch => {
   dispatch(searchRequest());
-  // TODO add format function for query in an actionHelpers.js file
-  fetch('/api/search/all').then(res => {
+  fetch('/api/search?' + query).then(res => {
     if(!res.ok) {
       return Promise.reject(res.statusText);
     }
     return res.json();
   }).then(results => {
+    console.log(results);
     dispatch(searchSuccess(results));
   }).catch(error => {
     dispatch(searchError(error));

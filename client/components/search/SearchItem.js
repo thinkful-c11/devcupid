@@ -4,7 +4,11 @@ export default class SearchItem extends React.Component {
     render() {
         console.log(this.props.user);
         return (
-            <p>{this.props.user.gitHub.name}</p>
+            <div className="search-item">
+                <p>Name: {this.props.user.profile.name}</p>
+                <p>GH: {this.props.user.gitHub.login}</p>
+                <hr />
+            </div>
         );
     }
 }
