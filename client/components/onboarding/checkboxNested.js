@@ -72,7 +72,7 @@ export default class CheckboxNested extends React.Component{
               return (
                 <div key={index} className={"jsLine"}>
                   <Prompt labelFor={index}>{q.language}</Prompt>
-                  <NestedObjectWrapper language={q.language} libraries={this.state[q.language]}>
+                  <NestedObjectWrapper language={q.language} libraries={this.state[q.language]} cancelSkill={(language) => this.cancelSkill(language)}>
                   {
                       q.libraries.map((library, index) => {
                         return (
@@ -91,8 +91,8 @@ export default class CheckboxNested extends React.Component{
               );
             })
           }
+          {this.props.button}
         </ObjectWrapper>
-        {this.props.button}
       </div>
     );
   }

@@ -23,15 +23,20 @@ export default class NestedObjectWrapper extends React.Component{
   }
 
   expandObject(e){
-      this.setState({
-      closed: false
-      });
+    this.setState({
+    closed: false
+    });
   }
 
   closeObject(e){
     this.setState({
       closed:true
     })
+  }
+
+  cancelSkill(language){
+    this.closeObject();
+    this.props.cancelSkill(language);
   }
 
   render(){
@@ -50,6 +55,9 @@ export default class NestedObjectWrapper extends React.Component{
           {this.props.children}
           <div className=" jsLine">
             <button className="func skills" onClick={e=> this.closeObject(e)}>addToSkills({submit.join(',')});</button>
+          </div>
+          <div className=" jsLine">
+            <button className="func skills" onClick={()=> this.cancelSkill(this.props.language)}>cancel();</button>
           </div>
           <div className="jsClosing jsLine" >{'},'}</div>
         </div>
