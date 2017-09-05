@@ -77,22 +77,6 @@ function deepUpdate(update) {
 
 // passport.authenticate('github', { failureRedirect: '/' }
 
-
-app.put('/api/update-skills/:skill/:userId', (req, res) => {
-  const skill = req.params.skill;
-  const key = `profile.skills.${skill}`;
-  Users.findOneAndUpdate(
-    { 'gitHub.id': req.params.userId },
-    { $set: {[key]: req.body[skill]}},
-    { new: true }).exec()
-  .then(profile => {
-    return res.json(profile);
-  })
-  .catch(err => {
-    console.log(err);
-  });
-});
-
 app.put('/api/update-user/:userId',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
@@ -158,7 +142,7 @@ app.put('/api/update-skills/:skill/:userId',
   (req, res) => {
     const skill = req.params.skill;
     const key = `profile.skills.${skill}`;
-    console.log('SKILL', req.body);
+    
     Users
       .findOneAndUpdate(
         { 'gitHub.id': req.params.userId },
@@ -170,7 +154,7 @@ app.put('/api/update-skills/:skill/:userId',
       .catch(err => {
         console.log(err);
       });
-  });
+});
 
 // Create query entries for searching other developers and designers
 function queryFilter(qry) {
