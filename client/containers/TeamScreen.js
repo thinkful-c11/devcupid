@@ -23,7 +23,6 @@ export class TeamScreen extends React.Component {
         return <CreateTeamForm props={this.props} />;
       }
       else return (
-        // <p>THIS IS A TEAM PAGE</p>
         <TeamView
           props={this.props}
           teamId={teamId} />
