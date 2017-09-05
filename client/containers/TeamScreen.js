@@ -4,7 +4,6 @@ import * as actions from '../../actions/actions';
 import * as Cookies from 'js-cookie';
 
 import CreateTeamForm from '../team/CreateTeamForm';
-import ProfileHeader from '../components/profile/profileHeader';
 
 export class TeamScreen extends React.Component {
   componentDidMount() {
@@ -28,7 +27,6 @@ export class TeamScreen extends React.Component {
 
     return (
       <div>
-        <ProfileHeader user={this.props.user} />
         {view}
       </div>
     );
