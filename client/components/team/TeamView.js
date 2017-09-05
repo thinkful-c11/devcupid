@@ -1,6 +1,22 @@
 import React from 'react';
+import fire from '../../fire';
 
 export default class TeamView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { messages: [] };
+  }
+
+  componentWillMount() {
+    // Ref for messages in firebase
+    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(25);
+
+    messagesRef.on('child_added', snapshot => {
+      // Update state when new message added to Firebase db
+      let message = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ messages: [message].concat(this.state.messages) });
+    });
+  }
   render() {
     console.log('VIEW', this.props);
     const {
@@ -52,6 +68,8 @@ export default class TeamView extends React.Component {
       }
       else return 'LOADING';
     };
+
+
 
     return (
       <div className='team-view-container'>
