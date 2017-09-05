@@ -2,9 +2,14 @@ import React from 'react';
 import '../../SCSS/header.scss';
 
 export default class Header extends React.Component{
+  constructor(props){
+    super(props);
+  }
+
   render(){
-    return(
-      <header className='container'>
+    let header;
+    if(this.props.loggedIn){
+      header = (
         <div className='topBar content container'>
           <div className='logo'><img src='/public/logo.svg' /></div>
           <nav>
@@ -20,6 +25,18 @@ export default class Header extends React.Component{
             <div className='burger bottom part' />
           </div>
         </div>
+      );
+    }
+    else{
+      header = (
+        <div className='topBar content container landing'>
+          <div className='logo'><img src='/public/logo.svg' /></div>
+        </div>
+      );
+    }
+    return(
+      <header className='container'>
+        {header}
       </header>
     );
   }
