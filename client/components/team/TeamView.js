@@ -32,6 +32,10 @@ export default class TeamView extends React.Component {
     this.setState({ newMessage: '' });
   }
 
+  handleChange(e) {
+    this.setState({ newMessage: e.target.value });
+  }
+
   render() {
     console.log('VIEW', this.props);
     const {
@@ -84,8 +88,6 @@ export default class TeamView extends React.Component {
       else return 'LOADING';
     };
 
-
-
     return (
       <div className='team-view-container'>
         <div className='team-info-conatainer'>
@@ -98,6 +100,24 @@ export default class TeamView extends React.Component {
         <div className='team-members-container'>
           {teamList(this.props.activeTeam)}
         </div>
+
+        <form
+          className='message-view-form'
+          onSubmit={e => this.addMessage(e)}
+          >
+          <label htmlFor='new-message'>Send a message:</label>
+          <input
+            type='text'
+            value={this.state.newMessage}
+            onChange={e => this.handleChange(e)}
+          />
+          <ul className='messages-list'>
+            {
+              // Render the messages
+              this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
+            }
+          </ul>
+        </form>
       </div>
     );
   }
