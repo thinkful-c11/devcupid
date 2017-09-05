@@ -75,7 +75,6 @@ function deepUpdate(update) {
   return setObject;
 }
 
-<<<<<<< HEAD
 // passport.authenticate('github', { failureRedirect: '/' }
 
 
@@ -91,7 +90,7 @@ app.put('/api/update-skills/:skill/:userId', (req, res) => {
   })
   .catch(err => {
     console.log(err);
-  })
+  });
 });
 
 app.put('/api/update-user/:userId',
