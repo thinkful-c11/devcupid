@@ -167,6 +167,8 @@ a {
     content: "();"; }
   .onboarding.terminal-card .skills::after {
     content: none; }
+  .onboarding.terminal-card .skills:hover {
+    cursor: pointer; }
   .onboarding.terminal-card .jsKeyword {
     color: #A34170; }
   .onboarding.terminal-card .jsName {
@@ -195,21 +197,47 @@ a {
   .onboarding.terminal-card .jsObjectContent {
     padding: 30px;
     padding-right: 0px; }
+  .onboarding.terminal-card .jsNestedObj {
+    display: inline-flex;
+    transition-delay: 1s;
+    transition: .3s ease-in; }
+  .onboarding.terminal-card .jsNestedObj.open {
+    flex-direction: column; }
+  .onboarding.terminal-card .jsObjectContent.nested {
+    padding: 10px;
+    padding-left: 30px;
+    transition: .3s ease-in;
+    opacity: 1; }
+    .onboarding.terminal-card .jsObjectContent.nested .jsClosing {
+      margin-left: -30px; }
   .onboarding.terminal-card .dotdotdot {
-    display: none; }
+    display: inline-block;
+    transition: .2s ease-in; }
+    .onboarding.terminal-card .dotdotdot .jsClosing {
+      color: white; }
+  .onboarding.terminal-card .dot {
+    transition: .2s ease-in-out; }
+  .onboarding.terminal-card .dotdotdot:hover {
+    cursor: pointer; }
+    .onboarding.terminal-card .dotdotdot:hover .dot {
+      margin-left: 1px;
+      margin-right: 1px; }
+  .onboarding.terminal-card .dotdotdot.spread .dot {
+    transition: margin-left .5s ease-in-out,  margin-right .5s ease-in-out, opacity .2s .5s ease-out;
+    margin-left: 20px;
+    margin-right: 20px;
+    opacity: 0; }
+  .onboarding.terminal-card .jsOpening {
+    display: inline; }
+  .onboarding.terminal-card .jsClosing {
+    display: inline; }
   .onboarding.terminal-card .closed {
-    display: inline-block; }
-    .onboarding.terminal-card .closed .dotdotdot {
-      display: inline; }
-    .onboarding.terminal-card .closed .jsOpening {
-      display: inline; }
-    .onboarding.terminal-card .closed .jsClosing {
-      display: inline; }
-    .onboarding.terminal-card .closed .closed {
-      width: 0px;
-      height: 0px;
-      display: inline-block;
-      overflow: hidden; }
+    opacity: 0 !important;
+    width: 0px !important;
+    height: 0px !important;
+    margin: 0px !important;
+    padding: 0px !important;
+    overflow: hidden; }
   .onboarding.terminal-card .jsLine {
     margin-bottom: 10px; }
   .onboarding.terminal-card .progHash {

@@ -38,6 +38,14 @@ export default class CheckboxNested extends React.Component{
     });
   }
 
+  cancelSkill(language){
+    this.setState({
+      [language]: Object.assign({}, this.state[language], {
+        _active: false
+      })
+    })
+  }
+
   onChangeLibrary(e){
     let langLib = e.target.id.split('_');
     let language = langLib[0];
@@ -45,6 +53,7 @@ export default class CheckboxNested extends React.Component{
     let value = (e.target.value == 'true' ? true : false);
     this.setState({
       [language]: Object.assign({}, this.state[language], {
+        _active: true,
         [library]: value
       })
     }, () => {

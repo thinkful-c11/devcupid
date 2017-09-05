@@ -22,17 +22,37 @@ export default class NestedObjectWrapper extends React.Component{
     }
   }
 
+  expandObject(e){
+      this.setState({
+      closed: false
+      });
+  }
+
+  closeObject(e){
+    this.setState({
+      closed:true
+    })
+  }
+
   render(){
     let submit = this.state.submit;
     return(
-      <div className={this.state.closed ? "jsNestedObj closed" : "jsNestedObj open"}>
-        <span className="jsOpening" >{'{'}</span>
-        <span className="dotdotdot">{'...'}</span>
-        <div className={this.state.closed ? "jsObjectContent nested closed" : "jsObjectContent nested open"}>
+      <div className={this.state.closed ? "jsNestedObj" : "jsNestedObj open"} >
+        <span className="jsOpening" >{'{'}
+          <span className={this.state.closed ? "dotdotdot termPrompt" : "dotdotdot termPrompt spread"} onClick={e => this.expandObject(e)} ref={dotdotdot => this.dotdotdot = dotdotdot}>
+            <span className="dot">{'.'}</span>
+            <span className="dot">{'.'}</span>
+            <span className="dot">{'.'}</span>
+            <span className="jsClosing dot" >{'},'}</span>
+          </span>
+        </span>
+        <div className={this.state.closed ? "jsObjectContent nested closed" : "jsObjectContent nested"}>
           {this.props.children}
-          <span className="func skills">addToSkills({submit.join(',')});</span>
+          <div className=" jsLine">
+            <button className="func skills" onClick={e=> this.closeObject(e)}>addToSkills({submit.join(',')});</button>
+          </div>
+          <div className="jsClosing jsLine" >{'},'}</div>
         </div>
-        <span className="jsClosing" >{'}'}</span>
       </div>
     );
   }
