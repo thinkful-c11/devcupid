@@ -9,7 +9,6 @@ export class TeamScreen extends React.Component {
   componentDidMount() {
     const teamId = this.props.match.params.teamId;
     const accessToken = Cookies.get('accessToken');
-
     // TODO: add a team to store and pull in as a prop
     if (teamId !== 'create') {
       this.props.dispatch(actions.fetch_team(accessToken, teamId));
@@ -20,14 +19,18 @@ export class TeamScreen extends React.Component {
     const route = this.props.match.params.teamId;
     const view = (route) => {
       if (route === 'create') {
+        console.log('TRUE');
         return <CreateTeamForm props={this.props} />;
       }
-      else return 'THIS IS THE TEAM SCREEN FOR NOW';
+      else return (
+        <p>THIS IS A TEAM PAGE</p>
+      );
     };
 
     return (
       <div>
-        {view}
+        DOES THIS WORK?
+        {view(route)}
       </div>
     );
   }
