@@ -19,7 +19,6 @@ export class TeamScreen extends React.Component {
     const route = this.props.match.params.teamId;
     const view = (route) => {
       if (route === 'create') {
-        console.log('TRUE');
         return <CreateTeamForm props={this.props} />;
       }
       else return (
@@ -39,7 +38,7 @@ export class TeamScreen extends React.Component {
 const mapStateToProps = state => {
   return {
     // This is not actually all that we'll need to bring in here.
-    user: state.profile
+    gitHub: state.gitHub
   };
 };
 
