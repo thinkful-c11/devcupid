@@ -18,13 +18,17 @@ export class TeamScreen extends React.Component {
 
   render () {
     const teamId = this.props.match.params.teamId;
+    const { gitHub, userTeams, activeTeam, profile} = this.props;
     const view = (teamId) => {
       if (teamId === 'create') {
         return <CreateTeamForm props={this.props} />;
       }
       else return (
         <TeamView
-          props={this.props}
+          gitHub={gitHub}
+          userTeams={userTeams}
+          activeTeam={activeTeam}
+          profile={profile}
           teamId={teamId} />
       );
     };
@@ -41,7 +45,10 @@ export class TeamScreen extends React.Component {
 const mapStateToProps = state => {
   return {
     // This is not actually all that we'll need to bring in here.
-    gitHub: state.gitHub
+    gitHub: state.gitHub,
+    profile: state.profile,
+    userTeams: state.userTeams,
+    activeTeam: state.activeTeam
   };
 };
 
