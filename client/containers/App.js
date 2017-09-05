@@ -8,6 +8,7 @@ import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingContainer from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
+import TeamScreen from './TeamScreen';
 import Header from '../components/static/header';
 import Footer from '../components/static/footer';
 import '../SCSS/App.scss';
@@ -30,7 +31,6 @@ export class App extends React.Component {
             {/* <Route exact path='/' component={LoginScreen} /> */}
             <Route
               path='/onboarding/:questionId'
-              // path='/onboarding' re Issue #2
               component={OnboardingContainer} />
 
             <Route exact path='/' render={() => (
@@ -41,6 +41,11 @@ export class App extends React.Component {
                 )
             )} />
             <Route exact path='/me' component={ProfileScreen} />
+
+            <Route
+              path='team/:teamId'
+              component={TeamScreen} />
+
           </main>
         </Router>
         <Footer />
