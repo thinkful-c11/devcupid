@@ -10,7 +10,7 @@ export default class NextButton extends React.Component{
     const {nextQuestion} = this.props;
     return(
       <Link to={`/onboarding/${nextQuestion}`}>
-        <button onClick={() => this.props.onClick()}>NEXT</button>
+        <button onClick={() => this.props.onClick()}><span className="func">submit</span></button>
       </Link>
     );
   }

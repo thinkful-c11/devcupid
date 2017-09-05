@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
 import * as actions from '../actions/actions';
 
 import LoginScreen from './LoginScreen';
-import OnboardingScreen from './OnboardingScreen';
+import OnboardingContainer from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
 import Search from './Search';
 import Header from '../components/static/header';
@@ -23,9 +24,9 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     return (
-      <div>
-        <Header />
-        <Router>
+      <div className="major-cont">
+        <Header loggedIn={loggedIn}/>
+        <Router history={browserHistory}>
           <main className='content'>
             {/* <Route exact path='/' component={LoginScreen} /> */}
             <Route
@@ -35,7 +36,7 @@ export class App extends React.Component {
             <Route
               path='/onboarding/:questionId'
               // path='/onboarding' re Issue #2
-              component={OnboardingScreen} />
+              component={OnboardingContainer} />
 
             <Route exact path='/' render={() => (
               loggedIn ? (
