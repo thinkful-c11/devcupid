@@ -40,10 +40,11 @@ export class App extends React.Component {
                 <LoginScreen />
                 )
             )} />
+            
             <Route exact path='/me' component={ProfileScreen} />
 
             <Route
-              path='team/:teamId'
+              path='/team/:teamId'
               component={TeamScreen} />
 
           </main>
