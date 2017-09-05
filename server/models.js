@@ -104,10 +104,52 @@ const UserModel = mongoose.Schema({
       softwareTools: {type: Object}
     }
   },
-  personality: {}
+  personality: {
+  },
+  teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teams' }]
+});
+
+const TeamSchema = mongoose.Schema({
+  createdBy: { type: String, required: true },
+  admins: [{ type: String, required: true }],
+  // Basic info, mostly copied from GitHub org format
+  url: String,
+  name: { type: String, required: true },
+  description: String,
+  avatar_url: String,
+  company: String,
+  location: String,
+  email: String,
+
+  // We could consider adding GitHub org integration like this:
+  // https://developer.github.com/v3/orgs/
+  gitHub: Object,
+
+  // Roles, doubles as roster and may be duplicates of above:
+  // TODO: expand this set as needed but try to keep it relatively generic
+  developers: [ String ],
+  founders: [ String ],
+  projectManagers: [ String ],
+  designers: [ String ],
+
+  // Team desires, i.e. searchable by users:
+  desiredRoles: {
+    developers: Boolean,
+    founders: Boolean,
+    projectManagers: Boolean,
+    designers: Boolean
+  },
+
+  // The below are possible extensions to the search feature
+  // Desired languages will map to the above language schema
+  desiredLanguages: {type: Object},
+  desiredPassions: {type: Object},
+  desiredSpecialty: {type: Object},
+  desiredSoftwareTools: {type: Object}
 });
 
 module.exports = {
   Users: mongoose.model('Users', UserModel),
-  Languages: mongoose.model('Languages', LanguageSchema)
+  Languages: mongoose.model('Languages', LanguageSchema),
+  Teams: mongoose.model('Teams', TeamSchema)
 };
