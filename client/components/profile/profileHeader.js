@@ -3,29 +3,42 @@ import React from 'react';
 export default class ProfileHeader extends React.Component{
   render() {
     const { user } = this.props;
-    const remoteOk = user.remoteOk ? '| Remote Ok' : '';
+    const remoteOk = user.remoteOk ? 'Remote Ok' : '';
+    const hireable = user.hireable ? 'Hirable' : 'Not For Hire';
     return (
-      <header>
-        <div>
+      <div className="profileHeader container">
+        <div className="profileImage">
           <img src={user.avatar_url} />
         </div>
-        <div>
-          <h2>
-            {user.name}
+        <div className="topInfo">
+          <h2 className={'userName'}>
+            <span className="jsNameString">{user.name}</span>
+            <span className="jsPunc">{':'}</span>
+            <span className="jsBracket">{'{'}</span>
           </h2>
-          <ul>
-            <li>
-              {user.location} {remoteOk}
-            </li>
-            <li>
+          <div className="basicInfo pop-card">
+            <div className="cardHeader">
               {user.personalTitle}
-            </li>
-          </ul>
+            </div>
+            <ul className="cardBody container">
+              <li>
+                {user.location}
+                {remoteOk ? ' | ' : ''} 
+                <span className="remote">
+                  {remoteOk}
+                </span>
+                {','}
+              </li>
+              <li>
+                {user.company} 
+                {' | '}
+                {hireable}
+                {';'}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <a href={`mailto:${user.email}`}>Email Me</a>
-        </div>
-      </header>
+      </div>
     );
   }
 }

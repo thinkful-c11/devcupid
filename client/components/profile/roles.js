@@ -16,12 +16,17 @@ export default class Roles extends React.Component {
     const { user } = this.props;
     const formattedRoles = this.formatRoles(user);
     const roles = formattedRoles.map((role, index) => {
-      return <li key={'roles ${index}'}>{role}</li>;
+      return <li key={`roles ${index}`}>{role}</li>;
     });
     return (
-      <ul>
-        {roles}
-      </ul>
+      <div className="pop-card roles">
+        <div className="cardHeader">
+          Roles
+        </div>
+        <ul className="cardBody">
+          {roles}
+        </ul>
+      </div>
     );
   }
 }

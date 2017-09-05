@@ -1,0 +1,154 @@
+@import './_brand-styles/_Brand.scss';
+
+.profile{
+  color:$Koa-Blue;
+  flex-direction:column;
+  .profileHeader{
+    width:100%;
+    position:relative;
+    img{
+      margin-right:10px;
+      height:100%;
+      width:auto;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+    .topInfo{
+      width:100%;
+    }
+  }
+
+  .contact{
+    height:5%;
+    justify-content: flex-end;
+    button{
+      padding:10px;
+      padding-top:5px;
+      padding-bottom:5px;
+      height:24px;
+      background-color:white;
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+      a{
+        @extend .Mono;
+        font-size:15px;
+        color:$Magenta-Haze;
+      }
+    }
+  }
+
+  .remote{
+    color: $Undef-Green;
+  }
+
+  .userName{
+    font-size:36px;
+    margin-bottom:10px;
+    margin-top:-10px;
+    margin-left:-5px;
+  }
+  .jsNameString::before, .jsNameString::after{
+    content:"'";
+  }
+  .jsPunc{
+    color:$Magenta-Haze;
+  }
+  .jsBracket{
+    color:white;
+  }
+
+  .pop-card{
+    position:relative;
+    padding:0px;
+    padding-top:44px;
+  }
+  .basicInfo{
+    max-width:initial;
+    min-width:420px;
+    width:100%;
+    height:115px;
+  }
+  .cardHeader{
+    height:44px;
+    padding:10px;
+    position:absolute;
+    top:0;
+    left: 0;
+    right:0;
+
+    font-size:24px;
+    color:white;
+    background-color:$Koa-Blue;
+  }
+  .cardBody{
+    height:100%;
+    padding:10px;
+    flex-direction:column;
+    font-size:22px;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+
+  .about{
+    width:100%;
+    max-width:initial;
+    height: fit-content;
+    margin:0;
+    margin-top:20px;
+    p{
+      max-width:100%;
+      margin:0;
+    }
+  }
+
+  .roles{
+    margin-right:10px;
+    height:93%;
+  }
+
+  .tech{
+    margin-left:10px;
+    height:93%;
+  }
+
+  .interests{
+    margin:0;
+    margin-right:10px;
+    max-width:initial;
+    width:initial;
+    height:initial;
+  }
+
+  .tools{
+    margin:0;
+    margin-left:10px;
+    max-width:initial;
+    width:initial;
+    height:initial;
+  }
+}
+
+// Page Positioning w/ flexbox
+
+.column{
+  width:fit-content;
+  flex-direction:column;
+}
+
+.section{
+  height:100%;
+}
+
+.section.B{
+  height: 100%;
+  margin-left:10px;
+  margin-right:10px;
+  align-items:stretch;
+}
+
+.column.A{
+  width:60%;
+}
+
+.column.B{
+  width:40%;
+  position:relative;
+}
