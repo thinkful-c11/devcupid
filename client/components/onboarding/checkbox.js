@@ -61,7 +61,7 @@ export default class Checkbox extends React.Component{
             currentQuestion.choices.map((q, index) => {
               return (
                 <div key={`${q}${index}`} className="jsLine">
-                  <Prompt labelFor={index}>{q}</Prompt>
+                  <Prompt labelFor={currentQuestion.key + '_' + q}>{q}</Prompt>
                   <BooleanField id={currentQuestion.key + '_' + q} onChange={e => this.onChange(e)} />
                 </div>
               );
