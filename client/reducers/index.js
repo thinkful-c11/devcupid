@@ -198,7 +198,8 @@ const initialState = {
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
     },
-  ]
+  ],
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -282,6 +283,24 @@ const reducer = (state = initialState, action) => {
         email: state.gitHub.email,
         bio: state.gitHub.bio,
       })
+    });
+    
+  case ref.SEARCH_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+    
+  case ref.SEARCH_SUCCESS: { 
+    return Object.assign({}, state, {
+      loading: false,
+      searchResults: action.results
+    });
+  }
+
+  case ref.SEARCH_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
     });
 
   // Team Reducers
