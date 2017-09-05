@@ -1,4 +1,4 @@
-{
+[{
     "1":
     {
         "Question":"Are you an introvert or extrovert?",
@@ -34,4 +34,4 @@
         "Accept":["Email","Text","Phone call","In-person meeting","Video call","Any of the above"],
         "Importance":["A little","Somewhat","Very"]
     }
-}
+}]
