@@ -1,0 +1,37 @@
+{
+    "1":
+    {
+        "Question":"Are you an introvert or extrovert?",
+        "Answers":["Introvert","Extrovert"],
+        "Accept":["Introvert","Extrovert","Any of the above"],
+        "Importance":["A little","Somewhat","Very"]
+    },
+    "2":
+    {
+        "Question":"What is your learning style?",
+        "Answers":["Visual","Auditory","Reading","Kinesthetics"],
+        "Accept":["Visual","Auditory","Reading","Kinesthetics","Any of the above"],
+        "Importance":["A little","Somewhat","Very"]
+    },
+    "3":
+    {
+        "Question":"Do you work and learn best alone or in groups?",
+        "Answers":["Alone","Groups"],
+        "Accept":["Alone","Groups","Any of the above"],
+        "Importance":["A little","Somewhat","Very"]
+    },
+    "4":
+    {
+        "Question":"When do you prefer working?",
+        "Answers":["Morning","Afternoon","Evening","Night"],
+        "Accept":["Morning","Afternoon","Evening","Night","Any of the above"],
+        "Importance":["A little","Somewhat","Very"]
+    },
+    "5":
+    {
+        "Question":"Which do you prefer most?",
+        "Answers":["Email","Text","Phone call","In-person meeting","Video call"],
+        "Accept":["Email","Text","Phone call","In-person meeting","Video call","Any of the above"],
+        "Importance":["A little","Somewhat","Very"]
+    }
+}
