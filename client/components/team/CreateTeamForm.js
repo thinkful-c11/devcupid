@@ -27,7 +27,11 @@ export default class CreateTeamForm extends React.Component {
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ teamFormData: { [name]: value } });
+    const newStateForm = Object.assign(
+      {},
+      this.state.teamFormData);
+    newStateForm[name] = value;
+    this.setState({ teamFormData: newStateForm });
   }
 
   handleSubmit(e) {
@@ -36,8 +40,19 @@ export default class CreateTeamForm extends React.Component {
     // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
     const { dispatch } = this.props.props;
     // console.log(this.props);
-    const { gitHub } = this.state;
-    dispatch(actions.create_team(accessToken, gitHub.id, this.state));
+    const { gitHub, teamFormData } = this.state;
+    dispatch(actions.create_team(accessToken, gitHub.id, teamFormData));
+
+    const clearedStateForm = {
+      teamName: '',
+      teamDescription: '',
+      teamAvatarUrl: '',
+      teamCompany: '',
+      teamLocation: '',
+      teamEmail: ''
+    };
+
+    this.setState({ teamFormData: clearedStateForm });
   }
 
   render() {
@@ -50,9 +65,10 @@ export default class CreateTeamForm extends React.Component {
           <input
             id='create-team-name'
             type='text'
-            value={this.state.teamName}
+            value={this.state.teamFormData.teamName}
             name='teamName'
             onChange={e => this.handleChange(e)}
+            required
           />
 
           <label htmlFor='create-team-description'>
@@ -61,7 +77,7 @@ export default class CreateTeamForm extends React.Component {
           <input
             id='create-team-description'
             type='text'
-            value={this.state.teamDescription}
+            value={this.state.teamFormData.teamDescription}
             name='teamDescription'
             onChange={e => this.handleChange(e)}
           />
@@ -72,7 +88,7 @@ export default class CreateTeamForm extends React.Component {
           <input
             id='create-team-avatar'
             type='text'
-            value={this.state.teamAvatarUrl}
+            value={this.state.teamFormData.teamAvatarUrl}
             name='teamAvatarUrl'
             onChange={e => this.handleChange(e)}
           />
@@ -83,7 +99,7 @@ export default class CreateTeamForm extends React.Component {
           <input
             id='create-team-location'
             type='text'
-            value={this.state.teamLocation}
+            value={this.state.teamFormData.teamLocation}
             name='teamLocation'
             onChange={e => this.handleChange(e)}
           />
@@ -94,7 +110,7 @@ export default class CreateTeamForm extends React.Component {
           <input
             id='create-team-email'
             type='text'
-            value={this.state.teamEmail}
+            value={this.state.teamFormData.teamEmail}
             name='teamEmail'
             onChange={e => this.handleChange(e)}
           />

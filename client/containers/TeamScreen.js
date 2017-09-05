@@ -17,7 +17,6 @@ export class TeamScreen extends React.Component {
 
   render () {
     const route = this.props.match.params.teamId;
-    console.log('TEAM SCREEN', this.props);
     const view = (route) => {
       if (route === 'create') {
         return <CreateTeamForm props={this.props} />;
