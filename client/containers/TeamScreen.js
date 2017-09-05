@@ -4,6 +4,7 @@ import * as actions from '../actions/actions';
 import * as Cookies from 'js-cookie';
 
 import CreateTeamForm from '../components/team/CreateTeamForm';
+import TeamView from '../components/team/TeamView';
 
 export class TeamScreen extends React.Component {
   componentDidMount() {
@@ -16,20 +17,23 @@ export class TeamScreen extends React.Component {
   }
 
   render () {
-    const route = this.props.match.params.teamId;
-    const view = (route) => {
-      if (route === 'create') {
+    const teamId = this.props.match.params.teamId;
+    const view = (teamId) => {
+      if (teamId === 'create') {
         return <CreateTeamForm props={this.props} />;
       }
       else return (
-        <p>THIS IS A TEAM PAGE</p>
+        // <p>THIS IS A TEAM PAGE</p>
+        <TeamView
+          props={this.props}
+          teamId={teamId} />
       );
     };
 
     return (
       <div>
         DOES THIS WORK?
-        {view(route)}
+        {view(teamId)}
       </div>
     );
   }
