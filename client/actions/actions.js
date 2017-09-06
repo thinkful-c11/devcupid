@@ -143,6 +143,21 @@ export const fetchUser = accessToken => dispatch => {
 export const assignGitHubProfile = () => ({
   type: ref.ASSIGN_GITHUB_PROFILE,
 });
+
+// Actions for submitting user personality questions
+export const personality_request = () => ({
+  type: ref.PERSONALITY_REQUEST
+});
+export const personality_success = (user) => ({
+  type: ref.PERSONALITY_SUCCESS,
+  user
+});
+export const personality_error = (error) => ({
+  type: ref.PERSONALITY_ERROR,
+  error
+});
+
+
 // Team Actions
 export const team_request = () => ({
   type: ref.TEAM_REQUEST
