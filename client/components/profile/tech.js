@@ -29,7 +29,6 @@ export default class Tech extends React.Component{
   render(){
     const { user } = this.props;
     const languages = this.formatLanguages(user);
-    // const tech = <div>Hello!</div>;
     const tech = languages.map((language, index) => {
       return(
         <li key={`${language} ${index}`}>
@@ -45,8 +44,13 @@ export default class Tech extends React.Component{
       );
     });
     return(
-      <div>
-        {tech}
+      <div className="pop-card tech">
+        <div className="cardHeader">
+          Tech
+        </div>
+        <ul className="cardBody">
+          {tech}
+        </ul>
       </div>
     );
   }

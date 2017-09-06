@@ -2,41 +2,186 @@ import * as actions from '../actions/actions';
 import * as ref from '../actions/refs';
 
 const initialState = {
-  loading: false,
-  error: null,
-  user: false,
-  onboarded:false,
-  gitHub: {},
-  profile: {
-    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
-    name: 'TEST',
-    personalTitle: 'TEST',
-    location: 'TEST',
-    remoteOk: false,
-    company: 'TEST',
-
-    email: 'TEST',
-
-    bio: 'I was born then i went vegan',
-
-    personal_website: 'profile.com',
-    blog: 'blog.profile.com',
-    linked_in: 'linkedin.com/profile',
-    twitter: 'twitter.com/profile',
-
-    skills: {
-      passions: {},
-      roles: [],
-      languages: {},
-      libraries: [],
-      speciality: [],
-      softwareTools: []
-    },
-  },
+    loading: false,
+    error: null,
+    user: true,
+    onboarded: false,
   // List of teams the user is on
   userTeams: [],
   // Team info held in state when viewing a team page
   activeTeam: {},
+    gitHub: {
+      accessToken: 'd7b7dc3629a0273f8b551859634f3f2f2715773b',
+      login: 'williamtwobit',
+      avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+      html_url: 'https://github.com/williamtwobit',
+      name: 'William Martin',
+      company: '',
+      blog: '',
+      location: 'Atlanta',
+      email: '',
+      hireable: false,
+      bio: 'Just a lil baby coder',
+      id: '27362400'
+    },
+    profile: {
+      twitter: 'twitter.com/profile',
+      linked_in: 'linkedin.com/profile',
+      blog: 'blog.profile.com',
+      personal_website: 'profile.com',
+      bio: 'To me, design means more than just making pretty things. Design is the art of problem solving, and whether I’m designing an elegant algorithm, a delightful user interaction, or a rock-solid data schema, the goal is the same: Form and Function. Never one over the other.',
+      email: 'william@twobit.cc',
+      company: 'Self-Employed',
+      remoteOk: true,
+      location: 'Atlanta',
+      personalTitle: 'Full-Stack Developer',
+      name: 'William Martin',
+      avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+      skills: {
+        roles: {
+          'Ed tech': false,
+          'Front-End Web Developer': true,
+          'Back-End Web Developer': false,
+          'Full-Stack Web Developer': true,
+          'Web Designer': true,
+          'UI Engineer': true,
+          'UX Engineer': true,
+          'Database Architect': false,
+          Founder: false,
+          Investor: false,
+          DevOps: false,
+          Developer: true,
+          Designer: true
+        },
+        speciality: {
+          'Ed tech': false,
+          Mobile: true,
+          CRM: false,
+          Blog: true,
+          Web: true,
+          UI: true,
+          UX: true
+        },
+        softwareTools: {
+          'Ed tech': false,
+          Sketch3: true,
+          'Adobe Photoshop': false,
+          'Adobe Illustrator': true,
+          'Adobe InDesign': false,
+          'Adobe XD': false,
+          XCode: false,
+          Eclipse: false,
+          'Visual Studio': false,
+          Trello: true,
+          GitHub: true,
+          Git: true,
+          Postman: true,
+          Slack: true,
+          'Git Kraken': false
+        },
+        passions: {
+          'Ed tech': false,
+          'Ed Tech': true,
+          'Machine Learning': true,
+          Design: true,
+          UI: true,
+          UX: true,
+          'Fin Tech': false,
+          'Social Media': false,
+          'Big Data': false,
+          'Data Science': false,
+          B2B: false,
+          'Internet of Things': false,
+          Linux: true
+        },
+        languages: {
+          JavaScript: {
+            _active: true,
+            React: true,
+            Redux: true,
+            Angular: false,
+            'Angular 2/4': false,
+            Mongoose: true,
+            JQuery: true,
+            Vue: false,
+            Node: true
+          },
+          HTML5: {
+            _active: false,
+            Pug: false
+          },
+          CSS3: {
+            _active: true,
+            SASS: true,
+            LESS: false,
+            Bootstrap: true,
+            Foundation: false,
+            Materialize: false,
+            'CSS Grid': false,
+            'Responsive Design': true,
+            'Mobile First': true
+          },
+          C: {
+            _active: false
+          },
+          'C++': {
+            _active: false
+          },
+          'C#': {
+            _active: false
+          },
+          Java: {
+            _active: false,
+            Swing: false,
+            'Spring Boot': false,
+            Guava: false
+          },
+          PHP: {
+            _active: false,
+            Laravel: false,
+            Dispatch: false
+          },
+          Python: {
+            _active: true,
+            Django: true,
+            Flask: false
+          },
+          Perl: {
+            _active: false
+          },
+          Ruby: {
+            _active: false,
+            Rails: false,
+            Sinatra: false
+          },
+          Go: {
+            _active: false
+          },
+          Rust: {
+            _active: false
+          },
+          Scala: {
+            _active: false
+          },
+          Clojure: {
+            _active: false,
+            Leiningen: false,
+            Ring: false,
+            Om: false
+          },
+          'Swift/Objective-C': {
+            _active: false
+          },
+          Elm: {
+            _active: false
+          },
+          'F#': {
+            _active: false
+          }
+        }
+      }
+    },
+  },
   onboardingQuestions: [
     {
       text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
@@ -198,7 +343,8 @@ const initialState = {
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
     },
-  ]
+  ],
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -282,6 +428,24 @@ const reducer = (state = initialState, action) => {
         email: state.gitHub.email,
         bio: state.gitHub.bio,
       })
+    });
+    
+  case ref.SEARCH_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+    
+  case ref.SEARCH_SUCCESS: { 
+    return Object.assign({}, state, {
+      loading: false,
+      searchResults: action.results
+    });
+  }
+
+  case ref.SEARCH_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
     });
 
   // Team Reducers
