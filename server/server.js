@@ -58,6 +58,23 @@ app.get('/api/profile/me',
   }
 );
 
+app.get('/api/profile/:userId', 
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Users.findOne({ 'gitHub.id': req.params.userId })
+    .then(user => {
+      if (!user) {
+        // TODO actually make the client redirect on invalid user
+        res.status(404).send();
+      }
+      else res.json(user.profile);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+);
+
 function deepUpdate(update) {
   const setObject = {};
   Object.keys(update).forEach((key) => {

@@ -1,3 +1,4 @@
+/* global fetch */
 import * as ref from './refs';
 import * as Cookies from 'js-cookie';
 
@@ -167,6 +168,44 @@ export const fetchUser = accessToken => dispatch => {
   })
   .catch(error => {
     dispatch(login_error(error));
+  });
+};
+
+export const profileRequest = () => ({
+  type: ref.PROFILE_REQUEST
+});
+
+export const profileSuccess = profile => ({
+  type: ref.PROFILE_SUCCESS,
+  profile
+});
+
+export const profileError = error => ({
+  type: ref.PROFILE_ERROR,
+  error
+});
+
+export const fetchProfile = (userId, accessToken) => dispatch => {
+  console.log('actions userId', userId);
+  fetch(`/api/profile/${userId}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    console.log('action res ok?', res.ok);
+    if(!res.ok){
+      Promise.reject(res.statustext);
+      window.location.pathname = '/';
+    }
+    
+    return res.json();
+  })
+  .then(profile => {
+    dispatch(profileSuccess(profile));
+  })
+  .catch(err => {
+    dispatch(profileError(err));
   });
 };
 
