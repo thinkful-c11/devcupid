@@ -54,7 +54,25 @@ app.get('/api/auth/github/logout', (req, res) => {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
+    console.log(req.user);
     return res.json(req.user);
+  }
+);
+
+app.get('/api/profile/:userId', 
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Users.findOne({ 'gitHub.id': req.params.userId })
+    .then(user => {
+      if (!user) {
+        // TODO actually make the client redirect on invalid user
+        res.status(404).send();
+      }
+      else res.json(user.profile);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 );
 
@@ -162,6 +180,7 @@ app.get('/api/fake-users', (req, res) => {
   for (var i = 0; i < 100; i++) {
     fakeUsers.push({
       onboarded: true,
+      onboardProgress: 100,
       profile: {
         twitter: faker.internet.url(),
         linked_in: faker.internet.url(),
