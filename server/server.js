@@ -157,14 +157,6 @@ function delay(t) {
   });
 }
 
-function delay(t) {
-  // delay function used to delay a promise
-  // initially used to test SearchLoadingNotifier component
-   return new Promise(function(resolve) { 
-       setTimeout(resolve, t);
-   });
-}
-
 function regexFix(param) {
   // ignore non selected queries
   if (!param) return /.*?/;
@@ -174,6 +166,7 @@ function regexFix(param) {
 // Search endpoint to use the queryFilter function
 app.get('/api/search', (req, res) => {
   const q = req.query;
+  console.log(q);
   Users.find()
   .where({ 'gitHub.login': { $regex : regexFix(q.login) } })
   .where({ 'profile.name': { $regex : regexFix(q.name) } })
