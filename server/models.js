@@ -68,7 +68,7 @@ const LanguageSchema = mongoose.Schema({
 });
 
 const UserModel = mongoose.Schema({
-  onboarded: {type: Boolean},
+  onboarded: {type: Boolean, default: false},
   onboardProgress: {type: Number, default: -1},
   gitHub: {
     accessToken: {type: String},

@@ -54,6 +54,7 @@ app.get('/api/auth/github/logout', (req, res) => {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
+    console.log(req.user);
     return res.json(req.user);
   }
 );
@@ -179,6 +180,7 @@ app.get('/api/fake-users', (req, res) => {
   for (var i = 0; i < 100; i++) {
     fakeUsers.push({
       onboarded: true,
+      onboardProgress: 100,
       profile: {
         twitter: faker.internet.url(),
         linked_in: faker.internet.url(),

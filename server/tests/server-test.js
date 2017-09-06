@@ -118,7 +118,8 @@ describe('API Tests', function() {
                 '__v',
                 '_id',
                 'onboarded',
-                'teams'
+                'teams',
+                'onboardProgress'
               );
               res.body.gitHub.should.have.all.keys(
                 'accessToken',
