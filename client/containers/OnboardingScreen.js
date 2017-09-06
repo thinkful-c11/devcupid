@@ -17,8 +17,9 @@ export class OnboardingScreen extends React.Component {
   handleNextButton() {
     const accessToken = Cookies.get('accessToken');
     const { dispatch, profile, gitHubId } = this.props;
+    const progress = parseInt(this.props.match.params.questionId) + 1;
     dispatch(
-      actions.update_profile(gitHubId, profile, accessToken
+      actions.update_profile(gitHubId, profile, accessToken, progress
     ));
   }
 

@@ -27,6 +27,8 @@ export class App extends React.Component {
   // Inital load triggers a 401 error when it tries to sign in
   render() {
     const loggedIn = this.props.user;
+    const {onboardProgress} = this.props;
+    console.log(onboardProgress);
     return (
       <div className='major-cont'>
         <Header loggedIn={loggedIn} />
@@ -43,7 +45,7 @@ export class App extends React.Component {
 
             <Route exact path='/' render={() => (
               loggedIn ? (
-                <Redirect to='/onboarding/intro' />
+                <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
               ) : (
                 <LoginScreen />
                 )
@@ -64,6 +66,7 @@ export class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  onboardProgress: state.onboardProgress
 });
 export default connect(mapStateToProps)(App);

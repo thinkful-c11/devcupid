@@ -35,18 +35,21 @@ export const checkboxNested_handler = (body) => ({
 export const update_request = () => ({
   type: ref.UPDATE_REQUEST
 });
-export const update_success = (profile) => ({
+export const update_success = (profile, progress) => ({
   type: ref.UPDATE_SUCCESS,
-  profile
+  profile,
+  progress
 });
 export const update_error = (error) => ({
   type: ref.UPDATE_ERROR,
   error
 });
 
-export const update_profile = (githubId, profile, accessToken) => dispatch => {
+export const update_profile = (githubId, profile, accessToken, progress, onboarded) => dispatch => {
   dispatch(update_request());
   const updateObj = {
+    onboarded,
+    onboardProgress: progress,
     profile
   };
   const data = {
@@ -65,7 +68,7 @@ export const update_profile = (githubId, profile, accessToken) => dispatch => {
       return res.json();
     })
     .then(user => {
-      dispatch(update_success(user.profile));
+      dispatch(update_success(user.profile, user.onboardProgress));
     })
     .catch(error => {
       dispatch(update_error(error));
