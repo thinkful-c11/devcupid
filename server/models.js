@@ -104,9 +104,47 @@ const UserModel = mongoose.Schema({
       softwareTools: {type: Object}
     }
   },
-  personality: {
-  },
+  personality: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Personality' }],
   teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teams' }]
+});
+
+const PersonalitySchema = mongoose.Schema({
+  'Question 1': {
+    'Are you an introvert?': {type:Boolean},
+    'Is it okay if your partner/team member is not the same as you?': {type:Boolean}
+  },
+  'Question 2': {
+    'What is your learning style?':{
+      'Visual': {type:Boolean},
+      'Auditory': {type:Boolean},
+      'Reading': {type:Boolean},
+      'Kinesthetics': {type:Boolean}
+    },
+    'Is it okay if your partner/team member is not the same as you?': {type:Boolean}
+  },
+  'Question 3': {
+    'Do you work and learn best in groups?': {type:Boolean},
+    'Is it okay if your partner/team member is not the same as you?': {type:Boolean}
+  },
+  'Question 4': {
+    'When do you prefer working?': {
+      'Morning': {type:Boolean},
+      'Afternoon': {type:Boolean},
+      'Evening': {type:Boolean},
+      'Night': {type:Boolean}
+    },
+    'Is it okay if your partner/team member is not the same as you?': {type:Boolean}
+  },
+  'Question 5': {
+    'Which do you prefer most?':{
+      'Email': {type:Boolean},
+      'Text': {type:Boolean},
+      'Phone call': {type:Boolean},
+      'In-person meeting': {type:Boolean},
+      'Video call': {type:Boolean}
+    },
+    'Is it okay if your partner/team member is not the same as you?': {type:Boolean}
+  }
 });
 
 const TeamSchema = mongoose.Schema({
@@ -151,5 +189,6 @@ const TeamSchema = mongoose.Schema({
 module.exports = {
   Users: mongoose.model('Users', UserModel),
   Languages: mongoose.model('Languages', LanguageSchema),
+  Personality: mongoose.model('Personality', PersonalitySchema),
   Teams: mongoose.model('Teams', TeamSchema)
 };
