@@ -23,6 +23,16 @@ export class OnboardingScreen extends React.Component {
     ));
   }
 
+  handleSubmitButton(){
+    const accessToken = Cookies.get('accessToken');
+    const { dispatch, profile, gitHubId } = this.props;
+    const progress = null;
+    const onboarded = true;
+    dispatch(
+      actions.update_profile(gitHubId, profile, accessToken, progress, onboarded
+    ));
+  }
+
   handleNestedLanguageButton() {
     const { dispatch, profile, gitHubId, onboardingQuestions } = this.props;
     const accessToken = Cookies.get('accessToken');
@@ -45,7 +55,7 @@ export class OnboardingScreen extends React.Component {
       let button;
 
       if((currentIndex + 1) === onboardingQuestions.length){
-        button = <SubmitButton />;
+        button = <SubmitButton history={this.props.history} onClick={this.handleSubmitButton()} />;
       }
 
       else if(currentQuestion.type === 'checkbox' || currentQuestion.type === 'checkbox-nested') {
