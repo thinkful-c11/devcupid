@@ -180,7 +180,7 @@ const initialState = {
         }
       }
     },
-  },
+  
   onboardingQuestions: [
     {
       text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
