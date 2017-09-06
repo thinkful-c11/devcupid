@@ -4,7 +4,7 @@ import * as ref from '../actions/refs';
 const initialState = {
   loading: false,
   error: null,
-  user: true,
+  user: false,
   onboarded: false,
   // List of teams the user is on
   userTeams: [],
@@ -24,18 +24,18 @@ const initialState = {
     id: '27362400'
   },
   profile: {
-    twitter: 'twitter.com/profile',
-    linked_in: 'linkedin.com/profile',
-    blog: 'blog.profile.com',
-    personal_website: 'profile.com',
-    bio: 'To me, design means more than just making pretty things. Design is the art of problem solving, and whether I’m designing an elegant algorithm, a delightful user interaction, or a rock-solid data schema, the goal is the same: Form and Function. Never one over the other.',
-    email: 'william@twobit.cc',
-    company: 'Self-Employed',
-    remoteOk: true,
-    location: 'Atlanta',
-    personalTitle: 'Full-Stack Developer',
-    name: 'William Martin',
-    avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+    twitter: '',
+    linked_in: '',
+    blog: '',
+    personal_website: '',
+    bio: '',
+    email: '',
+    company: '',
+    remoteOk: false,
+    location: '',
+    personalTitle: '',
+    name: '',
+    avatar_url: '',
     skills: {
       roles: {
         'Ed tech': false,
