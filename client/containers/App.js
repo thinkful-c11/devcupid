@@ -75,6 +75,7 @@ export class App extends React.Component {
             }}/>
 
             <Route exact path='/profile/:userId' component={ProfileScreen} />
+
             <Route
               path='/team/:teamId'
               component={TeamScreen} />

@@ -16,9 +16,12 @@ export default class TeamView extends React.Component {
 
   componentWillMount() {
     // Ref for messages in firebase
-    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(25);
+    let firebase = fire.database();
+    let teamChat = firebase.ref('team_' + this.props.teamId + '/messages')
+                    .orderByKey()
+                    .limitToLast(25);
 
-    messagesRef.on('child_added', snapshot => {
+    teamChat.on('child_added', snapshot => {
       // Update state when new message added to Firebase db
       let message = { text: snapshot.val(), id: snapshot.key };
       this.setState({ messages: [message].concat(this.state.messages) });
@@ -27,8 +30,10 @@ export default class TeamView extends React.Component {
 
   addMessage(e) {
     e.preventDefault();
+    let firebase = fire.database();
+    let teamChat = firebase.ref('team_' + this.props.teamId + '/messages');
     // Send new message to the db
-    fire.database().ref('messages').push(this.state.newMessage);
+    teamChat.push(this.state.newMessage);
     this.setState({ newMessage: '' });
   }
 
