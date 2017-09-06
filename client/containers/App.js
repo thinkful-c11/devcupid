@@ -27,8 +27,8 @@ export class App extends React.Component {
   // Inital load triggers a 401 error when it tries to sign in
   render() {
     const loggedIn = this.props.user;
-    const {onboardProgress} = this.props;
-    console.log(onboardProgress);
+    const {onboardProgress, onboarded} = this.props;
+    console.log('onboarded: ', onboarded);
     return (
       <div className='major-cont'>
         <Header loggedIn={loggedIn} />
@@ -43,15 +43,36 @@ export class App extends React.Component {
               path='/onboarding/:questionId'
               component={OnboardingContainer} />
 
-            <Route exact path='/' render={() => (
+            <Route 
+              exact path='/home' 
+              component={ProfileScreen} />
+
+            <Route 
+              exact path='/me' 
+              component={ProfileScreen} />
+
+            {/* <Route exact path='/' render={() => (
               loggedIn ? (
                 <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
               ) : (
                 <LoginScreen />
                 )
-            )} />
+            )} /> */}
 
-            <Route exact path='/me' component={ProfileScreen} />
+            <Route exact path='/' render={() => {
+              switch(loggedIn){
+                case true:
+                  switch(onboarded){
+                    case false:
+                      return <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
+                    default:
+                      return <Redirect to={'/home'} />
+                  }
+                  break;
+                case false:
+                  return <LoginScreen />
+              }
+            }}/>
 
             <Route
               path='/team/:teamId'
@@ -67,6 +88,7 @@ export class App extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
-  onboardProgress: state.onboardProgress
+  onboardProgress: state.onboardProgress,
+  onboarded: state.onboarded
 });
 export default connect(mapStateToProps)(App);

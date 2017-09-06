@@ -35,21 +35,49 @@ export const checkboxNested_handler = (body) => ({
 export const update_request = () => ({
   type: ref.UPDATE_REQUEST
 });
-export const update_success = (profile, progress) => ({
+export const update_success = (profile, progress, onboarded) => ({
   type: ref.UPDATE_SUCCESS,
   profile,
-  progress
+  progress,
+  onboarded
 });
 export const update_error = (error) => ({
   type: ref.UPDATE_ERROR,
   error
 });
 
-export const update_profile = (githubId, profile, accessToken, progress, onboarded) => dispatch => {
+export const onboard_progress = (githubId, profile, accessToken, progress, onboarded, key, callback) => dispatch =>{
+  console.log('updating progress...')
   dispatch(update_request());
   const updateObj = {
     onboarded,
-    onboardProgress: progress,
+    onboardProgress: progress
+  };
+  const data = {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updateObj)
+  };
+  fetch(`/api/update-user/${githubId}`, data)
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(() => {
+      dispatch(callback(githubId, profile, accessToken, progress, onboarded, key));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
+};
+export const update_profile = (githubId, profile, accessToken, progress, onboarded, key) => dispatch => {
+  console.log('updating profile...')
+  const updateObj = {
     profile
   };
   const data = {
@@ -75,8 +103,8 @@ export const update_profile = (githubId, profile, accessToken, progress, onboard
     });
 };
 
-export const update_skills = (githubId, profile, key, accessToken) => dispatch => {
-  dispatch(update_request());
+export const update_skills = (githubId, profile, accessToken, progress, onboarded, key) => dispatch => {
+  console.log('updating skills...')
 
   const updateObj = profile.skills;
 
