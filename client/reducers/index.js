@@ -11,7 +11,6 @@ const initialState = {
   // Team info held in state when viewing a team page
   activeTeam: {},
   gitHub: {
-    accessToken: 'd7b7dc3629a0273f8b551859634f3f2f2715773b',
     login: 'williamtwobit',
     avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
     html_url: 'https://github.com/williamtwobit',
@@ -181,6 +180,7 @@ const initialState = {
       }
     }
   },
+
   onboardingQuestions: [
     {
       text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
