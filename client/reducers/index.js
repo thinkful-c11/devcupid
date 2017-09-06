@@ -4,7 +4,7 @@ import * as ref from '../actions/refs';
 const initialState = {
   loading: false,
   error: null,
-  user: true,
+  user: false,
   onboarded: false,
   // List of teams the user is on
   userTeams: [],
@@ -24,101 +24,100 @@ const initialState = {
     id: '27362400'
   },
   profile: {
-    twitter: 'twitter.com/profile',
-    linked_in: 'linkedin.com/profile',
-    blog: 'blog.profile.com',
-    personal_website: 'profile.com',
-    bio: 'To me, design means more than just making pretty things. Design is the art of problem solving, and whether I’m designing an elegant algorithm, a delightful user interaction, or a rock-solid data schema, the goal is the same: Form and Function. Never one over the other.',
-    email: 'william@twobit.cc',
-    company: 'Self-Employed',
-    remoteOk: true,
-    location: 'Atlanta',
-    personalTitle: 'Full-Stack Developer',
-    name: 'William Martin',
-    avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+    twitter: '',
+    linked_in: '',
+    blog: '',
+    personal_website: '',
+    bio: '',
+    company: '',
+    remoteOk: false,
+    location: '',
+    personalTitle: '',
+    name: '',
+    avatar_url: '',
     skills: {
       roles: {
         'Ed tech': false,
-        'Front-End Web Developer': true,
+        'Front-End Web Developer': false,
         'Back-End Web Developer': false,
-        'Full-Stack Web Developer': true,
-        'Web Designer': true,
-        'UI Engineer': true,
-        'UX Engineer': true,
+        'Full-Stack Web Developer': false,
+        'Web Designer': false,
+        'UI Engineer': false,
+        'UX Engineer': false,
         'Database Architect': false,
         Founder: false,
         Investor: false,
         DevOps: false,
-        Developer: true,
-        Designer: true
+        Developer: false,
+        Designer: false
       },
       speciality: {
         'Ed tech': false,
-        Mobile: true,
+        Mobile: false,
         CRM: false,
-        Blog: true,
-        Web: true,
-        UI: true,
-        UX: true
+        Blog: false,
+        Web: false,
+        UI: false,
+        UX: false
       },
       softwareTools: {
         'Ed tech': false,
-        Sketch3: true,
+        Sketch3: false,
         'Adobe Photoshop': false,
-        'Adobe Illustrator': true,
+        'Adobe Illustrator': false,
         'Adobe InDesign': false,
         'Adobe XD': false,
         XCode: false,
         Eclipse: false,
         'Visual Studio': false,
-        Trello: true,
-        GitHub: true,
-        Git: true,
-        Postman: true,
-        Slack: true,
+        Trello: false,
+        GitHub: false,
+        Git: false,
+        Postman: false,
+        Slack: false,
         'Git Kraken': false
       },
       passions: {
         'Ed tech': false,
-        'Ed Tech': true,
-        'Machine Learning': true,
-        Design: true,
-        UI: true,
-        UX: true,
+        'Ed Tech': false,
+        'Machine Learning': false,
+        Design: false,
+        UI: false,
+        UX: false,
         'Fin Tech': false,
         'Social Media': false,
         'Big Data': false,
         'Data Science': false,
         B2B: false,
         'Internet of Things': false,
-        Linux: true
+        Linux: false
       },
       languages: {
         JavaScript: {
-          _active: true,
-          React: true,
-          Redux: true,
+          _active: false,
+          React: false,
+          Redux: false,
           Angular: false,
           'Angular 2/4': false,
-          Mongoose: true,
-          JQuery: true,
+          Mongoose: false,
+          JQuery: false,
           Vue: false,
-          Node: true
+          Node: false
         },
         HTML5: {
           _active: false,
           Pug: false
         },
         CSS3: {
-          _active: true,
-          SASS: true,
+          _active: false,
+          SASS: false,
           LESS: false,
-          Bootstrap: true,
+          Bootstrap: false,
           Foundation: false,
           Materialize: false,
           'CSS Grid': false,
-          'Responsive Design': true,
-          'Mobile First': true
+          'Responsive Design': false,
+          'Mobile First': false
         },
         C: {
           _active: false
@@ -141,8 +140,8 @@ const initialState = {
           Dispatch: false
         },
         Python: {
-          _active: true,
-          Django: true,
+          _active: false,
+          Django: false,
           Flask: false
         },
         Perl: {
