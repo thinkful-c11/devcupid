@@ -7,8 +7,6 @@ import {
   FIREBASE_STORAGE_BUCKET,
   FIREBASE_MESSAGING_SENDER_ID } from '../config/firebaseConfig';
 
-// import '../config/firebaseConfig';
-
 const config = {
   apiKey: FIREBASE_API_KEY,
   authDomain: FIREBASE_AUTH_DOMAIN,
@@ -18,7 +16,5 @@ const config = {
   messagingSenderId: FIREBASE_MESSAGING_SENDER_ID
 };
 
-
-console.log(FIREBASE_DATABASE_URL);
 const fire = firebase.initializeApp(config);
 export default fire;

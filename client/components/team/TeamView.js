@@ -110,13 +110,14 @@ export default class TeamView extends React.Component {
             value={this.state.newMessage}
             onChange={e => this.handleChange(e)}
           />
+          <button type='submit'>Send</button>
           <ul className='messages-list'>
             {
               // Render the messages
               this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
             }
           </ul>
-          <button type='submit'>Send</button>
+
         </form>
       </div>
     );
