@@ -1,3 +1,4 @@
+/* global fetch */
 import * as ref from './refs';
 import * as Cookies from 'js-cookie';
 
@@ -35,17 +36,48 @@ export const checkboxNested_handler = (body) => ({
 export const update_request = () => ({
   type: ref.UPDATE_REQUEST
 });
-export const update_success = (profile) => ({
+export const update_success = (profile, progress, onboarded) => ({
   type: ref.UPDATE_SUCCESS,
-  profile
+  profile,
+  progress,
+  onboarded
 });
 export const update_error = (error) => ({
   type: ref.UPDATE_ERROR,
   error
 });
 
-export const update_profile = (githubId, profile, accessToken) => dispatch => {
+export const onboard_progress = (githubId, profile, accessToken, progress, onboarded, key, callback) => dispatch =>{
+  console.log('updating progress...')
   dispatch(update_request());
+  const updateObj = {
+    onboarded,
+    onboardProgress: progress
+  };
+  const data = {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(updateObj)
+  };
+  fetch(`/api/update-user/${githubId}`, data)
+    .then(res => {
+      if(!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
+    })
+    .then(() => {
+      dispatch(callback(githubId, profile, accessToken, progress, onboarded, key));
+    })
+    .catch(error => {
+      dispatch(update_error(error));
+    });
+};
+export const update_profile = (githubId, profile, accessToken, progress, onboarded, key) => dispatch => {
+  console.log('updating profile...')
   const updateObj = {
     profile
   };
@@ -65,15 +97,15 @@ export const update_profile = (githubId, profile, accessToken) => dispatch => {
       return res.json();
     })
     .then(user => {
-      dispatch(update_success(user.profile));
+      dispatch(update_success(user.profile, user.onboardProgress));
     })
     .catch(error => {
       dispatch(update_error(error));
     });
 };
 
-export const update_skills = (githubId, profile, key, accessToken) => dispatch => {
-  dispatch(update_request());
+export const update_skills = (githubId, profile, accessToken, progress, onboarded, key) => dispatch => {
+  console.log('updating skills...')
 
   const updateObj = profile.skills;
 
@@ -136,6 +168,44 @@ export const fetchUser = accessToken => dispatch => {
   })
   .catch(error => {
     dispatch(login_error(error));
+  });
+};
+
+export const profileRequest = () => ({
+  type: ref.PROFILE_REQUEST
+});
+
+export const profileSuccess = profile => ({
+  type: ref.PROFILE_SUCCESS,
+  profile
+});
+
+export const profileError = error => ({
+  type: ref.PROFILE_ERROR,
+  error
+});
+
+export const fetchProfile = (userId, accessToken) => dispatch => {
+  console.log('actions userId', userId);
+  fetch(`/api/profile/${userId}`, {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+  .then(res => {
+    console.log('action res ok?', res.ok);
+    if(!res.ok){
+      Promise.reject(res.statustext);
+      window.location.pathname = '/';
+    }
+    
+    return res.json();
+  })
+  .then(profile => {
+    dispatch(profileSuccess(profile));
+  })
+  .catch(err => {
+    dispatch(profileError(err));
   });
 };
 

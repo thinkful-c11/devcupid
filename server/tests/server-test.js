@@ -113,12 +113,13 @@ describe('API Tests', function() {
             .then(function(res) {
               res.should.have.status(200);
               res.should.be.json;
-              res.body.should.have.all.keys(
+              res.body.should.have.keys(
                 'gitHub',
                 '__v',
                 '_id',
                 'onboarded',
-                'teams'
+                'teams',
+                'onboardProgress'
               );
               res.body.gitHub.should.have.all.keys(
                 'accessToken',

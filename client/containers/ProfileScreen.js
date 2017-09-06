@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import * as Cookies from 'js-cookie';
 
 import ProfileHeader from '../components/profile/profileHeader';
 import About from '../components/profile/about';
@@ -9,11 +10,24 @@ import Passions from '../components/profile/passions';
 import SoftwareTools from '../components/profile/softwareTools';
 import ContactButton from '../components/profile/contactButton';
 
-import '../SCSS/profile.scss'
+import * as actions from '../actions/actions';
+
+import '../SCSS/profile.scss';
 
 export class ProfileScreen extends React.Component{
+  constructor(props) {
+    super(props);
+    const path = window.location.pathname.split('/');
+    if (!this.props.currentProfileView && path[1] === 'profile') {
+      this.props.dispatch(actions.fetchProfile(path[2], Cookies.get('accessToken')));
+    }
+  }
+  
   render(){
-    const { user } = this.props;
+    console.log('currentProfileView', this.props.currentProfileView);
+    console.log('ProfileScreen user', this.props.user);
+    const user = !this.props.currentProfileView ? 
+                        this.props.user : this.props.currentProfileView;
     return(
       <div className="profile container">
         <div className="section A container">
@@ -38,10 +52,9 @@ export class ProfileScreen extends React.Component{
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.profile
-  };
-};
+const mapStateToProps = state => ({
+  currentProfileView: state.currentProfileView,
+  user: state.profile
+});
 
 export default connect(mapStateToProps)(ProfileScreen);
