@@ -8,6 +8,11 @@ import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingContainer from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
+
+import TeamScreen from './TeamScreen';
+
+import Search from './Search';
+
 import Header from '../components/static/header';
 import Footer from '../components/static/footer';
 import '../SCSS/App.scss';
@@ -23,14 +28,17 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     return (
-      <div className="major-cont">
-        <Header loggedIn={loggedIn}/>
+      <div className='major-cont'>
+        <Header loggedIn={loggedIn} />
         <Router history={browserHistory}>
           <main className='content'>
             {/* <Route exact path='/' component={LoginScreen} /> */}
             <Route
+              path='/search'
+              component={Search} />
+
+            <Route
               path='/onboarding/:questionId'
-              // path='/onboarding' re Issue #2
               component={OnboardingContainer} />
 
             <Route exact path='/' render={() => (
@@ -40,7 +48,13 @@ export class App extends React.Component {
                 <LoginScreen />
                 )
             )} />
+
             <Route exact path='/me' component={ProfileScreen} />
+
+            <Route
+              path='/team/:teamId'
+              component={TeamScreen} />
+
           </main>
         </Router>
         <Footer />

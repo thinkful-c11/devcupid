@@ -18,9 +18,14 @@ export default class Passions extends React.Component {
       return <li key={`passion ${index}`}>{passion}</li>;
     });
     return (
-      <ul>
-        {passions}
-      </ul>
+      <div className="pop-card interests">
+        <div className="cardHeader">
+          Interests
+        </div>
+        <ul className="cardBody">
+          {passions}
+        </ul>
+      </div>
     );
   }
 }

@@ -143,7 +143,6 @@ export const fetchUser = accessToken => dispatch => {
 export const assignGitHubProfile = () => ({
   type: ref.ASSIGN_GITHUB_PROFILE,
 });
-
 // Team Actions
 export const team_request = () => ({
   type: ref.TEAM_REQUEST
@@ -337,3 +336,32 @@ export const update_team_info = (accessToken, teamId, updateData) =>
 //         dispatch(team_error(error));
 //       });
 //   };
+// Search
+
+// Actions for PUT request to update profile.
+export const searchRequest = () => ({
+  type: ref.SEARCH_REQUEST
+});
+export const searchSuccess = results => ({
+  type: ref.SEARCH_SUCCESS,
+  results
+});
+export const searchError = error => ({
+  type: ref.SEARCH_ERROR,
+  error
+});
+
+export const search = query => dispatch => {
+  dispatch(searchRequest());
+  // TODO add format function for query in an actionHelpers.js file
+  fetch('/api/search/all').then(res => {
+    if(!res.ok) {
+      return Promise.reject(res.statusText);
+    }
+    return res.json();
+  }).then(results => {
+    dispatch(searchSuccess(results));
+  }).catch(error => {
+    dispatch(searchError(error));
+  });
+};
