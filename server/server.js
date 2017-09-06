@@ -3,7 +3,7 @@ const express = require('express');
 const passport = require('passport');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const { Users, Languages, Teams } = require('./models');
+const { Users, Languages, Personality, Teams } = require('./models');
 const faker = require('faker');
 
 const secret = {
