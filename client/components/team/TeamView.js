@@ -37,7 +37,6 @@ export default class TeamView extends React.Component {
   }
 
   render() {
-    console.log('VIEW', this.props);
     const {
       // Team Members, NOTE: admins may dupe with the rest
       admins,
@@ -117,6 +116,7 @@ export default class TeamView extends React.Component {
               this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
             }
           </ul>
+          <button type='submit'>Send</button>
         </form>
       </div>
     );
