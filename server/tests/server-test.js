@@ -117,6 +117,7 @@ describe('API Tests', function() {
                 'gitHub',
                 '__v',
                 '_id',
+                'onboardProgress',
                 'onboarded',
                 'teams'
               );
