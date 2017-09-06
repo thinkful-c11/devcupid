@@ -5,89 +5,219 @@ const initialState = {
   loading: false,
   error: null,
   user: false,
-  gitHub: {},
-  profile: {
-    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
-    name: 'William',
-    personalTitle: 'cool dude',
-    location: 'ATL',
-    remoteOk: 'yes',
-    company: 'Myself',
-
-    email: 'me@butt.co',
-
-    bio: 'I was born then i went vegan',
-
-    personal_website: 'profile.com',
-    blog: 'blog.profile.com',
-    linked_in: 'linkedin.com/profile',
-    twitter: 'twitter.com/profile',
-
-    skills: {
-      passions: [],
-      roles: [],
-      languages: {},
-      libraries: [],
-      speciality: [],
-      softwareTools: []
-    },
+  onboarded: false,
+  // List of teams the user is on
+  userTeams: [],
+  // Team info held in state when viewing a team page
+  activeTeam: {},
+  gitHub: {
+    login: 'williamtwobit',
+    avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+    html_url: 'https://github.com/williamtwobit',
+    name: 'William Martin',
+    company: '',
+    blog: '',
+    location: 'Atlanta',
+    email: '',
+    hireable: false,
+    bio: 'Just a lil baby coder',
+    id: '27362400'
   },
+  profile: {
+    twitter: '',
+    linked_in: '',
+    blog: '',
+    personal_website: '',
+    bio: '',
+    company: '',
+    remoteOk: false,
+    location: '',
+    personalTitle: '',
+    name: '',
+    avatar_url: '',
+    skills: {
+      roles: {
+        'Ed tech': false,
+        'Front-End Web Developer': false,
+        'Back-End Web Developer': false,
+        'Full-Stack Web Developer': false,
+        'Web Designer': false,
+        'UI Engineer': false,
+        'UX Engineer': false,
+        'Database Architect': false,
+        Founder: false,
+        Investor: false,
+        DevOps: false,
+        Developer: false,
+        Designer: false
+      },
+      speciality: {
+        'Ed tech': false,
+        Mobile: false,
+        CRM: false,
+        Blog: false,
+        Web: false,
+        UI: false,
+        UX: false
+      },
+      softwareTools: {
+        'Ed tech': false,
+        Sketch3: false,
+        'Adobe Photoshop': false,
+        'Adobe Illustrator': false,
+        'Adobe InDesign': false,
+        'Adobe XD': false,
+        XCode: false,
+        Eclipse: false,
+        'Visual Studio': false,
+        Trello: false,
+        GitHub: false,
+        Git: false,
+        Postman: false,
+        Slack: false,
+        'Git Kraken': false
+      },
+      passions: {
+        'Ed tech': false,
+        'Ed Tech': false,
+        'Machine Learning': false,
+        Design: false,
+        UI: false,
+        UX: false,
+        'Fin Tech': false,
+        'Social Media': false,
+        'Big Data': false,
+        'Data Science': false,
+        B2B: false,
+        'Internet of Things': false,
+        Linux: false
+      },
+      languages: {
+        JavaScript: {
+          _active: false,
+          React: false,
+          Redux: false,
+          Angular: false,
+          'Angular 2/4': false,
+          Mongoose: false,
+          JQuery: false,
+          Vue: false,
+          Node: false
+        },
+        HTML5: {
+          _active: false,
+          Pug: false
+        },
+        CSS3: {
+          _active: false,
+          SASS: false,
+          LESS: false,
+          Bootstrap: false,
+          Foundation: false,
+          Materialize: false,
+          'CSS Grid': false,
+          'Responsive Design': false,
+          'Mobile First': false
+        },
+        C: {
+          _active: false
+        },
+        'C++': {
+          _active: false
+        },
+        'C#': {
+          _active: false
+        },
+        Java: {
+          _active: false,
+          Swing: false,
+          'Spring Boot': false,
+          Guava: false
+        },
+        PHP: {
+          _active: false,
+          Laravel: false,
+          Dispatch: false
+        },
+        Python: {
+          _active: false,
+          Django: false,
+          Flask: false
+        },
+        Perl: {
+          _active: false
+        },
+        Ruby: {
+          _active: false,
+          Rails: false,
+          Sinatra: false
+        },
+        Go: {
+          _active: false
+        },
+        Rust: {
+          _active: false
+        },
+        Scala: {
+          _active: false
+        },
+        Clojure: {
+          _active: false,
+          Leiningen: false,
+          Ring: false,
+          Om: false
+        },
+        'Swift/Objective-C': {
+          _active: false
+        },
+        Elm: {
+          _active: false
+        },
+        'F#': {
+          _active: false
+        }
+      }
+    }
+  },
+
   onboardingQuestions: [
     {
-      text: 'We pulled some info from GitHub. If you\'d like to, go ahead and update it:',
+      text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
       type: 'signup', //enumerated value 'multiple choice', etc.
       choices: [
-        {
-          key: 'remoteOk',
-          label: 'Are you willing to work remotely?'
-        },
-        {
-          key: 'avatar_url',
-          label: 'What\'s your avatar url?'
-        },
         {
           key: 'name',
           label: 'What\'s your name?'
         },
         {
-          key: 'company',
-          label: 'What company do you work for?'
-        },
-        {
-          key: 'personal_website',
-          label: 'Do you have a personal website?'
-        },
-        {
           key: 'location',
-          label: 'Where are you located?'
+          label: 'Where are based out of?'
+        },
+        {
+          key: 'remoteOk',
+          label: 'Are you willing to work remotely?'
+        },
+        {
+          key: 'personalTitle',
+          label: 'In a few words, how would you describe your primary skillset?'
         },
         {
           key: 'email',
-          label: 'What\'s your email?'
+          label: 'What email address can you reliably be reached at?'
         },
         {
-          key: 'linked_in',
-          label: 'Do you have a LinkedIn account?'
+          key: 'company',
+          label: 'What company do you currently work for?'
         },
         {
-          key: 'twitter',
-          label: 'Do you have a Twitter?'
+          key: 'personal_website',
+          label: 'What\'s the URL of your personal website or portfolio?'
         },
         {
           key: 'blog',
-          label: 'Do you have a personal blog?'
+          label: 'What\'s the URL of your personal blog, if you have one?'
         },
       ]
-    },
-    {
-      text: 'How would you describe yourself?',
-      type: 'textInput', //enumerated value 'multiple choice', etc.
-      choices: [
-        {
-          key: 'personalTitle',
-          label: 'Personal Title'
-        },
-      ],
     },
     {
       text: 'Please write a short bio about yourself (to help us help you find great collaborators).',
@@ -123,7 +253,7 @@ const initialState = {
       choices: [
         {
           language: 'JavaScript',
-          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node.js']
+          libraries: ['React', 'Redux', 'Angular', 'Angular 2/4', 'Mongoose', 'JQuery', 'Vue', 'Node']
         },
         {
           language: 'HTML5',
@@ -164,10 +294,6 @@ const initialState = {
         {
           language: 'Ruby',
           libraries: ['Rails', 'Sinatra']
-        },
-        {
-          language: '.NET',
-          libraries: []
         },
         {
           language: 'Go',
@@ -215,7 +341,8 @@ const initialState = {
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
     },
-  ]
+  ],
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -242,11 +369,11 @@ const reducer = (state = initialState, action) => {
     });
   //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
-    return Object.assign({}, state, {
-      loading: false,
-      user: true,
-      gitHub: action.gitHub
-    });
+    return Object.assign({},
+      state,
+      { loading: false, user: true, },
+      action.user
+  );
   case ref.LOGIN_ERROR:
     return Object.assign({}, state, {
       loading: false,
@@ -275,7 +402,7 @@ const reducer = (state = initialState, action) => {
     return Object.assign( {}, state, {
       profile: Object.assign( {}, state.profile, {
         skills: Object.assign( {}, state.profile.skills, {
-          [action.key]: action.array
+          [action.key]: action.obj
         })
       })
     });
@@ -296,8 +423,48 @@ const reducer = (state = initialState, action) => {
         company: state.gitHub.company,
         blog: state.gitHub.blog,
         location: state.gitHub.location,
-        email: state.gitHub.email
+        email: state.gitHub.email,
+        bio: state.gitHub.bio,
       })
+    });
+
+  case ref.SEARCH_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+
+  case ref.SEARCH_SUCCESS: {
+    return Object.assign({}, state, {
+      loading: false,
+      searchResults: action.results
+    });
+  }
+
+  case ref.SEARCH_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+
+  // Team Reducers
+  case ref.TEAM_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+  case ref.TEAM_SINGLE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      activeTeam: action.team
+    });
+  case ref.TEAM_LIST_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      userTeams: action.teams
+    });
+  case ref.TEAM_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
     });
 
   default:

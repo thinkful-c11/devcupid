@@ -66,6 +66,7 @@ const LanguageSchema = mongoose.Schema({
   Elm: {_active: {type:Boolean}},
   'F#': {_active: {type:Boolean}},
 });
+
 const UserModel = mongoose.Schema({
   onboarded: {type: String},
   gitHub: {
@@ -96,25 +97,59 @@ const UserModel = mongoose.Schema({
     twitter: {type: String},
     blog: {type: String},
     skills: {
-      passions: {type: Array},
-      roles: {type: Array},
-      languages: [LanguageSchema],
-      speciality: {type: Array},
-      softwareTools: {type: Array}
+      passions: {type: Object},
+      roles: {type: Object},
+      languages: {type: Object},
+      speciality: {type: Object},
+      softwareTools: {type: Object}
     }
   },
   personality: {
-  }
+  },
+  teams: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teams' }]
 });
 
-// UserModel.methods.apiRepr = function() {
-//     return {
-//         firstName: this.name.split(' ')[0],
-//         lastName: this.name.split(' ')[1],
-//     };
-// };
+const TeamSchema = mongoose.Schema({
+  createdBy: { type: String, required: true },
+  admins: [{ type: String, required: true }],
+  // Basic info, mostly copied from GitHub org format
+  url: String,
+  name: { type: String, required: true },
+  description: String,
+  avatar_url: String,
+  company: String,
+  location: String,
+  email: String,
+
+  // We could consider adding GitHub org integration like this:
+  // https://developer.github.com/v3/orgs/
+  gitHub: Object,
+
+  // Roles, doubles as roster and may be duplicates of above:
+  // TODO: expand this set as needed but try to keep it relatively generic
+  developers: [ String ],
+  founders: [ String ],
+  projectManagers: [ String ],
+  designers: [ String ],
+
+  // Team desires, i.e. searchable by users:
+  desiredRoles: {
+    developers: Boolean,
+    founders: Boolean,
+    projectManagers: Boolean,
+    designers: Boolean
+  },
+
+  // The below are possible extensions to the search feature
+  // Desired languages will map to the above language schema
+  desiredLanguages: {type: Object},
+  desiredPassions: {type: Object},
+  desiredSpecialty: {type: Object},
+  desiredSoftwareTools: {type: Object}
+});
 
 module.exports = {
   Users: mongoose.model('Users', UserModel),
-  Languages: mongoose.model('Languages', LanguageSchema)
+  Languages: mongoose.model('Languages', LanguageSchema),
+  Teams: mongoose.model('Teams', TeamSchema)
 };

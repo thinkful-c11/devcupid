@@ -7,7 +7,6 @@ export default class Tech extends React.Component{
 
   formatLanguages(user){
     let languages = user.skills.languages;
-    console.log(languages);
     let formatted = [];
     let i = 0;
     for(let language in languages){
@@ -17,7 +16,7 @@ export default class Tech extends React.Component{
           libs: []
         });
         for(let library in languages[language]){
-          if(library !== '_active'){
+          if(languages[language][library] && library !== '_active'){
             formatted[i].libs.push(library);
           }
         };
@@ -28,9 +27,8 @@ export default class Tech extends React.Component{
   }
 
   render(){
-    const {user} = this.props;
+    const { user } = this.props;
     const languages = this.formatLanguages(user);
-    // const tech = <div>Hello!</div>
     const tech = languages.map((language, index) => {
       return(
         <li key={`${language} ${index}`}>
@@ -44,10 +42,15 @@ export default class Tech extends React.Component{
           </ul>
         </li>
       );
-    })
+    });
     return(
-      <div>
-        {tech}
+      <div className="pop-card tech">
+        <div className="cardHeader">
+          Tech
+        </div>
+        <ul className="cardBody">
+          {tech}
+        </ul>
       </div>
     );
   }

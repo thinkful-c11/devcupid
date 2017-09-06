@@ -8,7 +8,7 @@ export default (props) => {
       className='submit-Link'
       type='submit'
     >
-      Submit
+      <span className="func">Submit</span>
     </Link>
   );
 };
