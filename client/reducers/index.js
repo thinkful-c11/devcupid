@@ -1,10 +1,10 @@
-import * as actions from '../actions/actions';
 import * as ref from '../actions/refs';
 
 const initialState = {
   loading: false,
   error: null,
   user: false,
+  currentProfileView: false,
   onboarded: false,
   // List of teams the user is on
   userTeams: [],
@@ -375,6 +375,22 @@ const reducer = (state = initialState, action) => {
       action.user
   );
   case ref.LOGIN_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+    
+  case ref.PROFILE_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+    
+  case ref.PROFILE_SUCCESS:
+    return Object.assign({}, state, {
+      currentProfileView: action.profile
+    });
+    
+  case ref.PROFILE_ERROR:
     return Object.assign({}, state, {
       loading: false,
       error: action.error

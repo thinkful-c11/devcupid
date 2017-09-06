@@ -36,7 +36,7 @@ export class App extends React.Component {
             <Route
               path='/search'
               component={Search} />
-
+              
             <Route
               path='/onboarding/:questionId'
               component={OnboardingContainer} />
@@ -50,7 +50,9 @@ export class App extends React.Component {
             )} />
 
             <Route exact path='/me' component={ProfileScreen} />
-
+            
+            <Route exact path='/profile/:userId' component={ProfileScreen} />
+            
             <Route
               path='/team/:teamId'
               component={TeamScreen} />
