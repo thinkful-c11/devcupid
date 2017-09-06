@@ -29,6 +29,7 @@ const initialState = {
     blog: '',
     personal_website: '',
     bio: '',
+    email: '',
     company: '',
     remoteOk: false,
     location: '',
