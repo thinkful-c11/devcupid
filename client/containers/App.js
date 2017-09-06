@@ -8,7 +8,7 @@ import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingContainer from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
-
+import Personality from './Personality';
 import TeamScreen from './TeamScreen';
 
 import Search from './Search';
