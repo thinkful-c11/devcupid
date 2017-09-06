@@ -4,6 +4,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const { Users, Languages, Teams } = require('./models');
+const faker = require('faker');
 
 const secret = {
   TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
