@@ -33,7 +33,7 @@ export class OnboardingScreen extends React.Component {
     let currentIndex = parseInt(this.props.match.params.questionId);
     const currentQuestion = onboardingQuestions[currentIndex];
     let key = currentQuestion.key;
-    dispatch(actions.onboard_progress(gitHubId, profile, accessToken, progress, onboarded));
+    dispatch(actions.onboard_progress(gitHubId, profile, accessToken, progress, onboarded, key, actions.update_skills));
   }
 
   handleNestedLanguageButton() {
