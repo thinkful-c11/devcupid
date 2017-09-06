@@ -162,6 +162,7 @@ a {
   .onboarding.terminal-card .termPrompt {
     color: #FDE74C; }
   .onboarding.terminal-card .func {
+    cursor: pointer;
     color: #FDE74C; }
   .onboarding.terminal-card .func::after {
     content: "();"; }
