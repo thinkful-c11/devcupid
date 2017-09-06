@@ -11,7 +11,6 @@ const initialState = {
   // Team info held in state when viewing a team page
   activeTeam: {},
     gitHub: {
-      accessToken: 'd7b7dc3629a0273f8b551859634f3f2f2715773b',
       login: 'williamtwobit',
       avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
       html_url: 'https://github.com/williamtwobit',
@@ -429,13 +428,13 @@ const reducer = (state = initialState, action) => {
         bio: state.gitHub.bio,
       })
     });
-    
+
   case ref.SEARCH_REQUEST:
     return Object.assign({}, state, {
       loading: true
     });
-    
-  case ref.SEARCH_SUCCESS: { 
+
+  case ref.SEARCH_SUCCESS: {
     return Object.assign({}, state, {
       loading: false,
       searchResults: action.results
@@ -468,7 +467,7 @@ const reducer = (state = initialState, action) => {
       loading: false,
       error: action.error
     });
-    
+
   default:
     return state;
   }
