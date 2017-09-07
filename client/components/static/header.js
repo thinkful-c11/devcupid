@@ -18,13 +18,10 @@ export default class Header extends React.Component{
               <li>
                 <a href='/api/auth/github/logout'>Signout</a>
               </li>
-              {
-              // The below throws an error as Header does not
-              // have acces to the Router.
-              /* <li>
+              {/* This works now */}
+              <li>
                 <Link to='/team/create'>Create a Team</Link>
-              </li> */
-              }
+              </li>
             </ul>
           </nav>
           <div className='burgerMenu'>

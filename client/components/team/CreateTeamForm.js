@@ -59,7 +59,7 @@ export default class CreateTeamForm extends React.Component {
     // BUG: Whey does this work with no explicit onSubmit?
     return (
       <div className='create-team-container'>
-        <form className='create-team-form'>
+        <form className='create-team-form' onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor='create-team-name'>
             Team Name
           </label>
@@ -118,7 +118,7 @@ export default class CreateTeamForm extends React.Component {
 
           <button
             type='submit'
-            onClick={e => this.handleSubmit(e)}>
+          >
             Submit</button>
         </form>
       </div>
