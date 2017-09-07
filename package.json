@@ -13,7 +13,7 @@
     "dev": "NODE_ENV=development concurrently \"npm run dev:start\" \"npm run watch\"",
     "webpack": "webpack --config ./config/webpack.config.js",
     "watch": "webpack --watch --config ./config/webpack.config.js",
-    "test": "NODE_ENV=test mocha ./server/tests",
+    "test": "NODE_ENV=test mocha ./server/tests ./client/tests --recursive",
     "heroku-postbuild": "npm run webpack"
   },
   "repository": {
