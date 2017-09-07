@@ -35,7 +35,6 @@ export default class CreateTeamForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log('FORM', this.props);
     const accessToken = Cookies.get('accessToken');
     // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
     const { dispatch, gitHub } = this.props.props;
@@ -90,6 +89,17 @@ export default class CreateTeamForm extends React.Component {
             type='text'
             value={this.state.teamFormData.teamAvatarUrl}
             name='teamAvatarUrl'
+            onChange={e => this.handleChange(e)}
+          />
+
+          <label htmlFor='create-team-company'>
+            Team Company
+          </label>
+          <input
+            id='create-team-company'
+            type='text'
+            value={this.state.teamFormData.teamCompany}
+            name='teamCompany'
             onChange={e => this.handleChange(e)}
           />
 
