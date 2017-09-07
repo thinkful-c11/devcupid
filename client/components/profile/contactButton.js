@@ -10,7 +10,7 @@ export default class ContactButton extends React.Component{
     return(
       <div className="contact container">
         <button>
-          <a href={`mailto:${user.email}`}>contact();</a>
+          <a target="_blank" href={`mailto:${user.email}`}>contact();</a>
         </button>
       </div>
     );
