@@ -24,8 +24,6 @@ export class ProfileScreen extends React.Component{
   }
   
   render(){
-    console.log('currentProfileView', this.props.currentProfileView);
-    console.log('ProfileScreen user', this.props.user);
     const user = !this.props.currentProfileView ? 
                         this.props.user : this.props.currentProfileView;
     return(

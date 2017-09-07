@@ -11,6 +11,9 @@ export class Search extends React.Component {
                       ? <SearchLoadingNotifier /> : <div></div>;
     return(
       <div style={{width: "100%"}}>
+        <div className="searchCopy">
+          Choose a parameter and enter a query to search.
+        </div>
         <SearchForm />
         <SearchResults isLoading={isLoading}/>
       </div>

@@ -315,7 +315,7 @@ a {
     .profile .profileHeader img {
       margin-right: 10px;
       height: 100%;
-      max-height: 140px;
+      max-height: 150px;
       width: auto;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); }
     .profile .profileHeader .topInfo {
@@ -600,6 +600,13 @@ ul.result.item {
 
 .result.name, .result.punc, .result.bracket {
   font-size: 25px; }
+
+.searchCopy {
+  width: 100%;
+  font-size: 25px;
+  color: #3B3561;
+  margin-bottom: 20px;
+  text-align: center; }
 .Mono, .Mono-Bold {
   font-family: "Ubuntu Mono", monospace; }
 
@@ -683,6 +690,40 @@ header {
       height: 3px;
       background-color: #3B3561;
       border-radius: 5em; }
+  .topBar .navThumbnail {
+    width: 30px;
+    height: auto;
+    border-radius: 100%;
+    transition: .1s ease-out; }
+  .topBar .navThumbnail:hover {
+    cursor: pointer;
+    transform: scale(1.12);
+    transition: .1s ease-in; }
+  .topBar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; }
+    .topBar nav ul {
+      display: inline-flex;
+      flex-direction: column;
+      position: absolute;
+      background-color: white;
+      top: 40px;
+      z-index: 99999;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      width: 100px;
+      height: 200px;
+      justify-content: space-around;
+      transition: .5s ease-in-out;
+      overflow: hidden; }
+      .topBar nav ul li {
+        text-align: center;
+        color: #3B3561; }
+    .topBar nav ul.closed {
+      height: 0;
+      overflow: hidden;
+      transition: .5s ease-in-out; }
 
 .topBar.landing {
   width: 100%;

@@ -31,8 +31,9 @@ export class SearchForm extends React.Component {
   }
 
   handleChange(e){
-    console.log(e.target.value);
+    let prevActive = this.state.active;
     this.setState({
+      [prevActive]: '',
       active: e.target.value
     });
   }
