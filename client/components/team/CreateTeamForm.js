@@ -56,6 +56,7 @@ export default class CreateTeamForm extends React.Component {
   }
 
   render() {
+    // BUG: Whey does this work with no explicit onSubmit?
     return (
       <div className='create-team-container'>
         <form className='create-team-form'>

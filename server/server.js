@@ -54,7 +54,25 @@ app.get('/api/auth/github/logout', (req, res) => {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
+    console.log(req.user);
     return res.json(req.user);
+  }
+);
+
+app.get('/api/profile/:userId', 
+  passport.authenticate('bearer', {session: false}),
+  (req, res) => {
+    Users.findOne({ 'gitHub.id': req.params.userId })
+    .then(user => {
+      if (!user) {
+        // TODO actually make the client redirect on invalid user
+        res.status(404).send();
+      }
+      else res.json(user.profile);
+    })
+    .catch(err => {
+      console.log(err);
+    });
   }
 );
 
@@ -139,10 +157,22 @@ function delay(t) {
   });
 }
 
+function regexFix(param) {
+  // ignore non selected queries
+  if (!param) return /.*?/;
+  return new RegExp('^' + param, 'i');
+}
+
 // Search endpoint to use the queryFilter function
 app.get('/api/search', (req, res) => {
-  const searchableParams = queryFilter(req.query);
-  Users.find(searchableParams)
+  const q = req.query;
+  console.log(q);
+  Users.find()
+  .where({ 'gitHub.login': { $regex : regexFix(q.login) } })
+  .where({ 'profile.name': { $regex : regexFix(q.name) } })
+  .where({[`${!q.languages ? 'onboarded' : [`profile.skills.languages.${q.languages}._active`]}`]: true })
+  .where({[`${!q.roles ? 'onboarded' : [`profile.skills.roles.${q.roles}`]}`]: true })
+  .where({ onboarded: true })
   .then(user => {
     res.json(user);
   });
@@ -162,6 +192,7 @@ app.get('/api/fake-users', (req, res) => {
   for (var i = 0; i < 100; i++) {
     fakeUsers.push({
       onboarded: true,
+      onboardProgress: 100,
       profile: {
         twitter: faker.internet.url(),
         linked_in: faker.internet.url(),

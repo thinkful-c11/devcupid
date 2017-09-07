@@ -1,8 +1,42 @@
 import React from 'react';
+import fire from '../../fire';
+
+/*
+* https://www.codementor.io/yurio/all-you-need-is-react-firebase-4v7g9p4kf
+*/
 
 export default class TeamView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messages: [],
+      newMessage: ''
+    };
+  }
+
+  componentWillMount() {
+    // Ref for messages in firebase
+    let messagesRef = fire.database().ref('messages').orderByKey().limitToLast(25);
+
+    messagesRef.on('child_added', snapshot => {
+      // Update state when new message added to Firebase db
+      let message = { text: snapshot.val(), id: snapshot.key };
+      this.setState({ messages: [message].concat(this.state.messages) });
+    });
+  }
+
+  addMessage(e) {
+    e.preventDefault();
+    // Send new message to the db
+    fire.database().ref('messages').push(this.state.newMessage);
+    this.setState({ newMessage: '' });
+  }
+
+  handleChange(e) {
+    this.setState({ newMessage: e.target.value });
+  }
+
   render() {
-    console.log('VIEW', this.props);
     const {
       // Team Members, NOTE: admins may dupe with the rest
       admins,
@@ -65,6 +99,26 @@ export default class TeamView extends React.Component {
         <div className='team-members-container'>
           {teamList(this.props.activeTeam)}
         </div>
+
+        <form
+          className='message-view-form'
+          onSubmit={e => this.addMessage(e)}
+          >
+          <label htmlFor='new-message'>Send a message:</label>
+          <input
+            type='text'
+            value={this.state.newMessage}
+            onChange={e => this.handleChange(e)}
+          />
+          <button type='submit'>Send</button>
+          <ul className='messages-list'>
+            {
+              // Render the messages
+              this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
+            }
+          </ul>
+
+        </form>
       </div>
     );
   }

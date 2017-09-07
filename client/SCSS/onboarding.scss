@@ -17,6 +17,7 @@
   }
   .func{
     @extend .Mono;
+    cursor: pointer;
     color: $Accent-Yellow;
   }
   .func::after{
