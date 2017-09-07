@@ -25,7 +25,7 @@ export class Chat extends React.Component{
       this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages');
     }
     this.chat.on('child_added', snapshot => {
-      console.log('SNAPSHOT', snapshot);
+      console.log('SNAPSHOT', this.props);
       // Update state when new message added to Firebase db
       let message = { text: snapshot.val(), id: snapshot.key };
       this.setState({ messages: [message].concat(this.state.messages) });
@@ -77,4 +77,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Chat);
