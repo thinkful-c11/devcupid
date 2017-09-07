@@ -119,10 +119,10 @@ describe('API Tests', function() {
                 'gitHub',
                 '__v',
                 '_id',
+                'onboardProgress',
                 'onboarded',
                 'profile',
-                'teams',
-                'onboardProgress'
+                'teams'
               );
               res.body.gitHub.should.have.all.keys(
                 'accessToken',
