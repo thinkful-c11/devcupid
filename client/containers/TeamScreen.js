@@ -21,6 +21,7 @@ export class TeamScreen extends React.Component {
     const { gitHub, userTeams, activeTeam, profile} = this.props;
     const view = (teamId) => {
       if (teamId === 'create') {
+        console.log('SCREEN', this.props);
         return <CreateTeamForm props={this.props} />;
       }
       else return (
