@@ -8,9 +8,9 @@
     "node": "8.3.0"
   },
   "scripts": {
-    "start": "node ./server/server.js && react-scripts start ./client/",
+    "start": "node ./server/server.js",
     "build": "react-scripts build",
-    "test": "NODE_ENV=test mocha ./server/tests && react-scripts test ./client/",
+    "test": "NODE_ENV=test mocha ./server/tests",
     "eject": "react-scripts eject",
     "dev:start": "nodemon ./server/server.js",
     "dev": "NODE_ENV=development concurrently \"npm run dev:start\" \"npm run watch\"",
@@ -85,17 +85,8 @@
     "webpack": "^3.5.5"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "enzyme": "^2.9.1",
     "faker": "^4.1.0",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "^1.0.13",
-    "react-test-renderer": "^15.6.1"
+    "react-dom": "^15.6.1"
   }
 }
