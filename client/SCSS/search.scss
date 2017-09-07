@@ -1,0 +1,86 @@
+@import './_brand-styles/_Brand.scss';
+
+form.search{
+  display:flex;
+  height: 50px;
+  min-width:400px;
+  margin:auto;
+  align-items: center;
+  justify-content: center;
+  font-size:2em;
+  button{
+    margin-left:30px;
+  }
+  button:hover{
+    cursor:pointer;
+  }
+}
+
+.view{
+  display:inline-block;
+  position:relative;
+  margin-left:10px;
+  margin-right:10px;
+}
+
+.input{
+  display:inline-block;
+  color:$Bg-Pink;
+}
+
+.param{
+  color:white;
+  margin-right:0;
+}
+
+.input::before, .input::after{
+  content: "'"
+}
+
+.searchParam{
+  @extend .Mono;
+  font-size:14px;
+  background-color:$Koa-Blue;
+  border:0px;
+  color:white;
+  outline:none;
+  width:fit-content;
+  opacity: 0;
+  position:absolute;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+}
+
+input.search{
+  background-color:$Koa-Blue;
+  border:none;
+  outline:none;
+  color:$Bg-Pink;
+  border-bottom:2px solid $Boolean-Blue;
+  opacity: 0;
+  position:absolute;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+}
+
+.searchFunc{
+  @extend .Mono;
+  color:$Accent-Yellow;
+  font-size:2.5em;
+}
+
+.searchFunc::after{
+  content: "();"
+}
+
+.searchBracket{
+  color:white;
+}
+
+.searchPunc{
+  color: $Magenta-Haze;
+}

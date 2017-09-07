@@ -419,6 +419,134 @@ a {
 .column.B {
   width: 40%;
   position: relative; }
+.Mono, .Mono-Bold, .searchParam, .searchFunc {
+  font-family: "Ubuntu Mono", monospace; }
+
+.Mono-Bold {
+  font-style: italic; }
+
+.Varela {
+  font-family: 'Varela Round', sans-serif; }
+
+.Noto, .Noto-Italic, .Noto-Bold {
+  font-family: 'Noto Serif', serif; }
+
+.Noto-Italic {
+  font-style: italic; }
+
+.Noto-Bold {
+  font-weight: 700; }
+
+.container {
+  display: flex; }
+
+.content {
+  max-width: 1024px;
+  margin: auto;
+  margin-top: 0px;
+  flex-wrap: wrap; }
+
+main.content {
+  padding-top: 40px; }
+
+.pop-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  padding: 10px; }
+
+.terminal-card {
+  background-color: #3B3561;
+  box-shadow: inset 0 1px 5px 0 rgba(0, 0, 4, 0.8);
+  padding: 10px;
+  outline: none; }
+
+button {
+  background-color: transparent;
+  border: none; }
+
+a {
+  text-decoration: none; }
+
+::-webkit-scrollbar {
+  width: .5em; }
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border: 1px solid white; }
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none; }
+
+form.search {
+  display: flex;
+  height: 50px;
+  min-width: 400px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em; }
+  form.search button {
+    margin-left: 30px; }
+  form.search button:hover {
+    cursor: pointer; }
+
+.view {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  margin-right: 10px; }
+
+.input {
+  display: inline-block;
+  color: #FCBADA; }
+
+.param {
+  color: white;
+  margin-right: 0; }
+
+.input::before, .input::after {
+  content: "'"; }
+
+.searchParam {
+  font-size: 14px;
+  background-color: #3B3561;
+  border: 0px;
+  color: white;
+  outline: none;
+  width: fit-content;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+input.search {
+  background-color: #3B3561;
+  border: none;
+  outline: none;
+  color: #FCBADA;
+  border-bottom: 2px solid #8EC8FF;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.searchFunc {
+  color: #FDE74C;
+  font-size: 2.5em; }
+
+.searchFunc::after {
+  content: "();"; }
+
+.searchBracket {
+  color: white; }
+
+.searchPunc {
+  color: #A34170; }
 .Mono, .Mono-Bold {
   font-family: "Ubuntu Mono", monospace; }
 
