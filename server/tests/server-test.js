@@ -26,10 +26,12 @@ describe('API Tests', function() {
   before(function() {
     return runServer();
   });
+
     // Wipe the db after each test.
-  afterEach(function() {
-    return tearDownDb();
-  });
+  // afterEach(function() {
+  //   return tearDownDb();
+  // });
+  
     // Close the server once we finish testing.
   after(function() {
     return closeServer();
@@ -118,6 +120,7 @@ describe('API Tests', function() {
                 '__v',
                 '_id',
                 'onboarded',
+                'profile',
                 'teams',
                 'onboardProgress'
               );
