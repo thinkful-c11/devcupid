@@ -25,9 +25,12 @@ export class Chat extends React.Component{
       this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages');
     }
     this.chat.on('child_added', snapshot => {
-      console.log('SNAPSHOT', this.props);
+      console.log('SNAPSHOT', snapshot.val());
       // Update state when new message added to Firebase db
-      let message = { text: snapshot.val(), id: snapshot.key };
+      let message = {
+        user: snapshot.val().user,
+        text: snapshot.val().text,
+        id: snapshot.key };
       this.setState({ messages: [message].concat(this.state.messages) });
     });
   }
@@ -38,7 +41,11 @@ export class Chat extends React.Component{
     let firebase = fire.database();
     let chat = firebase.ref(type + '_' + this.props.match.params.id + '/messages');
     // Send new message to the db
-    chat.push(this.state.newMessage);
+    let message = {
+      text: this.state.newMessage,
+      user: this.props.profile.name
+    };
+    chat.push(message);
     this.setState({ newMessage: '' });
   }
 
@@ -52,7 +59,7 @@ export class Chat extends React.Component{
         <ul className='messages-list'>
           {
               // Render the messages
-              this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
+              this.state.messages.map(m => <li key={m.id}>{`${m.user}: ${m.text}`}</li>)
             }
         </ul>
         <form
@@ -74,7 +81,7 @@ export class Chat extends React.Component{
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  profile: state.profile
 });
 
 export default connect(mapStateToProps)(Chat);
