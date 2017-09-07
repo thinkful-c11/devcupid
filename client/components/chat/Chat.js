@@ -21,7 +21,7 @@ export default class Chat extends React.Component{
       .limitToLast(25);
     }
     else if(type === 'private'){
-      this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages')
+      this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages');
     }
     this.chat.on('child_added', snapshot => {
       // Update state when new message added to Firebase db
@@ -48,7 +48,7 @@ export default class Chat extends React.Component{
     return(
       <div>
         <ul className='messages-list'>
-            {
+          {
               // Render the messages
               this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
             }
