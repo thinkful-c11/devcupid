@@ -18,11 +18,18 @@ export class TeamScreen extends React.Component {
 
   render () {
     const teamId = this.props.match.params.teamId;
-    const { gitHub, userTeams, activeTeam, profile} = this.props;
+    const { dispatch, gitHub, userTeams, activeTeam, profile} = this.props;
     const view = (teamId) => {
       if (teamId === 'create') {
-        console.log('SCREEN', this.props);
-        return <CreateTeamForm props={this.props} />;
+        return (
+          <CreateTeamForm
+            gitHub={gitHub}
+            userTeams={userTeams}
+            activeTeam={activeTeam}
+            profile={profile}
+            teamId={teamId}
+            dispatch={dispatch} />
+        );
       }
       else return (
         <TeamView
@@ -36,7 +43,6 @@ export class TeamScreen extends React.Component {
 
     return (
       <div>
-        DOES THIS WORK?
         {view(teamId)}
       </div>
     );

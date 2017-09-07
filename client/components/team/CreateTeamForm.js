@@ -37,7 +37,7 @@ export default class CreateTeamForm extends React.Component {
     e.preventDefault();
     const accessToken = Cookies.get('accessToken');
     // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
-    const { dispatch, gitHub } = this.props.props;
+    const { dispatch, gitHub } = this.props;
     const { teamFormData } = this.state;
     dispatch(actions.create_team(accessToken, gitHub.id, teamFormData));
 
