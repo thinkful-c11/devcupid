@@ -12,8 +12,7 @@ export class Search extends React.Component {
     return(
       <div style={{width: "100%"}}>
         <SearchForm />
-        {isLoading}
-        <SearchResults />
+        <SearchResults isLoading={isLoading}/>
       </div>
     );
   }

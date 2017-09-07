@@ -34,17 +34,24 @@ export class SearchResults extends React.Component {
         return (
             <div className="resultsBody">
                 <div className="pgbtn prev-button">
-                    <button onClick={() => this.prev()}>
-                        Previous
-                    </button>
+                    {userResults ? 
+                        <button onClick={() => this.prev()}>
+                            {'<'}
+                        </button>
+                        :null
+                    }
                 </div>
-                <div>
+                <div className="results users">
+                    {this.props.isLoading}
                     {userResults}
                 </div>
                 <div className="pgbtn next-button">
-                    <button onClick={() => this.next()}>
-                        next
-                    </button>
+                    {userResults ? 
+                        <button onClick={() => this.next()}>
+                            {'>'}
+                        </button>
+                        :null
+                    }
                 </div>
             </div>
         );
