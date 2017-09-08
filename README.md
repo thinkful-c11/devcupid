@@ -30,7 +30,9 @@ cd devcupid
 # Install all of our dependencies, this does require a pre-req of having Node.js installed
 npm install
 
-# We have our .env and firebaseConfig.js files in our .gitignore, you'll need to create your own. For your .env file do the following setup entering in your own database URL (we recommend mLab), GitHub Client ID and Secret:
+# We have our .env and firebaseConfig.js files in our .gitignore, you'll need to create 
+# your own. For your .env file do the following setup entering in your own database URL
+# (we recommend mLab), GitHub Client ID and Secret:
 export TEST_DATABASE_URL=''
 export GITHUB_CLIENT_ID=''
 export GITHUB_CLIENT_SECRET=''
@@ -44,7 +46,8 @@ export const FIREBASE_PROJECT_ID='';
 export const FIREBASE_STORAGE_BUCKET='';
 export const FIREBASE_MESSAGING_SENDER_ID='';
 
-# Got that all done? Now lets get ready to run the server! We need to first specify our source in the terminal before we start:
+# Got that all done? Now lets get ready to run the server! We need to first specify our source 
+# in the terminal before we start:
 source ./config/.env
 
 # Huzzah now lets run this cuteness!
