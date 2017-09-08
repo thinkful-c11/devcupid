@@ -71,7 +71,6 @@ export default class SearchItem extends React.Component {
 
 
     render() {
-        console.log(this.state);
         return (
             <Link to={'/profile/' + this.props.user.gitHub.id}>
                 <div className="search-item pop-card">
