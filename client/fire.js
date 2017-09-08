@@ -8,17 +8,17 @@ import firebase from 'firebase';
 //   FIREBASE_MESSAGING_SENDER_ID } from '../config/firebaseConfig';
 
 const config = {
-  apiKey: process.env.FIREBASE_API_KEY,
+  apiKey: 'AIzaSyAkoL7gY5AMqCwKDhJ_RF3hNnBcQZv4kfg',
   // || FIREBASE_API_KEY,
-  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  authDomain: 'devcupid-400c8.firebaseapp.com',
   // || FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.FIREBASE_DATABASE_URL,
+  databaseURL: 'https://devcupid-400c8.firebaseio.com',
   // || FIREBASE_DATABASE_URL,
-  projectId: process.env.FIREBASE_PROJECT_ID,
+  projectId: 'devcupid-400c8',
   // || FIREBASE_PROJECT_ID,
-  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  storageBucket: 'devcupid-400c8.appspot.com',
   // || FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID
+  messagingSenderId: '287438957512'
   // || FIREBASE_MESSAGING_SENDER_ID
 };
 
