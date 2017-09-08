@@ -18,7 +18,6 @@ export default class SignUp extends React.Component{
 
 
   render() {
-    console.log(this.props.profile)
     const { currentQuestion } = this.props;
     return(
       <div>
