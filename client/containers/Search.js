@@ -10,10 +10,12 @@ export class Search extends React.Component {
     let isLoading = (this.props.loading && document.readyState === 'complete')
                       ? <SearchLoadingNotifier /> : <div></div>;
     return(
-      <div>
+      <div style={{width: "100%"}}>
+        <div className="searchCopy">
+          Choose a parameter and enter a query to search.
+        </div>
         <SearchForm />
-        {isLoading}
-        <SearchResults />
+        <SearchResults isLoading={isLoading}/>
       </div>
     );
   }

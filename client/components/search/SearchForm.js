@@ -10,6 +10,8 @@ export class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
+      active: 'name',
+      input:'',
       name: '', 
       login: '',
       languages: '',
@@ -27,39 +29,62 @@ export class SearchForm extends React.Component {
     
     return s;
   }
+
+  handleChange(e){
+    let prevActive = this.state.active;
+    this.setState({
+      [prevActive]: '',
+      active: e.target.value
+    });
+  }
+
+  handleInput(e){
+    this.setState({
+      input: this.input.value
+    })
+  }
   
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   this.props.search(this.formatQuery());
+  // }
+
   handleSubmit(e) {
     e.preventDefault();
-    this.props.search(this.formatQuery());
+    let key = this.state.active;
+    let value = this.input.value;
+    this.setState({
+      [key]: value
+    }, () => {
+      let query = this.formatQuery();
+      console.log(query);
+      this.props.search(this.formatQuery());
+    });
   }
   
   render() {
     return(
-      <div className="search-from">
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <input type="text" 
-            value={this.state.name} 
-            placeholder="Name" 
-            onChange={e => this.setState({ name: e.target.value })}
-          />
-          <input type="text" 
-            value={this.state.login} 
-            placeholder="GitHub Login" 
-            onChange={e => this.setState({ login: e.target.value })}
-          />
-          <input type="text" 
-            value={this.state.languages} 
-            placeholder="Languages" 
-            onChange={e => this.setState({ languages: e.target.value })}
-          />
-          <input type="text" 
-            value={this.state.roles} 
-            placeholder="Roles" 
-            onChange={e => this.setState({ roles: e.target.value })}
-          />
-          <input type="submit" placeholder="Go!" />
-        </form>
-      </div>
+      <form className="search terminal-card" onSubmit={e=> handleSubmit(e)}>
+        <div className="input-cont">
+          <span className="searchBracket">{'{'}</span>
+          <span className="view param">{this.state.active}
+            <select className="searchParam" onChange={e=> this.handleChange(e)} >
+              <option value={'name'}>Search By Name</option>
+              <option value={'login'} onChange={e=> this.handleChange(e)}>Search By GitHub Username</option>
+              <option value={'languages'} onChange={e=> this.handleChange(e)}>Search By Languages</option>
+              <option value={'roles'} onChange={e=> this.handleChange(e)}>Search By Roles</option>
+            </select>
+          </span>
+          <span className="searchPunc">{':'}</span>
+          <span className="view input">{this.state.input}
+            <input type="text" className="search" ref={input => this.input=input} onChange={e=> this.handleInput(e)}/>
+          </span>
+          <span className="searchBracket">{'}'}</span>
+        </div>
+          <button type="submit" onClick={e=> this.handleSubmit(e)}>
+            <span className="searchFunc">search</span>
+          </button>
+      </form>
     );
   }
 }

@@ -242,6 +242,7 @@ export const create_team = (accessToken, userId, teamFormData) =>
     dispatch(team_request());
     // Create a req body from teamFormData and add in userId
     const newBody = Object.assign({}, { userId }, teamFormData);
+    console.log(newBody);
     const data = {
       method: 'POST',
       headers: {

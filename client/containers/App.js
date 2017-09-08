@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Link } from 'react-router-dom';
 import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import * as Cookies from 'js-cookie';
@@ -8,6 +8,7 @@ import * as actions from '../actions/actions';
 import LoginScreen from './LoginScreen';
 import OnboardingContainer from './OnboardingScreen';
 import ProfileScreen from './ProfileScreen';
+import Chat from '../components/chat/Chat';
 
 import TeamScreen from './TeamScreen';
 
@@ -31,57 +32,64 @@ export class App extends React.Component {
     console.log('onboarded: ', onboarded);
     return (
       <div className='major-cont'>
-        <Header loggedIn={loggedIn} />
         <Router history={browserHistory}>
-          <main className='content'>
-            {/* <Route exact path='/' component={LoginScreen} /> */}
-            <Route
-              path='/search'
-              component={Search} />
-              
-            <Route
-              path='/onboarding/:questionId'
-              component={OnboardingContainer} />
+          <div style={{width:'100%', height:'100vh', display:'flex', flexDirection:'column'}}>
+            <Header loggedIn={loggedIn} />
+            <main className='content'>
+              {/* <Route exact path='/' component={LoginScreen} /> */}
+              <Route
+                path='/search'
+                component={Search} />
+                
+              <Route
+                path='/onboarding/:questionId'
+                component={OnboardingContainer} />
 
-            <Route 
-              exact path='/home' 
-              component={ProfileScreen} />
+              <Route 
+                exact path='/home' 
+                component={ProfileScreen} />
 
-            <Route 
-              exact path='/me' 
-              component={ProfileScreen} />
+              <Route 
+                exact path='/me' 
+                component={ProfileScreen} />
 
-            {/* <Route exact path='/' render={() => (
-              loggedIn ? (
-                <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
-              ) : (
-                <LoginScreen />
-                )
-            )} /> */}
+              <Route
+                exact path='/chat/:type/:id'
+                component={Chat} />
 
-            <Route exact path='/' render={() => {
-              switch(loggedIn){
-                case true:
-                  switch(onboarded){
-                    case false:
-                      return <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
-                    default:
-                      return <Redirect to={'/home'} />
-                  }
-                  break;
-                case false:
-                  return <LoginScreen />
-              }
-            }}/>
+              {/* <Route exact path='/' render={() => (
+                loggedIn ? (
+                  <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
+                ) : (
+                  <LoginScreen />
+                  )
+              )} /> */}
 
-            <Route exact path='/profile/:userId' component={ProfileScreen} />
-            <Route
-              path='/team/:teamId'
-              component={TeamScreen} />
+              <Route exact path='/' render={() => {
+                switch(loggedIn){
+                  case true:
+                    switch(onboarded){
+                      case false:
+                        return <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
+                      default:
+                        return <Redirect to={'/home'} />
+                    }
+                    break;
+                  case false:
+                    return <LoginScreen />
+                }
+              }}/>
 
-          </main>
+              <Route exact path='/profile/:userId' component={ProfileScreen} />
+
+              <Route
+                path='/team/:teamId'
+                component={TeamScreen} />
+
+            </main>
+            <Footer />
+          </div>
         </Router>
-        <Footer />
       </div>
     );
   }

@@ -5,7 +5,6 @@ import * as Cookies from 'js-cookie';
 export default class CreateTeamForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       teamFormData: {
         teamName: '',
@@ -36,11 +35,11 @@ export default class CreateTeamForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log('FORM', this.props);
     const accessToken = Cookies.get('accessToken');
     // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
-    const { dispatch } = this.props.props;
-    // console.log(this.props);
-    const { gitHub, teamFormData } = this.state;
+    const { dispatch, gitHub } = this.props.props;
+    const { teamFormData } = this.state;
     dispatch(actions.create_team(accessToken, gitHub.id, teamFormData));
 
     const clearedStateForm = {
@@ -59,7 +58,7 @@ export default class CreateTeamForm extends React.Component {
     // BUG: Whey does this work with no explicit onSubmit?
     return (
       <div className='create-team-container'>
-        <form className='create-team-form'>
+        <form className='create-team-form' onSubmit={e => this.handleSubmit(e)}>
           <label htmlFor='create-team-name'>
             Team Name
           </label>
@@ -118,7 +117,7 @@ export default class CreateTeamForm extends React.Component {
 
           <button
             type='submit'
-            onClick={e => this.handleSubmit(e)}>
+          >
             Submit</button>
         </form>
       </div>
