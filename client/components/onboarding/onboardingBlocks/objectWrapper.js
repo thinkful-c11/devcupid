@@ -12,14 +12,12 @@ export default class ObjectWrapper extends React.Component{
           <span className="jsName">{this.props.qTitle} </span>
           <span className="jsKeyword">extends </span>
           <span className="jsName">User.{this.props.userName.split(' ').join('_')}</span>
-          {'{'}
+          <span className="jsOpening" >{'{'}</span>
         </div>
         <div className="jsObjectContent">
           {this.props.children}
         </div>
-        <footer>
-          {'}'}
-        </footer>
+        <span className="jsClosing" >{'}'}</span>
       </div>
     );
   }

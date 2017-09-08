@@ -17,10 +17,17 @@
   }
   .func{
     @extend .Mono;
+    cursor: pointer;
     color: $Accent-Yellow;
   }
   .func::after{
     content: "();"
+  }
+  .skills::after{
+    content: none;
+  }
+  .skills:hover{
+    cursor:pointer;
   }
   .jsKeyword{
     color: $Magenta-Haze;
@@ -59,6 +66,65 @@
   .jsObjectContent{
     padding:30px;
     padding-right:0px;
+  }
+  .jsNestedObj{
+    display:inline-flex;
+    transition-delay:1s;
+    transition: .3s ease-in;
+  }
+  .jsNestedObj.open{
+    flex-direction: column;
+  }
+  .jsObjectContent.nested{
+    padding:10px;
+    padding-left:30px;
+    transition: .3s ease-in;
+    opacity:1;
+    .jsClosing{
+      margin-left: -30px;
+    }
+  }
+  .dotdotdot{
+    display:inline-block;
+    transition:.2s ease-in;
+    .jsClosing{
+      color:white;
+    }
+  }
+  .dot{
+    transition: .2s ease-in-out;
+  }
+  .dotdotdot:hover{
+    cursor: pointer;
+    .dot{
+      margin-left:1px;
+      margin-right:1px;
+    }
+  }
+
+  .dotdotdot.spread{
+    .dot{
+      transition: margin-left .5s ease-in-out, 
+                  margin-right .5s ease-in-out,
+                  opacity .2s .5s ease-out;
+      margin-left:20px;
+      margin-right:20px;
+      opacity:0;
+    }
+  }
+  .jsOpening{
+    display:inline;
+  }
+  .jsClosing{
+    display:inline;
+  }
+  .closed{
+    opacity:0 !important;
+    width:0px !important;
+    height: 0px !important;
+    margin: 0px !important;
+    padding:0px !important;
+    overflow: hidden;
   }
   .jsLine{
     margin-bottom:10px;

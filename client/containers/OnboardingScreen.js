@@ -14,22 +14,37 @@ import OnboardingIntro from '../components/onboarding/onboardingIntro/onboarding
 import Progress from '../components/onboarding/onboardingBlocks/progress';
 
 export class OnboardingScreen extends React.Component {
+
   handleNextButton() {
     const accessToken = Cookies.get('accessToken');
     const { dispatch, profile, gitHubId } = this.props;
+    const progress = parseInt(this.props.match.params.questionId) + 1;
+    const onboarded = false;
     dispatch(
-      actions.update_profile(gitHubId, profile, accessToken
+      actions.onboard_progress(gitHubId, profile, accessToken, progress, onboarded, null, actions.update_profile
     ));
   }
 
-  handleNestedLanguageButton() {
+  handleSubmitButton(){
     const { dispatch, profile, gitHubId, onboardingQuestions } = this.props;
+    const progress = 100;
+    const onboarded = true;
     const accessToken = Cookies.get('accessToken');
     let currentIndex = parseInt(this.props.match.params.questionId);
     const currentQuestion = onboardingQuestions[currentIndex];
     let key = currentQuestion.key;
+    dispatch(actions.onboard_progress(gitHubId, profile, accessToken, progress, onboarded, key, actions.update_skills));
+  }
 
-    dispatch(actions.update_skills(gitHubId, profile, key, accessToken));
+  handleNestedLanguageButton() {
+    const { dispatch, profile, gitHubId, onboardingQuestions } = this.props;
+    const progress = parseInt(this.props.match.params.questionId) + 1;
+    const onboarded = false;
+    const accessToken = Cookies.get('accessToken');
+    let currentIndex = parseInt(this.props.match.params.questionId);
+    const currentQuestion = onboardingQuestions[currentIndex];
+    let key = currentQuestion.key;
+    dispatch(actions.onboard_progress(gitHubId, profile, accessToken, progress, onboarded, key, actions.update_skills));
   }
 
   render() {
@@ -44,7 +59,7 @@ export class OnboardingScreen extends React.Component {
       let button;
 
       if((currentIndex + 1) === onboardingQuestions.length){
-        button = <SubmitButton />;
+        button = <SubmitButton history={this.props.history} onClick={() => this.handleSubmitButton()} />;
       }
 
       else if(currentQuestion.type === 'checkbox' || currentQuestion.type === 'checkbox-nested') {

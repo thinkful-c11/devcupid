@@ -18,9 +18,14 @@ export default class SoftwareTools extends React.Component {
       return <li key={`softwareTools ${index}`}>{tool}</li>;
     });
     return (
-      <ul>
-        {tools}
-      </ul>
+      <div className="pop-card tools">
+        <div className="cardHeader">
+          Tools
+        </div>
+        <ul className="cardBody">
+          {tools}
+        </ul>
+      </div>
     );
   }
 }

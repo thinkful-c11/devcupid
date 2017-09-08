@@ -19,7 +19,6 @@ const strategyCallback = (accessToken, refreshToken, user, cb) => {
     .findOneAndUpdate({ 'gitHub.id': user.id },
     {$set:
     {
-      onboarded: false,
       'gitHub.accessToken': accessToken,
       'gitHub.id': user.id,
       'gitHub.login': user.login,

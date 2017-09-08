@@ -1,38 +1,186 @@
-import * as actions from '../actions/actions';
 import * as ref from '../actions/refs';
 
 const initialState = {
   loading: false,
   error: null,
   user: false,
-  onboarded:false,
-  gitHub: {},
-  profile: {
-    avatar_url: 'http://findicons.com/files/icons/85/kids/128/thumbnail.png',
-    name: 'TEST',
-    personalTitle: 'TEST',
-    location: 'TEST',
-    remoteOk: false,
-    company: 'TEST',
-
-    email: 'TEST',
-
-    bio: 'I was born then i went vegan',
-
-    personal_website: 'profile.com',
-    blog: 'blog.profile.com',
-    linked_in: 'linkedin.com/profile',
-    twitter: 'twitter.com/profile',
-
-    skills: {
-      passions: {},
-      roles: [],
-      languages: {},
-      libraries: [],
-      speciality: [],
-      softwareTools: []
-    },
+  currentProfileView: false,
+  onboarded: false,
+  // List of teams the user is on
+  userTeams: [],
+  // Team info held in state when viewing a team page
+  activeTeam: {},
+  gitHub: {
+    login: 'williamtwobit',
+    avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
+    html_url: 'https://github.com/williamtwobit',
+    name: 'William Martin',
+    company: '',
+    blog: '',
+    location: 'Atlanta',
+    email: '',
+    hireable: false,
+    bio: 'Just a lil baby coder',
+    id: '27362400'
   },
+  profile: {
+    twitter: '',
+    linked_in: '',
+    blog: '',
+    personal_website: '',
+    bio: '',
+    email: '',
+    company: '',
+    remoteOk: false,
+    location: '',
+    personalTitle: '',
+    name: '',
+    avatar_url: '',
+    skills: {
+      roles: {
+        'Ed tech': false,
+        'Front-End Web Developer': false,
+        'Back-End Web Developer': false,
+        'Full-Stack Web Developer': false,
+        'Web Designer': false,
+        'UI Engineer': false,
+        'UX Engineer': false,
+        'Database Architect': false,
+        Founder: false,
+        Investor: false,
+        DevOps: false,
+        Developer: false,
+        Designer: false
+      },
+      speciality: {
+        'Ed tech': false,
+        Mobile: false,
+        CRM: false,
+        Blog: false,
+        Web: false,
+        UI: false,
+        UX: false
+      },
+      softwareTools: {
+        'Ed tech': false,
+        Sketch3: false,
+        'Adobe Photoshop': false,
+        'Adobe Illustrator': false,
+        'Adobe InDesign': false,
+        'Adobe XD': false,
+        XCode: false,
+        Eclipse: false,
+        'Visual Studio': false,
+        Trello: false,
+        GitHub: false,
+        Git: false,
+        Postman: false,
+        Slack: false,
+        'Git Kraken': false
+      },
+      passions: {
+        'Ed tech': false,
+        'Ed Tech': false,
+        'Machine Learning': false,
+        Design: false,
+        UI: false,
+        UX: false,
+        'Fin Tech': false,
+        'Social Media': false,
+        'Big Data': false,
+        'Data Science': false,
+        B2B: false,
+        'Internet of Things': false,
+        Linux: false
+      },
+      languages: {
+        JavaScript: {
+          _active: false,
+          React: false,
+          Redux: false,
+          Angular: false,
+          'Angular 2/4': false,
+          Mongoose: false,
+          JQuery: false,
+          Vue: false,
+          Node: false
+        },
+        HTML5: {
+          _active: false,
+          Pug: false
+        },
+        CSS3: {
+          _active: false,
+          SASS: false,
+          LESS: false,
+          Bootstrap: false,
+          Foundation: false,
+          Materialize: false,
+          'CSS Grid': false,
+          'Responsive Design': false,
+          'Mobile First': false
+        },
+        C: {
+          _active: false
+        },
+        'C++': {
+          _active: false
+        },
+        'C#': {
+          _active: false
+        },
+        Java: {
+          _active: false,
+          Swing: false,
+          'Spring Boot': false,
+          Guava: false
+        },
+        PHP: {
+          _active: false,
+          Laravel: false,
+          Dispatch: false
+        },
+        Python: {
+          _active: false,
+          Django: false,
+          Flask: false
+        },
+        Perl: {
+          _active: false
+        },
+        Ruby: {
+          _active: false,
+          Rails: false,
+          Sinatra: false
+        },
+        Go: {
+          _active: false
+        },
+        Rust: {
+          _active: false
+        },
+        Scala: {
+          _active: false
+        },
+        Clojure: {
+          _active: false,
+          Leiningen: false,
+          Ring: false,
+          Om: false
+        },
+        'Swift/Objective-C': {
+          _active: false
+        },
+        Elm: {
+          _active: false
+        },
+        'F#': {
+          _active: false
+        }
+      }
+    }
+  },
+
   onboardingQuestions: [
     {
       text: 'Fill out your basic profile. To make things a little easier, we went ahead and pulled some info from gitHub. Overwrite those items if you’d like, or just feel free to leave them as-is.',
@@ -194,7 +342,8 @@ const initialState = {
         'Sketch3', 'Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Adobe XD', 'XCode', 'Eclipse', 'Visual Studio', 'Trello', 'GitHub', 'Git', 'Postman', 'Slack', 'Git Kraken'
       ]
     },
-  ]
+  ],
+  searchResults: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -219,14 +368,32 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       loading: true
     });
+
   //TODO: figure out a way to handle nulls in action.gitHub
   case ref.LOGIN_SUCCESS:
     return Object.assign({},
       state,
-      { loading: false, user: true, },
+      { loading: false, user: true, onboardProgress: -1},
       action.user
   );
+  
   case ref.LOGIN_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+    
+  case ref.PROFILE_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+    
+  case ref.PROFILE_SUCCESS:
+    return Object.assign({}, state, {
+      currentProfileView: action.profile
+    });
+    
+  case ref.PROFILE_ERROR:
     return Object.assign({}, state, {
       loading: false,
       error: action.error
@@ -241,6 +408,8 @@ const reducer = (state = initialState, action) => {
   case ref.UPDATE_SUCCESS:
     return Object.assign({}, state, {
       loading: false,
+      onboarded: action.onboarded,
+      onboardProgress: action.progress,
       profile: action.profile
     });
 
@@ -278,6 +447,45 @@ const reducer = (state = initialState, action) => {
         email: state.gitHub.email,
         bio: state.gitHub.bio,
       })
+    });
+
+  case ref.SEARCH_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+
+  case ref.SEARCH_SUCCESS: {
+    return Object.assign({}, state, {
+      loading: false,
+      searchResults: action.results
+    });
+  }
+
+  case ref.SEARCH_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
+    });
+
+  // Team Reducers
+  case ref.TEAM_REQUEST:
+    return Object.assign({}, state, {
+      loading: true
+    });
+  case ref.TEAM_SINGLE_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      activeTeam: action.team
+    });
+  case ref.TEAM_LIST_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      userTeams: action.teams
+    });
+  case ref.TEAM_ERROR:
+    return Object.assign({}, state, {
+      loading: false,
+      error: action.error
     });
 
   default:
