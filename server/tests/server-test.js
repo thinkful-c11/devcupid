@@ -26,10 +26,12 @@ describe('API Tests', function() {
   before(function() {
     return runServer();
   });
+
     // Wipe the db after each test.
-  afterEach(function() {
-    return tearDownDb();
-  });
+  // afterEach(function() {
+  //   return tearDownDb();
+  // });
+  
     // Close the server once we finish testing.
   after(function() {
     return closeServer();
@@ -117,9 +119,10 @@ describe('API Tests', function() {
                 'gitHub',
                 '__v',
                 '_id',
+                'onboardProgress',
                 'onboarded',
-                'teams',
-                'onboardProgress'
+                'profile',
+                'teams'
               );
               res.body.gitHub.should.have.all.keys(
                 'accessToken',
