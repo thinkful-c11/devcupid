@@ -29,7 +29,6 @@ export class App extends React.Component {
   render() {
     const loggedIn = this.props.user;
     const {onboardProgress, onboarded} = this.props;
-    console.log('onboarded: ', onboarded);
     return (
       <div className='major-cont'>
         <Router history={browserHistory}>
@@ -40,17 +39,17 @@ export class App extends React.Component {
               <Route
                 path='/search'
                 component={Search} />
-                
+
               <Route
                 path='/onboarding/:questionId'
                 component={OnboardingContainer} />
 
-              <Route 
-                exact path='/home' 
+              <Route
+                exact path='/home'
                 component={ProfileScreen} />
 
-              <Route 
-                exact path='/me' 
+              <Route
+                exact path='/me'
                 component={ProfileScreen} />
 
               <Route
@@ -67,18 +66,18 @@ export class App extends React.Component {
 
               <Route exact path='/' render={() => {
                 switch(loggedIn){
-                  case true:
-                    switch(onboarded){
-                      case false:
-                        return <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
-                      default:
-                        return <Redirect to={'/home'} />
-                    }
-                    break;
+                case true:
+                  switch(onboarded){
                   case false:
-                    return <LoginScreen />
+                    return <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />;
+                  default:
+                    return <Redirect to={'/home'} />;
+                  }
+                  break;
+                case false:
+                  return <LoginScreen />;
                 }
-              }}/>
+              }} />
 
               <Route exact path='/profile/:userId' component={ProfileScreen} />
 

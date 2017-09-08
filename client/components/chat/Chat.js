@@ -1,7 +1,8 @@
 import React from 'react';
 import fire from '../../fire';
+import { connect } from 'react-redux';
 
-export default class Chat extends React.Component{
+export class Chat extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -21,22 +22,30 @@ export default class Chat extends React.Component{
       .limitToLast(25);
     }
     else if(type === 'private'){
-      this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages')
+      this.chat = firebase.ref(type + '_' + this.props.chatId + '/messages');
     }
     this.chat.on('child_added', snapshot => {
+      console.log('SNAPSHOT', snapshot.val());
       // Update state when new message added to Firebase db
-      let message = { text: snapshot.val(), id: snapshot.key };
+      let message = {
+        user: snapshot.val().user,
+        text: snapshot.val().text,
+        id: snapshot.key };
       this.setState({ messages: [message].concat(this.state.messages) });
     });
   }
 
   addMessage(e) {
     e.preventDefault();
-    let {type} = this.props.match.params;
+    let { type } = this.props.match.params;
     let firebase = fire.database();
     let chat = firebase.ref(type + '_' + this.props.match.params.id + '/messages');
     // Send new message to the db
-    chat.push(this.state.newMessage);
+    let message = {
+      text: this.state.newMessage,
+      user: this.props.profile.name
+    };
+    chat.push(message);
     this.setState({ newMessage: '' });
   }
 
@@ -48,9 +57,9 @@ export default class Chat extends React.Component{
     return(
       <div>
         <ul className='messages-list'>
-            {
+          {
               // Render the messages
-              this.state.messages.map(m => <li key={m.id}>{m.text}</li>)
+              this.state.messages.map(m => <li key={m.id}>{`${m.user}: ${m.text}`}</li>)
             }
         </ul>
         <form
@@ -70,3 +79,9 @@ export default class Chat extends React.Component{
   }
 
 }
+
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps)(Chat);
