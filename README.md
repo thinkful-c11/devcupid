@@ -16,6 +16,14 @@ What runs DevCupid?
 * [React](https://facebook.github.io/react/) - A JavaScript frontend library for creating and building user interfaces
 * [Firechat](https://firechat.firebaseapp.com/) - Real time chat with no server code build from Firebase
 
+Known Issues & Plans for the future
+-----------------
+* There is an issue with the /user endpoint that causes a second search to not load properly.
+* Teams & Team chat functionality are entirely experimental at this point. Creating a team does not take you to that team, and there is no way to add a user to your team from the front end or see which teams you are a part of.
+* There is an issue with heroku not accessing our firebase environment variables properly, and as such we committed an atrocity and pushed our secrets into the public repo. (yikes).
+* a few minor CSS bugs on profile.
+* There's no feedback for which languages you've successfully added to your profile during onboarding.
+
 Getting started
 -----------------
 Want to help contribute or run this on your own local machine? Clone our repo and try us out!
