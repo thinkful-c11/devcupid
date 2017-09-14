@@ -13,15 +13,8 @@ export default class CreateTeamForm extends React.Component {
         teamCompany: '',
         teamLocation: '',
         teamEmail: ''
-      },
-      // Pulled gitHub into state as comp was not rerendering
-      // on fetch call.
-      gitHub: {}
+      }
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ gitHub: nextProps.props.gitHub });
   }
 
   handleChange(e) {

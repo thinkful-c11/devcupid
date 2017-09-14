@@ -54,7 +54,7 @@ app.get('/api/auth/github/logout', (req, res) => {
 app.get('/api/profile/me',
   passport.authenticate('bearer', {session: false}),
   (req, res) => {
-    console.log(req.user);
+    // console.log(req.user);
     return res.json(req.user);
   }
 );
@@ -71,7 +71,7 @@ app.get('/api/profile/:userId',
       else res.json(user.profile);
     })
     .catch(err => {
-      console.log(err);
+      console.error(err);
     });
   }
 );
@@ -103,7 +103,7 @@ app.put('/api/update-user/:userId',
         return res.json(profile);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   });
 
@@ -114,7 +114,7 @@ app.put('/api/update-skills/:skill/:userId',
   (req, res) => {
     const skill = req.params.skill;
     const key = `profile.skills.${skill}`;
-    console.log('SKILL', req.body);
+    // console.log('SKILL', req.body);
     Users
       .findOneAndUpdate(
         { 'gitHub.id': req.params.userId },
@@ -124,7 +124,7 @@ app.put('/api/update-skills/:skill/:userId',
         return res.json(profile);
       })
       .catch(err => {
-        console.log(err);
+        console.error(err);
       });
   });
 
@@ -166,7 +166,7 @@ function regexFix(param) {
 // Search endpoint to use the queryFilter function
 app.get('/api/search', (req, res) => {
   const q = req.query;
-  console.log(q);
+  // console.log(q);
   Users.find()
   .where({ 'gitHub.login': { $regex : regexFix(q.login) } })
   .where({ 'profile.name': { $regex : regexFix(q.name) } })
@@ -352,7 +352,7 @@ app.get('/api/fake-users', (req, res) => {
     res.json(users);
   })
   .catch(err => {
-    console.log(err);
+    console.error(err);
   });
 });
 
@@ -383,11 +383,15 @@ app.post('/api/teams',
         Users
           .findOneAndUpdate(
             { 'gitHub.id': req.body.userId },
-            { $push: { teams: _team._id } },
+            { $push: { teams: team } },
             { new: true })
           .exec()
-          .then(() => {
-            res.status(201).json(team);
+          .then((user) => {
+            let responseObj = {
+              teams: user.teams,
+              team
+            };
+            res.status(201).json(responseObj);
           });
       })
       .catch(error => {

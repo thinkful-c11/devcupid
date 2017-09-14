@@ -186,14 +186,12 @@ export const profileError = error => ({
 });
 
 export const fetchProfile = (userId, accessToken) => dispatch => {
-  console.log('actions userId', userId);
   fetch(`/api/profile/${userId}`, {
     headers: {
       'Authorization': `Bearer ${accessToken}`
     }
   })
   .then(res => {
-    console.log('action res ok?', res.ok);
     if(!res.ok){
       Promise.reject(res.statustext);
       window.location.pathname = '/';
@@ -218,9 +216,10 @@ export const team_request = () => ({
   type: ref.TEAM_REQUEST
 });
 // Pulls a single team to be used on an active page for that team.
-export const team_single_success = team => ({
+export const team_single_success = teamInfo => ({
   type: ref.TEAM_SINGLE_SUCCESS,
-  team
+  team: teamInfo.team,
+  teams: teamInfo.teams
 });
 // Pulls a users list of teams to assign to user object.
 export const team_list_success = teams => ({
@@ -242,7 +241,6 @@ export const create_team = (accessToken, userId, teamFormData) =>
     dispatch(team_request());
     // Create a req body from teamFormData and add in userId
     const newBody = Object.assign({}, { userId }, teamFormData);
-    console.log(newBody);
     const data = {
       method: 'POST',
       headers: {
@@ -258,11 +256,11 @@ export const create_team = (accessToken, userId, teamFormData) =>
         }
         return res.json();
       })
-      .then(team => {
-        dispatch(team_success(team));
+      .then(teamInfo => {
+        dispatch(team_single_success(teamInfo));
       })
       .catch(error => {
-        dispatch(team_error(error));
+        return dispatch(team_error(error));
       });
   };
 

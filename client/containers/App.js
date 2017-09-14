@@ -58,14 +58,6 @@ export class App extends React.Component {
                 exact path='/chat/:type/:id'
                 component={Chat} />
 
-              {/* <Route exact path='/' render={() => (
-                loggedIn ? (
-                  <Redirect to={onboardProgress < 0 ? '/onboarding/intro' : `/onboarding/${onboardProgress}`} />
-                ) : (
-                  <LoginScreen />
-                  )
-              )} /> */}
-
               <Route exact path='/' render={() => {
                 switch(loggedIn){
                 case true:
