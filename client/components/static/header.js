@@ -27,12 +27,13 @@ export class Header extends React.Component{
           <div className='logo'><img src='/public/logo.svg' /></div>
           <nav>
             <img src={this.props.user.avatar_url} className="navThumbnail" onClick={ ()=> this.handleNav() }/>
+            <div className='menu'>menu</div>
             <ul className={this.state.navOpen ? "userNav" : "userNav closed"}>
               <li>
                 <Link to={'/search'} onClick={ ()=> this.handleNav() }> Search </Link>
               </li>
               <li>
-                <Link to='/team/myteams' onClick={ ()=> this.handleNav() }>Your Team</Link>
+                <Link to='/team/myteams' onClick={ ()=> this.handleNav() }>Your Teams</Link>
               </li>
               <li>
                 <Link to={'/me'} onClick={ ()=> this.handleNav() }> View Your Profile </Link>
