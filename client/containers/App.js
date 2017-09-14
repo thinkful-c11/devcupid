@@ -46,7 +46,9 @@ export class App extends React.Component {
 
               <Route
                 exact path='/home'
-                component={ProfileScreen} />
+                render={() => (
+                  <Redirect to='/me' />
+                )} />
 
               <Route
                 exact path='/me'

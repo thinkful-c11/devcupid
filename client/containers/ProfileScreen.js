@@ -17,15 +17,17 @@ import '../SCSS/profile.scss';
 export class ProfileScreen extends React.Component{
   constructor(props) {
     super(props);
-    const path = window.location.pathname.split('/');
-    if (!this.props.currentProfileView && path[1] === 'profile') {
-      this.props.dispatch(actions.fetchProfile(path[2], Cookies.get('accessToken')));
+    this.path = window.location.pathname.split('/');
+  }
+
+  componentWillMount(){
+    if (this.path[1] === 'profile') {
+      this.props.dispatch(actions.fetchProfile(this.path[2], Cookies.get('accessToken')));
     }
   }
   
   render(){
-    const user = !this.props.currentProfileView ? 
-                        this.props.user : this.props.currentProfileView;
+    const user = (this.path[1] === 'profile' && this.props.currentProfileView  ? this.props.currentProfileView : this.props.user);
     return(
       <div className="profile container">
         <div className="section A container">
