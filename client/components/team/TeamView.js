@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-/*
-* https://www.codementor.io/yurio/all-you-need-is-react-firebase-4v7g9p4kf
-*/
 
 export default class TeamView extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    const {teamId, Cookies, actions, dispatch} = this.props;
+    const accessToken = Cookies.get('accessToken');
+    dispatch(actions.fetch_team(accessToken, teamId));
   }
 
   render() {

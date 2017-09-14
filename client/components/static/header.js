@@ -32,7 +32,7 @@ export class Header extends React.Component{
                 <Link to={'/search'} onClick={ ()=> this.handleNav() }> Search </Link>
               </li>
               <li>
-                <Link to='/team/create' onClick={ ()=> this.handleNav() }>Create a Team</Link>
+                <Link to='/team/myteams' onClick={ ()=> this.handleNav() }>Your Team</Link>
               </li>
               <li>
                 <Link to={'/me'} onClick={ ()=> this.handleNav() }> View Your Profile </Link>

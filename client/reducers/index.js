@@ -472,11 +472,17 @@ const reducer = (state = initialState, action) => {
     return Object.assign({}, state, {
       loading: true
     });
-  case ref.TEAM_SINGLE_SUCCESS:
+  case ref.CREATE_TEAM_SUCCESS:
     return Object.assign({}, state, {
       loading: false,
       activeTeam: action.team,
-      teams: action.teams
+      teams: action.teams,
+      newTeam: true
+    });
+  case ref.SINGLE_TEAM_SUCCESS:
+    return Object.assign({}, state, {
+      loading: false,
+      activeTeam: action.team
     });
   case ref.TEAM_LIST_SUCCESS:
     return Object.assign({}, state, {

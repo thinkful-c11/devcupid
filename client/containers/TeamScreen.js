@@ -5,39 +5,37 @@ import * as Cookies from 'js-cookie';
 
 import CreateTeamForm from '../components/team/CreateTeamForm';
 import TeamView from '../components/team/TeamView';
+import MyTeams from '../components/team/myTeams';
 
 export class TeamScreen extends React.Component {
-  componentDidMount() {
-    const teamId = this.props.match.params.teamId;
-    const accessToken = Cookies.get('accessToken');
-    // TODO: add a team to store and pull in as a prop
-    if (teamId !== 'create') {
-      this.props.dispatch(actions.fetch_team(accessToken, teamId));
-    }
-  }
-
   render () {
     const teamId = this.props.match.params.teamId;
-    const { dispatch, gitHub, userTeams, activeTeam, profile} = this.props;
+    const { dispatch, gitHub, userTeams, activeTeam, profile, newTeam} = this.props;
     const view = (teamId) => {
-      if (teamId === 'create') {
+      if (teamId === 'myteams') {
         return (
-          <CreateTeamForm
-            gitHub={gitHub}
-            userTeams={userTeams}
-            activeTeam={activeTeam}
-            profile={profile}
-            teamId={teamId}
-            dispatch={dispatch} />
+          <div>
+            <CreateTeamForm
+              gitHub={gitHub}
+              userTeams={userTeams}
+              activeTeam={activeTeam}
+              profile={profile}
+              teamId={teamId}
+              dispatch={dispatch} 
+              newteam={newTeam} />
+              <MyTeams />
+          </div>
         );
       }
       else return (
         <TeamView
           gitHub={gitHub}
-          userTeams={userTeams}
           activeTeam={activeTeam}
           profile={profile}
-          teamId={teamId} />
+          teamId={teamId} 
+          Cookies={Cookies}
+          actions={actions} 
+          dispatch={dispatch} />
       );
     };
 

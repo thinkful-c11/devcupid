@@ -215,11 +215,16 @@ export const assignGitHubProfile = () => ({
 export const team_request = () => ({
   type: ref.TEAM_REQUEST
 });
-// Pulls a single team to be used on an active page for that team.
-export const team_single_success = teamInfo => ({
-  type: ref.TEAM_SINGLE_SUCCESS,
+// Pulls back updated list of teams after creating one
+export const create_team_success = teamInfo => ({
+  type: ref.CREATE_TEAM_SUCCESS,
   team: teamInfo.team,
   teams: teamInfo.teams
+});
+// Pulls a single team for use when viewing a team
+export const single_team_success = team => ({
+  type: ref.SINGLE_TEAM_SUCCESS,
+  team
 });
 // Pulls a users list of teams to assign to user object.
 export const team_list_success = teams => ({
@@ -257,7 +262,7 @@ export const create_team = (accessToken, userId, teamFormData) =>
         return res.json();
       })
       .then(teamInfo => {
-        dispatch(team_single_success(teamInfo));
+        dispatch(create_team_success(teamInfo));
       })
       .catch(error => {
         return dispatch(team_error(error));
@@ -302,7 +307,7 @@ export const fetch_team = (accessToken, teamId) => dispatch => {
       return res.json();
     })
     .then(team => {
-      dispatch(team_single_success(team));
+      dispatch(single_team_success(team));
     })
     .catch(error => {
       dispatch(team_error(error));

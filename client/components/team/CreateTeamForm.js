@@ -12,7 +12,8 @@ export default class CreateTeamForm extends React.Component {
         teamAvatarUrl: '',
         teamCompany: '',
         teamLocation: '',
-        teamEmail: ''
+        teamEmail: '',
+        url: ''
       }
     };
   }
@@ -29,7 +30,6 @@ export default class CreateTeamForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const accessToken = Cookies.get('accessToken');
-    // TODO: WHY IS PROPS COMING IN AS PROPS.PROPS???
     const { dispatch, gitHub } = this.props;
     const { teamFormData } = this.state;
     dispatch(actions.create_team(accessToken, gitHub.id, teamFormData));
@@ -43,11 +43,14 @@ export default class CreateTeamForm extends React.Component {
       teamEmail: ''
     };
 
-    this.setState({ teamFormData: clearedStateForm });
+    this.setState({ teamFormData: clearedStateForm, newTeam:true });
   }
 
   render() {
-    // BUG: Whey does this work with no explicit onSubmit?
+    let newTeam;
+    if(this.state.newTeam){
+      newTeam = <div className="newTeam">You've created a new team!</div>
+    }
     return (
       <div className='create-team-container'>
         <form className='create-team-form' onSubmit={e => this.handleSubmit(e)}>
@@ -123,6 +126,7 @@ export default class CreateTeamForm extends React.Component {
           >
             Submit</button>
         </form>
+        {newTeam}
       </div>
     );
   }
