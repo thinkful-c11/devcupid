@@ -30,6 +30,7 @@ export const TEAM_REQUEST = 'TEAM_REQUEST';
 export const CREATE_TEAM_SUCCESS = 'CREATE_TEAM_SUCCESS';
 export const SINGLE_TEAM_SUCCESS = 'SINGLE_TEAM_SUCCESS';
 export const TEAM_LIST_SUCCESS = 'TEAM_LIST_SUCCESS';
+export const TEAM_ADD_MEMBER_SUCCESS = 'TEAM_ADD_MEMBER_SUCCESS';
 export const TEAM_ERROR = 'TEAM_ERROR';
 
 // Searching for other users

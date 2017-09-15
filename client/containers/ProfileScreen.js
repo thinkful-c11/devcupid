@@ -8,6 +8,7 @@ import Roles from '../components/profile/roles';
 import Tech from '../components/profile/tech';
 import Passions from '../components/profile/passions';
 import SoftwareTools from '../components/profile/softwareTools';
+import AddToTeam from '../components/profile/addToTeam';
 import ContactButton from '../components/profile/contactButton';
 
 import * as actions from '../actions/actions';
@@ -25,6 +26,15 @@ export class ProfileScreen extends React.Component{
       this.props.dispatch(actions.fetchProfile(this.path[2], Cookies.get('accessToken')));
     }
   }
+
+  addToTeam(e){
+    const teamSplit = e.target.value.split('/x/');
+    const team = {
+      id: teamSplit[0],
+      name: teamSplit[1]
+    };
+    this.props.dispatch(actions.team_add_member(Cookies.get('accessToken'), team, this.props.currentProfileView));
+  }
   
   render(){
     const user = (this.path[1] === 'profile' && this.props.currentProfileView  ? this.props.currentProfileView : this.props.user);
@@ -36,6 +46,7 @@ export class ProfileScreen extends React.Component{
             <About user={user} />
           </div>
           <div className="column B container">
+            {/* <AddToTeam teams={this.props.teams} onChange={e=> this.addToTeam(e)}/>  */}
             <ContactButton user={user}/>
             <div className="section container">
               <Roles user={user} />
@@ -54,7 +65,8 @@ export class ProfileScreen extends React.Component{
 
 const mapStateToProps = state => ({
   currentProfileView: state.currentProfileView,
-  user: state.profile
+  user: state.profile,
+  teams: state.teams
 });
 
 export default connect(mapStateToProps)(ProfileScreen);

@@ -489,6 +489,9 @@ const reducer = (state = initialState, action) => {
       loading: false,
       userTeams: action.teams
     });
+  case ref.TEAM_ADD_MEMBER_SUCCESS:
+    console.log(action.body);
+    return state;
   case ref.TEAM_ERROR:
     return Object.assign({}, state, {
       loading: false,
