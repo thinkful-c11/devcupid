@@ -1,10 +1,19 @@
 import React from 'react';
 
 export default class ProfileHeader extends React.Component{
+
+  shortenTitle(title){
+    title = title.split('').slice(0,30);
+    title.push('…');
+    console.log(title);
+    return title;
+  }
+
   render() {
     const { user } = this.props;
     const remoteOk = user.remoteOk ? 'Remote Ok' : '';
     const hireable = user.hireable ? 'Hirable' : 'Not For Hire';
+    const title = user.personalTitle.length > 30 ? this.shortenTitle(user.personalTitle) : user.personalTitle;
     return (
       <div className="profileHeader container">
         <div className="profileImage">
@@ -18,7 +27,7 @@ export default class ProfileHeader extends React.Component{
           </h2>
           <div className="basicInfo pop-card">
             <div className="cardHeader">
-              {user.personalTitle}
+              {title}
             </div>
             <ul className="cardBody container">
               <li>
