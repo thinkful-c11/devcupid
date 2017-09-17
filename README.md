@@ -18,11 +18,11 @@ What runs DevCupid?
 
 Known Issues & Plans for the future
 -----------------
-* There is an issue with the /user endpoint that causes a second search to not load properly.
-* Teams & Team chat functionality are entirely experimental at this point. Creating a team does not take you to that team, and there is no way to add a user to your team from the front end or see which teams you are a part of.
 * There is an issue with heroku not accessing our firebase environment variables properly, and as such we committed an atrocity and pushed our secrets into the public repo. (yikes).
-* a few minor CSS bugs on profile.
-* There's no feedback for which languages you've successfully added to your profile during onboarding.
+* There's no feedback for which languages you've successfully added to your profile during onboarding, and that makes the user have to keep up with what they've added to their profile in their heads.
+* There is no mobile version, yet. This will be implemented as soon as possible.
+* Input fields inside of the faux-terminals do not have carets.
+
 
 Getting started
 -----------------
