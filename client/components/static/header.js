@@ -20,8 +20,8 @@ export class Header extends React.Component{
 
   render(){
     let header;
-    console.log(this.props.user);
-    if(this.props.loggedIn){
+    const onOnboarding = window.location.pathname.split('/')[1] === 'onboarding';
+    if(this.props.loggedIn && !onOnboarding){
       header = (
         <div className='topBar content container'>
           <div className='logo'><img src='/public/logo.svg' /></div>
@@ -42,11 +42,6 @@ export class Header extends React.Component{
               </li>
             </ul>
           </nav>
-          {/* <div className='burgerMenu'>
-            <div className='burger top part' />
-            <div className='burger middle part' />
-            <div className='burger bottom part' />
-          </div> */}
         </div>
       );
     }
@@ -66,7 +61,8 @@ export class Header extends React.Component{
 }
 
 const mapStateToProps = state => ({
+  onboarded: state.onboarded,
   user: state.profile
-})
+});
 
 export default connect(mapStateToProps)(Header);

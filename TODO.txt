@@ -1,15 +1,8 @@
 require stuff on onboarding, on each page
+
 menu
     - text colors
-    - should close on page change
-search page
-    -input fields flash
-    -max limit, cannot go further
-    -changing page bug
-    
+    - should close on page change !! hard to replicate?
+
 profile
-    -contact should not be on /me
     -add button for add to team
-    
-onboarding
-    - doesnt show menu button

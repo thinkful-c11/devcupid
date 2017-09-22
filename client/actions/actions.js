@@ -48,7 +48,6 @@ export const update_error = (error) => ({
 });
 
 export const onboard_progress = (githubId, profile, accessToken, progress, onboarded, key, callback) => dispatch =>{
-  console.log('updating progress...')
   dispatch(update_request());
   const updateObj = {
     onboarded,
@@ -430,7 +429,6 @@ export const search = query => dispatch => {
     }
     return res.json();
   }).then(results => {
-    console.log(results);
     dispatch(searchSuccess(results));
   }).catch(error => {
     dispatch(searchError(error));

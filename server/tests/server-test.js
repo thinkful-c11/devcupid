@@ -4,9 +4,10 @@ const chaiHttp = require('chai-http');
 
 // Backend requirements and files
 const mongoose = require('mongoose');
-const { DATABASE_URL } = require('../../config/config');
 const { app, runServer, closeServer } = require('../server');
 const { Users, Languages } = require('../models');
+
+const DATABASE_URL = process.env.DATABASE_URL;
 
 // HTTP integration for testing with chai
 chai.should();

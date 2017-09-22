@@ -11,17 +11,17 @@ const initialState = {
   // Team info held in state when viewing a team page
   activeTeam: {},
   gitHub: {
-    login: 'williamtwobit',
-    avatar_url: 'https://avatars3.githubusercontent.com/u/27362400?v=4',
-    html_url: 'https://github.com/williamtwobit',
-    name: 'William Martin',
+    login: '',
+    avatar_url: '',
+    html_url: '',
+    name: '',
     company: '',
     blog: '',
-    location: 'Atlanta',
+    location: '',
     email: '',
     hireable: false,
-    bio: 'Just a lil baby coder',
-    id: '27362400'
+    bio: '',
+    id: ''
   },
   profile: {
     twitter: '',

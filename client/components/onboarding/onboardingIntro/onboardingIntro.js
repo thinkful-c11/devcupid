@@ -36,7 +36,6 @@ export default class OnboardingIntro extends React.Component{
     let content = [];
     for(let key in introContent){
       if(key <= this.state.i){
-        console.log(key);
         if(key === '6'){
           content.push(
             <p key={key} className="comment">{introContent[key]} <span className="termPrompt">Press enter to get started.</span></p>

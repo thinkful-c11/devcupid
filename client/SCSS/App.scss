@@ -69,3 +69,7 @@ body{
 	display: flex;
 	flex-direction:column;
 }
+
+a:visited {
+	color: inherit;
+}

@@ -26,6 +26,10 @@ export class ProfileScreen extends React.Component{
   render(){
     const user = !this.props.currentProfileView ? 
                         this.props.user : this.props.currentProfileView;
+                        
+    const showContactButton = window.location.pathname.split('/')[1] !== 'home' ?
+      <ContactButton user={user} /> : null;
+
     return(
       <div className="profile container">
         <div className="section A container">
@@ -34,7 +38,7 @@ export class ProfileScreen extends React.Component{
             <About user={user} />
           </div>
           <div className="column B container">
-            <ContactButton user={user}/>
+            {showContactButton}
             <div className="section container">
               <Roles user={user} />
               <Tech user={user} />

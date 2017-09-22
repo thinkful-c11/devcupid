@@ -940,4 +940,7 @@ body {
   display: flex;
   flex-direction: column; }
 
+a:visited {
+  color: inherit; }
+
 /*# sourceMappingURL=style.css.map*/

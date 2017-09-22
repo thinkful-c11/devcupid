@@ -6,13 +6,6 @@ mongoose.Promise = global.Promise;
 const { Users, Languages, Teams } = require('./models');
 const faker = require('faker');
 
-const secret = {
-  TEST_DATABASE_URL: process.env.TEST_DATABASE_URL,
-  PORT: process.env.PORT,
-  CLIENT_ID: process.env.CLIENT_ID,
-  CLIENT_SECRET: process.env.CLIENT_SECRET
-};
-
 const app = express();
 app.use(require('body-parser').json());
 app.use(express.static(__dirname + '/../client/dist'));
@@ -521,7 +514,7 @@ app.get('/*', (req, res) => {
 
 let server;
 // RUN SERVER
-function runServer(dbUrl = process.env.TEST_DATABASE_URL, port = process.env.PORT) {
+function runServer(dbUrl = process.env.DATABASE_URL, port = process.env.PORT) {
   return new Promise((resolve, reject) => {
     mongoose.connect(dbUrl, {
       useMongoClient: true }, err => {
