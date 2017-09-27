@@ -8,7 +8,7 @@ We believe that there is more to assembling a great team than resumes and portfo
 
 We hope you’re just as excited as we are.
 
-What runs DevCupid?
+What's the tech stack?
 -----------------
 * [MongoDB](https://www.mongodb.com/) - A NoSQL (document) database
 * [Express](http://expressjs.com/) - A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications
