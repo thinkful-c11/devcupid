@@ -22,6 +22,7 @@ Known Issues & Plans for the future
 * There's no feedback for which languages you've successfully added to your profile during onboarding, and that makes the user have to keep up with what they've added to their profile in their heads.
 * There is no mobile version, yet. This will be implemented as soon as possible.
 * Input fields inside of the faux-terminals do not have carets.
+* The 'Teams' features are entirely experimental, and have no styling. 
 
 
 Getting started
