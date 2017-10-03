@@ -20,7 +20,6 @@ export class Header extends React.Component {
 
 	render() {
 		let header;
-		console.log(this.props.user);
 		if (this.props.loggedIn) {
 			header = (
 				<div className="topBar content container">
@@ -40,18 +39,27 @@ export class Header extends React.Component {
 						</div>
 						<ul className={this.state.navOpen ? "userNav" : "userNav closed"}>
 							<li>
-								<Link to={"/search"} onClick={() => this.handleNav()}>
+								<Link
+									className={this.props.onboarded ? null : "hidden"}
+									to={"/search"}
+									onClick={() => this.handleNav()}>
 									{" "}
 									Search{" "}
 								</Link>
 							</li>
 							<li>
-								<Link to="/team/myteams" onClick={() => this.handleNav()}>
+								<Link
+									className={this.props.onboarded ? null : "hidden"}
+									to="/team/myteams"
+									onClick={() => this.handleNav()}>
 									Your Teams
 								</Link>
 							</li>
 							<li>
-								<Link to={"/me"} onClick={() => this.handleNav()}>
+								<Link
+									className={this.props.onboarded ? null : "hidden"}
+									to={"/me"}
+									onClick={() => this.handleNav()}>
 									{" "}
 									View Your Profile{" "}
 								</Link>
@@ -82,6 +90,7 @@ export class Header extends React.Component {
 
 const mapStateToProps = state => ({
 	user: state.profile,
+	onboarded: state.onboarded,
 });
 
 export default connect(mapStateToProps)(Header);

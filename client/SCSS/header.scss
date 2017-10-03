@@ -53,6 +53,10 @@ header {
 		}
 	}
 
+	.hidden {
+		display: none;
+	}
+
 	nav {
 		display: flex;
 		flex-direction: column;

@@ -178,7 +178,8 @@ a {
     color: #A34170; }
   .onboarding.terminal-card .jsString {
     color: #FCBADA; }
-  .onboarding.terminal-card .jsString::before, .onboarding.terminal-card .jsString::after {
+  .onboarding.terminal-card .jsString::before,
+  .onboarding.terminal-card .jsString::after {
     content: "'"; }
   .onboarding.terminal-card .jsInput {
     border: 0px;
@@ -186,12 +187,21 @@ a {
     opacity: 0;
     position: absolute;
     left: 0; }
+  .onboarding.terminal-card .jsInput:focus {
+    opacity: 1;
+    font-family: "Ubuntu Mono";
+    font-size: 18px;
+    font-weight: 700;
+    color: #3B3561;
+    padding-left: 8px; }
   .onboarding.terminal-card .jsBoolean {
     font-size: 14px;
     background-color: #3B3561;
     border: 0px;
     color: #8EC8FF;
-    outline: none; }
+    outline: non; }
+  .onboarding.terminal-card .jsUndefined {
+    color: #1B998B; }
   .onboarding.terminal-card .jsObjectWrapper {
     height: 340px;
     overflow-y: auto; }
@@ -201,30 +211,30 @@ a {
   .onboarding.terminal-card .jsNestedObj {
     display: inline-flex;
     transition-delay: 1s;
-    transition: .3s ease-in; }
+    transition: 0.3s ease-in; }
   .onboarding.terminal-card .jsNestedObj.open {
     flex-direction: column; }
   .onboarding.terminal-card .jsObjectContent.nested {
     padding: 10px;
     padding-left: 30px;
-    transition: .3s ease-in;
+    transition: 0.3s ease-in;
     opacity: 1; }
     .onboarding.terminal-card .jsObjectContent.nested .jsClosing {
       margin-left: -30px; }
   .onboarding.terminal-card .dotdotdot {
     display: inline-block;
-    transition: .2s ease-in; }
+    transition: 0.2s ease-in; }
     .onboarding.terminal-card .dotdotdot .jsClosing {
       color: white; }
   .onboarding.terminal-card .dot {
-    transition: .2s ease-in-out; }
+    transition: 0.2s ease-in-out; }
   .onboarding.terminal-card .dotdotdot:hover {
     cursor: pointer; }
     .onboarding.terminal-card .dotdotdot:hover .dot {
       margin-left: 1px;
       margin-right: 1px; }
   .onboarding.terminal-card .dotdotdot.spread .dot {
-    transition: margin-left .5s ease-in-out,  margin-right .5s ease-in-out, opacity .2s .5s ease-out;
+    transition: margin-left 0.5s ease-in-out, margin-right 0.5s ease-in-out, opacity 0.2s 0.5s ease-out;
     margin-left: 20px;
     margin-right: 20px;
     opacity: 0; }
@@ -247,6 +257,14 @@ a {
     position: relative; }
   .onboarding.terminal-card button {
     font-size: 14px; }
+
+@keyframes inputBlink {
+  0% {
+    background-color: initial; }
+  50% {
+    background-color: rgba(255, 255, 255, 0.5); }
+  100% {
+    background-color: initial; } }
 .Mono, .Mono-Bold, .profile .contact button a {
   font-family: "Ubuntu Mono", monospace; }
 
@@ -747,6 +765,8 @@ header {
     .topBar .thumbnail:hover .menu {
       transform: translateY(2px);
       transition: 0.1s ease-in; }
+  .topBar .hidden {
+    display: none; }
   .topBar nav {
     display: flex;
     flex-direction: column;
