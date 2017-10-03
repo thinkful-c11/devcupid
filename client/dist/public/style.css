@@ -525,6 +525,24 @@ form.search {
   margin-left: 10px;
   margin-right: 10px; }
 
+.selector {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 7px 4.5px 0 4.5px;
+  border-color: white transparent transparent transparent;
+  margin-right: 5px;
+  margin-bottom: 3px; }
+
+@keyframes inputBlink {
+  0% {
+    background-color: rgba(255, 255, 255, 0); }
+  50% {
+    background-color: rgba(255, 255, 255, 0.5); }
+  100% {
+    background-color: rgba(255, 255, 255, 0); } }
+
 .input {
   display: inline-block;
   color: #FCBADA; }
@@ -533,7 +551,8 @@ form.search {
   color: white;
   margin-right: 0; }
 
-.input::before, .input::after {
+.input::before,
+.input::after {
   content: "'"; }
 
 .searchParam {
@@ -549,6 +568,8 @@ form.search {
   left: 0;
   width: 100%;
   height: 100%; }
+  .searchParam:hover {
+    cursor: pointer; }
 
 input.search {
   background-color: #3B3561;
@@ -589,12 +610,12 @@ input.search {
   max-height: initial;
   margin: 10px;
   width: 300px;
-  transition: .2s ease-in;
+  transition: 0.2s ease-in;
   color: #3B3561; }
 
 .search-item.pop-card:hover {
   cursor: pointer;
-  transition: .1s ease-in;
+  transition: 0.1s ease-in;
   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.5); }
 
 .pgbtn > button {
@@ -616,7 +637,9 @@ ul.result.item {
   display: inline-block;
   margin-bottom: 5px; }
 
-.result.name, .result.punc, .result.bracket {
+.result.name,
+.result.punc,
+.result.bracket {
   font-size: 25px; }
 
 .searchCopy {
