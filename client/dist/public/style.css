@@ -607,6 +607,48 @@ ul.result.item {
   color: #3B3561;
   margin-bottom: 20px;
   text-align: center; }
+.noMobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(59, 53, 97, 0.95);
+  display: flex;
+  flex-direction: column;
+  z-index: -99999999999999;
+  opacity: 0;
+  transition: 0.3s ease-out; }
+  .noMobile .sorry {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 90vw;
+    height: 100%;
+    justify-content: space-around;
+    color: white;
+    padding-bottom: 15%; }
+    .noMobile .sorry h1 {
+      font-size: 10vw;
+      letter-spacing: -10px;
+      color: #fcbada;
+      text-align: center; }
+    .noMobile .sorry h2 {
+      font-size: 7vw; }
+    .noMobile .sorry h3 {
+      font-size: 5vw; }
+    .noMobile .sorry p {
+      font-size: 2vw;
+      line-height: 1.2; }
+      .noMobile .sorry p a {
+        color: #fcbada;
+        text-decoration: underline; }
+
+@media only screen and (max-width: 930px) {
+  .noMobile {
+    z-index: 99999999999999;
+    opacity: 1;
+    transition: 0.3s ease-out; } }
 .Mono, .Mono-Bold {
   font-family: "Ubuntu Mono", monospace; }
 
@@ -694,11 +736,17 @@ header {
     width: 30px;
     height: auto;
     border-radius: 100%;
-    transition: .1s ease-out; }
-  .topBar .navThumbnail:hover {
-    cursor: pointer;
-    transform: scale(1.12);
-    transition: .1s ease-in; }
+    transition: 0.1s ease-out; }
+  .topBar .menu {
+    transition: 0.1s ease-out; }
+  .topBar .thumbnail:hover {
+    cursor: pointer; }
+    .topBar .thumbnail:hover .navThumbnail {
+      transform: scale(1.12);
+      transition: 0.1s ease-in; }
+    .topBar .thumbnail:hover .menu {
+      transform: translateY(2px);
+      transition: 0.1s ease-in; }
   .topBar nav {
     display: flex;
     flex-direction: column;
@@ -715,15 +763,20 @@ header {
       width: 100px;
       height: 200px;
       justify-content: space-around;
-      transition: .5s ease-in-out;
+      transition: 0.5s ease-in-out;
       overflow: hidden; }
       .topBar nav ul li {
-        text-align: center;
-        color: #3B3561; }
+        text-align: center; }
+        .topBar nav ul li a {
+          color: #3B3561;
+          transition: 0.2s ease-in; }
+          .topBar nav ul li a:hover {
+            color: #FCBADA;
+            transition: 0.1s ease-in; }
     .topBar nav ul.closed {
       height: 0;
       overflow: hidden;
-      transition: .5s ease-in-out; }
+      transition: 0.5s ease-in-out; }
 
 .topBar.landing {
   width: 100%;
