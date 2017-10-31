@@ -1,141 +1,164 @@
-@import './_brand-styles/_Brand';
+@import "./_brand-styles/_Brand";
 
-.onboarding.terminal-card{
-  width:780px;
-  height:430px;
-  margin:auto;
-  color:white;
-  p{
-    font-size:14px;
-    margin-bottom:20px;
-  }
-  .comment{
-    color: rgba(255, 255, 255, 0.5);
-  }
-  .termPrompt{
-    color: $Accent-Yellow;
-  }
-  .func{
-    @extend .Mono;
-    cursor: pointer;
-    color: $Accent-Yellow;
-  }
-  .func::after{
-    content: "();"
-  }
-  .skills::after{
-    content: none;
-  }
-  .skills:hover{
-    cursor:pointer;
-  }
-  .jsKeyword{
-    color: $Magenta-Haze;
-  }
-  .jsName{
-    color: $Accent-Yellow;
-  }
-  .jsPunc{
-    color: $Magenta_Haze;
-  }
-  .jsString{
-    color: $Bg-Pink;
-  }
-  .jsString::before, .jsString::after{
-    content: "'"
-  }
-  .jsInput{
-    border:0px;
-    outline:none;
-    opacity:0;
-    position:absolute;
-    left:0;
-  }
-  .jsBoolean{
-    @extend .Mono;
-    font-size:14px;
-    background-color:$Koa-Blue;
-    border:0px;
-    color:$Boolean-Blue;
-    outline:none;
-  }
-  .jsObjectWrapper{
-    height:340px;
-    overflow-y:auto;
-  }
-  .jsObjectContent{
-    padding:30px;
-    padding-right:0px;
-  }
-  .jsNestedObj{
-    display:inline-flex;
-    transition-delay:1s;
-    transition: .3s ease-in;
-  }
-  .jsNestedObj.open{
-    flex-direction: column;
-  }
-  .jsObjectContent.nested{
-    padding:10px;
-    padding-left:30px;
-    transition: .3s ease-in;
-    opacity:1;
-    .jsClosing{
-      margin-left: -30px;
-    }
-  }
-  .dotdotdot{
-    display:inline-block;
-    transition:.2s ease-in;
-    .jsClosing{
-      color:white;
-    }
-  }
-  .dot{
-    transition: .2s ease-in-out;
-  }
-  .dotdotdot:hover{
-    cursor: pointer;
-    .dot{
-      margin-left:1px;
-      margin-right:1px;
-    }
-  }
+.onboarding.terminal-card {
+	width: 780px;
+	height: 430px;
+	margin: auto;
+	color: white;
+	p {
+		font-size: 14px;
+		margin-bottom: 20px;
+	}
+	.comment {
+		color: rgba(255, 255, 255, 0.5);
+	}
+	.termPrompt {
+		color: $Accent-Yellow;
+	}
+	.func {
+		@extend .Mono;
+		cursor: pointer;
+		color: $Accent-Yellow;
+	}
+	.func::after {
+		content: "();";
+	}
+	.skills::after {
+		content: none;
+	}
+	.skills:hover {
+		cursor: pointer;
+	}
+	.jsKeyword {
+		color: $Magenta-Haze;
+	}
+	.jsName {
+		color: $Accent-Yellow;
+	}
+	.jsPunc {
+		color: $Magenta_Haze;
+	}
+	.jsString {
+		color: $Bg-Pink;
+	}
+	.jsString::before,
+	.jsString::after {
+		content: "'";
+	}
+	.jsInput {
+		border: 0px;
+		outline: none;
+		opacity: 0;
+		position: absolute;
+		left: 0;
+	}
+	.jsInput:focus {
+		opacity: 1;
+		font-family: "Ubuntu Mono";
+		font-size: 18px;
+		font-weight: 700;
+		color: $Koa-Blue;
+		padding-left: 8px;
+	}
+	.jsBoolean {
+		@extend .Mono;
+		font-size: 14px;
+		background-color: $Koa-Blue;
+		border: 0px;
+		color: $Boolean-Blue;
+		outline: non;
+	}
+	.jsUndefined {
+		color: $Undef-Green;
+	}
+	.jsObjectWrapper {
+		height: 340px;
+		overflow-y: auto;
+	}
+	.jsObjectContent {
+		padding: 30px;
+		padding-right: 0px;
+	}
+	.jsNestedObj {
+		display: inline-flex;
+		transition-delay: 1s;
+		transition: 0.3s ease-in;
+	}
+	.jsNestedObj.open {
+		flex-direction: column;
+	}
+	.jsObjectContent.nested {
+		padding: 10px;
+		padding-left: 30px;
+		transition: 0.3s ease-in;
+		opacity: 1;
+		.jsClosing {
+			margin-left: -30px;
+		}
+	}
+	.dotdotdot {
+		display: inline-block;
+		transition: 0.2s ease-in;
+		.jsClosing {
+			color: white;
+		}
+	}
+	.dot {
+		transition: 0.2s ease-in-out;
+	}
+	.dotdotdot:hover {
+		cursor: pointer;
+		.dot {
+			margin-left: 1px;
+			margin-right: 1px;
+		}
+	}
 
-  .dotdotdot.spread{
-    .dot{
-      transition: margin-left .5s ease-in-out, 
-                  margin-right .5s ease-in-out,
-                  opacity .2s .5s ease-out;
-      margin-left:20px;
-      margin-right:20px;
-      opacity:0;
-    }
-  }
-  .jsOpening{
-    display:inline;
-  }
-  .jsClosing{
-    display:inline;
-  }
-  .closed{
-    opacity:0 !important;
-    width:0px !important;
-    height: 0px !important;
-    margin: 0px !important;
-    padding:0px !important;
-    overflow: hidden;
-  }
-  .jsLine{
-    margin-bottom:10px;
-  }
-  .progHash{
-    margin-right:1px;
-  }
-  .strInputContainer{
-    position:relative;
-  }
-  button{
-    font-size:14px;
-  }
+	.dotdotdot.spread {
+		.dot {
+			transition: margin-left 0.5s ease-in-out, margin-right 0.5s ease-in-out,
+				opacity 0.2s 0.5s ease-out;
+			margin-left: 20px;
+			margin-right: 20px;
+			opacity: 0;
+		}
+	}
+	.jsOpening {
+		display: inline;
+	}
+	.jsClosing {
+		display: inline;
+	}
+	.closed {
+		opacity: 0 !important;
+		width: 0px !important;
+		height: 0px !important;
+		margin: 0px !important;
+		padding: 0px !important;
+		overflow: hidden;
+	}
+	.jsLine {
+		margin-bottom: 10px;
+	}
+	.progHash {
+		margin-right: 1px;
+	}
+	.strInputContainer {
+		position: relative;
+	}
+	button {
+		font-size: 14px;
+	}
+}
+
+@keyframes inputBlink {
+	0% {
+		background-color: initial;
+	}
+	50% {
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+	100% {
+		background-color: initial;
+	}
 }

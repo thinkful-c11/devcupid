@@ -1,0 +1,51 @@
+.noMobile {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(59, 53, 97, 0.95);
+	display: flex;
+	flex-direction: column;
+	z-index: -99999999999999;
+	opacity: 0;
+	transition: 0.3s ease-out;
+	.sorry {
+		display: flex;
+		flex-direction: column;
+		margin: auto;
+		width: 90vw;
+		height: 100%;
+		justify-content: space-around;
+		color: white;
+		padding-bottom: 15%;
+		h1 {
+			font-size: 10vw;
+			letter-spacing: -10px;
+			color: #fcbada;
+			text-align: center;
+		}
+		h2 {
+			font-size: 7vw;
+		}
+		h3 {
+			font-size: 5vw;
+		}
+		p {
+			font-size: 2vw;
+			line-height: 1.2;
+			a {
+				color: #fcbada;
+				text-decoration: underline;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 930px) {
+	.noMobile {
+		z-index: 99999999999999;
+		opacity: 1;
+		transition: 0.3s ease-out;
+	}
+}
